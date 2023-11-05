@@ -1210,7 +1210,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #adb4f5;
+  background: #ffc7ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1536,10 +1536,7 @@ pre .javascript .function {
   position: fixed;
   transition-property: bottom;
   z-index: 1300;
-  width: 24px;
-}
-.back-to-top span {
-  display: none;
+  width: initial;
 }
 .back-to-top:hover {
   color: #fc6423;
@@ -1552,6 +1549,16 @@ pre .javascript .function {
     left: 20px;
     opacity: 0.8;
   }
+}
+.reading-progress-bar {
+  background: #37c6c0;
+  display: block;
+  height: 3px;
+  left: 0;
+  position: fixed;
+  width: 0;
+  z-index: 1500;
+  top: 0;
 }
 .post-body {
   font-family: 'Lato', "SDK_SC_Web", "Microsoft YaHei", sans-serif;
@@ -2606,13 +2613,13 @@ ul.breadcrumb li + li:last-child {
   }
 }
 body {
-  background-image: url("https://cdn.amoe.cc/web-static/private/tomyjan-website/common/img/blog-background.jpg");
+  background-image: url("https://t.mwm.moe/ycy");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100% 100%;
+  background-size: 100% 120%;
 }
 .post-block {
-  opacity: 0.5;
+  background: rgba(255,255,255,0.8) none repeat scroll !important;
 }
 .sidebar {
   background-color: transparent;
