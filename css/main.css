@@ -1210,7 +1210,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #0effff;
+  background: #96cdff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2709,6 +2709,49 @@ body {
 }
 .fa-python {
   color: #3498db;
+}
+.typed-cursor {
+  opacity: 1;
+  font-size: 3rem !important;
+  animation: typedjsBlink 1s infinite;
+  -webkit-animation: typedjsBlink 1s infinite;
+}
+@-webkit-keyframes typedjsBlink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.typed-fade-out {
+  opacity: 0;
+  transition: opacity 0.25s;
+  -webkit-animation: 0;
+  animation: 0;
+}
+@-moz-keyframes typedjsBlink {
+  50% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes typedjsBlink {
+  50% {
+    opacity: 0;
+  }
+}
+@-o-keyframes typedjsBlink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes typedjsBlink {
+  50% {
+    opacity: 0;
+  }
 }
 @font-face {
   font-family: 'SDK_SC_Web';

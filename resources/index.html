@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"dansmartcloud.github.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"dansmartcloud.github.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"buttons","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="保持热爱，奔赴山海~">
@@ -332,6 +332,27 @@
 
 
 
+
+
+<script src="//wow.techbrood.com/libs/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
+
+<script>
+   var typed = new Typed('.typewriter-content',{
+      // 注意：输出的可以是标签,将标签当节点运行.比如下面的h1
+	  // 这是一个字符串数组,可以填充多个值,使用引号修饰,使用逗号分割
+      strings: ['<h1>云云探索者的个人博客小站<h1>'],
+	  // 速度值越小打字速度越快
+      typeSpeed:80,
+	  // 用于在在输出字符结尾闪烁的符号
+	  cursorChar: '_'
+   });
+   // 设置页面加载完成时再开始打字
+   typed.stop();
+    $(document).ready(function () {
+      typed.start();
+    });
+</script>
 
 <script>
   (function(){
@@ -16261,6 +16282,7 @@ console.log(`
     })(window, document, "clarity", "script", "joufdf72e6");
 })();
 </script>
+
       </div>
     </footer>
   </div>
@@ -16269,6 +16291,7 @@ console.log(`
   <script src="/blog/lib/anime.min.js"></script>
   <script src="//dansmartcloud.github.io/aboutme/jquery.min.js"></script>
   <script src="//dansmartcloud.github.io/aboutme/jquery.fancybox.min.js"></script>
+  <script src="//jsd.onmicrosoft.cn/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/blog/lib/velocity/velocity.min.js"></script>
   <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
 
