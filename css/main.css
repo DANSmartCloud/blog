@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f02b0a;
+  background: #5dffff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2811,7 +2811,7 @@ body {
   color: #ff3ad1;
 }
 .fa-search {
-  color: #fff;
+  color: #808080;
 }
 .fa-calendar-check {
   color: #f00;
