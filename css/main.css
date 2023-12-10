@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #24a7ff;
+  background: #f02b0a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2766,6 +2766,9 @@ body {
 .post-block {
   background: rgba(255,255,255,0.8) none repeat scroll !important;
 }
+.pagination {
+  background: rgba(255,255,255,0.7) none repeat scroll !important;
+}
 .sidebar {
   background-color: transparent;
   opacity: 0.7;
@@ -2774,7 +2777,7 @@ body {
   background: rgba(255,255,255,0.7);
 }
 .popup {
-  opacity: 0.7;
+  opacity: 0.9;
 }
 .fa {
   font-size: 14px;
@@ -2805,7 +2808,10 @@ body {
   color: #fc427b;
 }
 .fa-zhihu {
-  color: #00f;
+  color: #ff3ad1;
+}
+.fa-search {
+  color: #fff;
 }
 .fa-calendar-check {
   color: #f00;
@@ -2854,6 +2860,9 @@ body {
 }
 .fa-python {
   color: #3498db;
+}
+.highlight-container {
+  background: rgba(0,26,144,0.792) none repeat scroll !important;
 }
 .typed-cursor {
   opacity: 1;
