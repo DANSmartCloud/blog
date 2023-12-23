@@ -54,8 +54,8 @@
 <meta property="article:published_time" content="2023-11-11T12:51:26.000Z">
 <meta property="article:modified_time" content="2023-11-11T14:18:48.904Z">
 <meta property="article:author" content="云云探索者">
-<meta property="article:tag" content="学校">
 <meta property="article:tag" content="日常类">
+<meta property="article:tag" content="学校">
 <meta property="article:tag" content="综测">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-47d43a1338a4b63b021a2882ddbc3c44_720w.webp">
@@ -379,8 +379,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/%E5%AD%A6%E6%A0%A1/" rel="tag"># 学校</a>
               <a href="/blog/tags/%E6%97%A5%E5%B8%B8%E7%B1%BB/" rel="tag"># 日常类</a>
+              <a href="/blog/tags/%E5%AD%A6%E6%A0%A1/" rel="tag"># 学校</a>
               <a href="/blog/tags/%E7%BB%BC%E6%B5%8B/" rel="tag"># 综测</a>
           </div>
 
@@ -396,7 +396,7 @@
       <div class="post-nav-item"></div>
     </div>
 
-    <div id="gitalk-container"></div>
+    
       </footer>
     
   </article>
@@ -409,6 +409,7 @@
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -16571,6 +16572,26 @@ console.log(`
   
 
   
+
+<link rel="stylesheet" href="//jsd.onmicrosoft.cn/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//jsd.onmicrosoft.cn/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'f72bd8406810d0463594',
+      clientSecret: 'c4c4565fe272000d9d5d21f77f362434a87b1693',
+      repo        : 'myblogtalsk',
+      owner       : 'DANSmartCloud',
+      admin       : ['DANSmartCloud'],
+      id          : '4c7abf19d1f0389363491b3ec1e11741',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 
