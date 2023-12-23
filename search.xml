@@ -101,25 +101,6 @@
       </tags>
   </entry>
   <entry>
-    <title>主页-云云探索者的个人博客</title>
-    <url>/blog//index.html</url>
-    <content><![CDATA[<p><em><strong>保持热爱，奔赴山海~</strong></em></p>
-<p>这是一个梦想聚集的地方，希望我能为你提供一些有用的帮助，顺便备忘一下自己做过的事情。</p>
-<p>这个小小的博客站，承载着诗、远方和迷惘的我们，一路向前……</p>
-<style>
-.nav{text-align:center;}
-.nav ul{display:inline;}
-.nav ul input {
-    background-color: #add8e6; /* 这是浅蓝色 */
-}
-
-</style>
-<p><a href="/blog/archives/"><div class="nav"><br>    <ul><br>        <input type="button" value=">" style="width: 50px; height: 50px; border-radius:              50%;border: none"><br>    </ul></p>
-</div></a>
-
-]]></content>
-  </entry>
-  <entry>
     <title>《逐梦》——一个由一群高中兴趣爱好者开发的二次元沙盒RPG大型游戏</title>
     <url>/blog/2023/11/05/%E3%80%8A%E9%80%90%E6%A2%A6%E3%80%8B%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E7%94%B1%E4%B8%80%E7%BE%A4%E9%AB%98%E4%B8%AD%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD%E8%80%85%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%8C%E6%AC%A1%E5%85%83%E6%B2%99%E7%9B%92RPG%E5%A4%A7%E5%9E%8B%E6%B8%B8%E6%88%8F/</url>
     <content><![CDATA[<p>这款游戏可能会颠覆你的认知。</p>
@@ -143,18 +124,6 @@
       </tags>
   </entry>
   <entry>
-    <title>开学了</title>
-    <url>/blog/2023/08/28/%E5%BC%80%E5%AD%A6/</url>
-    <content><![CDATA[<p>明天就要去学校了呢😊</p>
-<p>这个博客小站，刚刚建立，更新的事情就要和大家告一段落了😅</p>
-<h5 id="其实我还有几件事，在这里列出来，有兴趣的可以看看。"><a href="#其实我还有几件事，在这里列出来，有兴趣的可以看看。" class="headerlink" title="其实我还有几件事，在这里列出来，有兴趣的可以看看。"></a>其实我还有几件事，在这里列出来，有兴趣的可以看看。</h5><h6 id="1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"><a href="#1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！" class="headerlink" title="1。会逆向的可以帮我看看Genshin Impact Game 4.0.0的安卓包lib/*/lib2cpp.so里面的libil2cpp.so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"></a>1。会逆向的可以帮我看看<code>Genshin Impact Game 4.0.0</code>的安卓包<code>lib/*/lib2cpp.so</code>里面的<code>libil2cpp.so</code>文件，改一下里面的密钥，改为<code>grasscutter</code>通用密钥就行，谢谢啦！</h6><h6 id="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"><a href="#2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！" class="headerlink" title="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"></a>2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！</h6><h6 id="3。还有啥事来着……"><a href="#3。还有啥事来着……" class="headerlink" title="3。还有啥事来着……"></a>3。还有啥事来着……</h6><p>算了，润！</p>
-]]></content>
-      <tags>
-        <tag>学校</tag>
-        <tag>日常类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>坦白了</title>
     <url>/blog/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
     <content><![CDATA[<p>很抱歉骗了大家这么久。</p>
@@ -168,8 +137,8 @@
 <p>从2015到如今的2023。八余载的光阴，真快。</p>
 ]]></content>
       <tags>
-        <tag>日常类</tag>
         <tag>事实</tag>
+        <tag>日常类</tag>
       </tags>
   </entry>
   <entry>
@@ -272,20 +241,6 @@
       </tags>
   </entry>
   <entry>
-    <title>接入评论区</title>
-    <url>/blog/2023/12/23/%E6%8E%A5%E5%85%A5%E8%AF%84%E8%AE%BA%E5%8C%BA/</url>
-    <content><![CDATA[<p>青云·慕和正式接入评论区功能啦！</p>
-<p>为防止低素质评论以及网络喷子，评论区采用github登录方式。采用gitalk。</p>
-<p>感谢大家的理解与支持！</p>
-<p>在这篇博客下方留下你的第一条评论吧！</p>
-]]></content>
-      <tags>
-        <tag>日常类</tag>
-        <tag>事实</tag>
-        <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>我的博客-青云·慕和</title>
     <url>/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E9%9D%92%E4%BA%91%C2%B7%E6%85%95%E5%92%8C/</url>
     <content><![CDATA[<h1 id="我的博客-青云·慕和"><a href="#我的博客-青云·慕和" class="headerlink" title="我的博客 - 青云·慕和"></a>我的博客 - 青云·慕和</h1><h3 id="这是我发的第一篇博客哦"><a href="#这是我发的第一篇博客哦" class="headerlink" title="这是我发的第一篇博客哦~"></a>这是我发的第一篇博客哦~</h3><h3 id="纪念一下这个博客站初次建成开始使用的日子-2023-08-26"><a href="#纪念一下这个博客站初次建成开始使用的日子-2023-08-26" class="headerlink" title="纪念一下这个博客站初次建成开始使用的日子-2023.08.26~"></a>纪念一下这个博客站初次建成开始使用的日子-2023.08.26~</h3><p>顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~</p>
@@ -297,14 +252,33 @@
       </tags>
   </entry>
   <entry>
-    <title>苦逼的我又上线了</title>
-    <url>/blog/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
-    <content><![CDATA[<p>害，终究还是找不到几个靠谱的图床……<br>还是白嫖用知乎的服务吧~<br>润！</p>
+    <title>开学了</title>
+    <url>/blog/2023/08/28/%E5%BC%80%E5%AD%A6/</url>
+    <content><![CDATA[<p>明天就要去学校了呢😊</p>
+<p>这个博客小站，刚刚建立，更新的事情就要和大家告一段落了😅</p>
+<h5 id="其实我还有几件事，在这里列出来，有兴趣的可以看看。"><a href="#其实我还有几件事，在这里列出来，有兴趣的可以看看。" class="headerlink" title="其实我还有几件事，在这里列出来，有兴趣的可以看看。"></a>其实我还有几件事，在这里列出来，有兴趣的可以看看。</h5><h6 id="1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"><a href="#1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！" class="headerlink" title="1。会逆向的可以帮我看看Genshin Impact Game 4.0.0的安卓包lib/*/lib2cpp.so里面的libil2cpp.so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"></a>1。会逆向的可以帮我看看<code>Genshin Impact Game 4.0.0</code>的安卓包<code>lib/*/lib2cpp.so</code>里面的<code>libil2cpp.so</code>文件，改一下里面的密钥，改为<code>grasscutter</code>通用密钥就行，谢谢啦！</h6><h6 id="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"><a href="#2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！" class="headerlink" title="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"></a>2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！</h6><h6 id="3。还有啥事来着……"><a href="#3。还有啥事来着……" class="headerlink" title="3。还有啥事来着……"></a>3。还有啥事来着……</h6><p>算了，润！</p>
 ]]></content>
       <tags>
         <tag>日常类</tag>
+        <tag>学校</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>接入评论区</title>
+    <url>/blog/2023/12/23/%E6%8E%A5%E5%85%A5%E8%AF%84%E8%AE%BA%E5%8C%BA/</url>
+    <content><![CDATA[<p>青云·慕和正式接入评论区功能啦！</p>
+<p>为防止低素质评论以及网络喷子，评论区采用github登录方式。采用gitalk。</p>
+<p>感谢大家的理解与支持！</p>
+<p>在这篇博客下方留下你的第一条评论吧！</p>
+<p>对了，顺便说一句，云云探索者以后可能要改名了，不要不认识我哦！</p>
+<p>大概会改成：</p>
+<p>DirRain</p>
+<p>目录雨</p>
+]]></content>
+      <tags>
         <tag>事实</tag>
-        <tag>苦逼</tag>
+        <tag>日常类</tag>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -421,8 +395,8 @@
 <p><strong>行吧，就讲这么多，拜拜！</strong></p>
 ]]></content>
       <tags>
-        <tag>学校</tag>
         <tag>日常类</tag>
+        <tag>学校</tag>
         <tag>综测</tag>
       </tags>
   </entry>
@@ -433,9 +407,39 @@
 <p>这是我父母和我“协商”的限制。更苦逼的是我还是住校生，周末才能回家……<br>以后上线机会就少了。工作室那边早就停运了。<br>还是一起期待一下2025年我高考胜利的捷报吧！<br>感谢大家一路以来的支持、理解与配合~</p>
 ]]></content>
       <tags>
-        <tag>日常类</tag>
         <tag>事实</tag>
+        <tag>日常类</tag>
         <tag>苦逼</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>苦逼的我又上线了</title>
+    <url>/blog/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
+    <content><![CDATA[<p>害，终究还是找不到几个靠谱的图床……<br>还是白嫖用知乎的服务吧~<br>润！</p>
+]]></content>
+      <tags>
+        <tag>事实</tag>
+        <tag>日常类</tag>
+        <tag>苦逼</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>主页-云云探索者的个人博客</title>
+    <url>/blog//index.html</url>
+    <content><![CDATA[<p><em><strong>保持热爱，奔赴山海~</strong></em></p>
+<p>这是一个梦想聚集的地方，希望我能为你提供一些有用的帮助，顺便备忘一下自己做过的事情。</p>
+<p>这个小小的博客站，承载着诗、远方和迷惘的我们，一路向前……</p>
+<style>
+.nav{text-align:center;}
+.nav ul{display:inline;}
+.nav ul input {
+    background-color: #add8e6; /* 这是浅蓝色 */
+}
+
+</style>
+<p><a href="/blog/archives/"><div class="nav"><br>    <ul><br>        <input type="button" value=">" style="width: 50px; height: 50px; border-radius:              50%;border: none"><br>    </ul></p>
+</div></a>
+
+]]></content>
   </entry>
 </search>
