@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #523388;
+  background: #854a61;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2911,6 +2911,14 @@ body {
   height: 4px;
   width: 20px;
   animation: san 0.5s steps(1) infinite;
+}
+.gt-comment-content {
+  border: 2px solid rgba(128,128,128,0.5); /* 浅灰色半透明边框 */
+  border-radius: 10px; /* 圆角 */
+  background: rgba(255,255,255,0.9) none repeat scroll !important; /* 背景色 */
+}
+.gt-header-textarea {
+  background: rgba(255,255,255,0.9) none repeat scroll !important;
 }
 @-moz-keyframes typedjsBlink {
   50% {
