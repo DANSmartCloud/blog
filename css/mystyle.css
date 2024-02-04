@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'SDK_SC_Web';
+  src: url("https://dansmartcloud.github.io/aboutme/font.ttf");
+}
+​,
+body {
+  font-family: 'SDK_SC_Web';
+}
