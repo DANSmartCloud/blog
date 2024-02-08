@@ -101,29 +101,129 @@
       </tags>
   </entry>
   <entry>
+    <title>全免费GitHub Pages建站方法</title>
+    <url>/blog/2023/08/27/%E5%85%A8%E5%85%8D%E8%B4%B9GitHub%20Pages%E5%BB%BA%E7%AB%99%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="全免费GitHub-Pages建站方法"><a href="#全免费GitHub-Pages建站方法" class="headerlink" title="全免费GitHub Pages建站方法"></a>全免费GitHub Pages建站方法</h1><h2 id="从这里开始，下载Dev-Sidecar"><a href="#从这里开始，下载Dev-Sidecar" class="headerlink" title="从这里开始，下载Dev-Sidecar"></a>从这里开始，下载Dev-Sidecar</h2><p><strong>一切的一切都不是从github开始！</strong></p>
+<p><strong>从这个软件开始：</strong></p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-eee0d9bdcecd9e62ca78155dfee06552_720w.webp">​</p>
+<p>Devsidecar</p>
+<p>直接附上下载链接，不多说。软件里面引导很全面，也不必多说。只不过访问github网站的时候记得打开系统代理。</p>
+<p><a href="https://link.zhihu.com/?target=http://dansmartcloud.github.io/U/DevSidecar-1.7.2.exe">Dev-Sidecar下载</a>​<a href="https://dansmartcloud.github.io/U/DevSidecar-1.7.2.exe"><strong>dansmartcloud.github.io&#x2F;U&#x2F;DevSidecar-1.7.2.exe</strong></a></p>
+<h2 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h2><p>打开软件，根据提示安装根证书，点击左侧大按钮开启。（当然有时候这个软件会起反作用，但是自己试试就知道了）</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-cfe4329edd838db983915ae00b7ecea4_720w.webp">​</p>
+<p>开启代理</p>
+<h2 id="访问github"><a href="#访问github" class="headerlink" title="访问github"></a>访问github</h2><p>打开浏览器，访问<a href="https://link.zhihu.com/?target=http://github.com">github官网</a>。</p>
+<p>自行注册验证邮箱并登录，全程有向导，不必多说。</p>
+<h2 id="创建存储库"><a href="#创建存储库" class="headerlink" title="创建存储库"></a>创建存储库</h2><p>进入主页，点击左上角列表上方绿色的的“new”按钮。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-fe6aa4fb8d314261b0945e3f67d2ca46_720w.webp">​</p>
+<p>点击“new”</p>
+<p>设置都不要动，只是在“Repository name”框中输入你想要的存储库名称（网址二级目录名，不要用中文，不然容易出错），下面的长框框是存储库名称，可选填。然后直接划到最下面，点击绿色的“Create epository”按钮。</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-c43ef12a79fed091d407f56a71a9f651_720w.webp">​</p>
+<p>存储库命名和描述</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-426589bb8ae9fd79e03ad4ad4088bec8_720w.webp">​</p>
+<p>点击绿色的“Create epository”</p>
+<p>完了以后进入这个页面：</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-26ac22b8bd0abdefb1f0b3fe235e5ec2_720w.webp">​</p>
+<p>存储库初始化</p>
+<h2 id="使用GitHubDesktop管理和提交源代码"><a href="#使用GitHubDesktop管理和提交源代码" class="headerlink" title="使用GitHubDesktop管理和提交源代码"></a>使用GitHubDesktop管理和提交源代码</h2><p>下载“Github Desktop软件”，登录。然后点击“file”，点击“Clone repository”。附上下载链接：</p>
+<p><a href="https://link.zhihu.com/?target=https://desktop.github.com/">https://desktop.github.com/</a>​<a href="https://link.zhihu.com/?target=https://desktop.github.com/"><strong>desktop.github.com&#x2F;</strong></a></p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-bc2eba8a488fb88f4bf24bd30f18ece7_720w.webp">​</p>
+<p>克隆存储库</p>
+<p>找到我们刚刚创建的存储库名称，选好本地目录，点击“clone”。</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-a5421d8a72949351cf3166ae5b034f91_720w.webp">​</p>
+<p>选择存储库克隆</p>
+<p>克隆完成长这样</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-09e096ba84bc8ac79fd0c2d0008cb6b8_720w.webp">​</p>
+<p>克隆完成</p>
+<p>点击右侧的<code>Show in Explorer</code>就能在资源管理器里面看到克隆的存储库啦！（注意，里面的<code>.git</code>文件夹千万不能删，或者直接在默认代码编辑器打开也可以，这里的第一个大项，我的默认代码编辑器是vscode）</p>
+<h2 id="编辑网站"><a href="#编辑网站" class="headerlink" title="编辑网站"></a>编辑网站</h2><p>右键新建文本文档，重命名为<code>index.html</code>（一定是这个名字，这是主页，浏览器访问域名默认访问的就是这个页面），在里面写好html代码。我这里就写的简单一些。可以用记事本编辑，但是最好用vscode。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-3d14018ce8f2809e91101f717eb7dc06_720w.webp">​</p>
+<p>新建文档</p>
+<p>编辑你的网站代码，保存。这里附上VScode下载链接：</p>
+<p>​<a href="https://link.zhihu.com/?target=https://code.visualstudio.com/">Visual Studio Code - Code Editing. Redefined</a>​<a href="https://code.visualstudio.com/"><strong>code.visualstudio.com&#x2F;</strong></a></p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-287cf6fe7be9677a5f7869dabf89bd5a_720w.webp">​</p>
+<p>编辑代码并保存</p>
+<p>双击打开刚刚创建的文件，测试网页（或者直接在代码编辑器按下f5）。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-fcf2bf1e02e0f52b3f50eb42123f003a_720w.webp">​</p>
+<p>双击打开文件</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-e21c260dd6a865873b2044afccf350f7_720w.webp">​</p>
+<p>测试网页</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-78116cbf80b40efaa00b934aa647cc92_720w.webp">​</p>
+<p>测试网页</p>
+<h2 id="提交代码到GitHub"><a href="#提交代码到GitHub" class="headerlink" title="提交代码到GitHub"></a>提交代码到GitHub</h2><p>确认网页无误时，回到Github Desktop。软件会自动检测到你刚刚增加的文件和更改的代码。绿色代表增加，红色代表删除，黄色代表更改。</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-6d526755047297a5dbd463d1b407b4c0_720w.webp">​</p>
+<p>检测到更改</p>
+<p>一般情况下软件会自动为你创建提交名称。但是有时候不会，所以就要你自己加个提交名称啦~（位置为左下角<code>Create index.html</code>编辑框的位置）</p>
+<p>完事以后<code>commit to main</code>按钮会亮起，点击这个蓝色的按钮。稍等片刻，等待<code>Publish Branch</code>按钮亮起，点击这个按钮。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-00e5034ddf66b6f7b67179cd3edf3516_720w.webp">​</p>
+<p>提交更改</p>
+<p>稍等片刻，等待文件提交到存储库。如果<code>publish branch</code>菜单没有消失，就再试一次，直到消失为止。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-c189121acb652f883fc10bb172b9aee2_720w.webp">​</p>
+<p>提交中</p>
+<p>提交完成大概长这样：</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-47473751d7caf09e7381ceb4ed865b3e_720w.webp">​</p>
+<p>提交完成</p>
+<p>回到github网站，刷新一下我们刚刚提交的一个文件出现了。</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-abdcb9f6bac81d0332ff2ee64fa7eac0_720w.webp">​</p>
+<p>文件出现</p>
+<p>这时候如果你心情好，可以添加一个<code>readme</code>的文件介绍一下自己的存储库。</p>
+<h2 id="部署到GithubPages，发布你的网站"><a href="#部署到GithubPages，发布你的网站" class="headerlink" title="部署到GithubPages，发布你的网站"></a>部署到GithubPages，发布你的网站</h2><p>点击工具栏的<code>Settings</code>，点击左侧的<code>pages</code>，<code>Branch</code>项下拉选择<code>main</code>，点击右侧的<code>save</code>。</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-9f0656fcb153a47b24bf5bb81c5dfb60_720w.webp">​</p>
+<p>开启pages</p>
+<p>当最上方出现横幅提示<code>GitHub Pages source saved.</code>时，稍等片刻。</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-90adc640fb3df001b4b16f965c2ed049_720w.webp">​</p>
+<p>页面资源保存成功</p>
+<p>17.你可以在<code>actions</code>选项卡查看页面构建进度。图标由旋转的黄点变为绿色的<code>√</code>时，页面构建就完成了。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-d5573699590606a48fe64654fab025e3_720w.webp">​</p>
+<p>18.返回到<code>pages</code>设置页面，手动刷新页面，看到<code>Your site is live at……</code>提示，后面的蓝色字网址就是你的网站网址。点击右侧的<code>Visit site</code>即可访问你刚刚编辑的网页在线版。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-0a9c1b9a0caec3c6ad006c94f9757c07_720w.webp">​</p>
+<p>出现网址</p>
+<p>访问效果：</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-93fa740ba5ebf890e0e767ea10f16779_720w.webp">​</p>
+<p>访问效果</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-a6e5c5acf285b65bb83cfc830a01eea5_720w.webp">​</p>
+<p>访问效果</p>
+<p>以后更新网站，就只需要重复第8-13步就可以啦！提交完文件以后，稍等页面构建片刻（可以用第17步的方法查看进度）就能看到自己的网站更新啦！</p>
+<p>不过还是要有几点注意的：</p>
+<p><strong>1。单个文件不得大于<code>100MB</code></strong></p>
+<p><strong>2。不能创建非法网站</strong></p>
+<p><strong>3。github pages配置带宽比较低，</strong>所以不要使用过大的图片，可能会需要很长时间加载，影响体验。所以尽量使用小一点的图片。或者使用图床也未必不是一个好主意。这里就不教怎么引用图床了。推荐一个图片压缩网站。</p>
+<p><a href="https://docsmall.com/image-compress">压缩图片-docsmall</a></p>
+<p>顺便说一下，这个工具来自docsmall，这是一个全免费的超全面电脑在线小工具网站！</p>
+<p><strong>好啦，就说这么多，拜拜┏(＾0＾)┛！</strong></p>
+<p>‍</p>
+]]></content>
+      <tags>
+        <tag>薅羊毛</tag>
+        <tag>建站</tag>
+        <tag>github</tag>
+        <tag>前端类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题</title>
     <url>/blog/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>最近正好升级了电脑系统，变成了专业版系统，想试试远程桌面，结果从我家父级网连接子级网下的电脑连不上。</p>
 <p>我电脑在房间，子级网是房间的专用网。父级网是客厅的网络。我总不可能总是跑到房间去远程桌面吧！</p>
 <p>那根没有有什么区别……</p>
 <p>于是我开始研究这个问题。</p>
-<p>在网上找了一大堆资料，都是说端口转发和DMZ主机啥的。全部试了一遍，没P用……</p>
+<p>在网上找了一大堆资料，都是说端口转发和DMZ主机啥的。全部试了一遍，<strong>没P用……</strong></p>
 <p>然后当我在路由器设置世界里遨游的时候，突然发现了这个：</p>
 <p><img data-src="https://pic2.zhimg.com/80/v2-31958c0f452e8576670b227a15eacf41_720w.webp"></p>
 <p>桥模式</p>
-<p>如果你的和我一样是普联（TP-LINK）路由器，<strong>别信其他教程，信我的！</strong></p>
+<p>如果你的和我一样是普联（<code>TP-LINK</code>）路由器，<strong>别信其他教程，信我的！</strong></p>
 <p>直接在路由&#x2F;桥模式切换中切换为桥模式，解决一切问题！（相当于将当前子路由网络下所有设备全部并入父路由网络）</p>
 <p>方法：</p>
-<h3 id="1。在计算机中查看默认网关，找到路由器管理地址"><a href="#1。在计算机中查看默认网关，找到路由器管理地址" class="headerlink" title="1。在计算机中查看默认网关，找到路由器管理地址"></a>1。在计算机中查看默认网关，找到路由器管理地址</h3><p>win+R打开cmd，输入命令并回车：</p>
+<h3 id="1。在计算机中查看默认网关，找到路由器管理地址"><a href="#1。在计算机中查看默认网关，找到路由器管理地址" class="headerlink" title="1。在计算机中查看默认网关，找到路由器管理地址"></a>1。在计算机中查看默认网关，找到路由器管理地址</h3><p>win+R打开<code>cmd</code>，输入命令并回车：</p>
 <figure class="highlight bat"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ipconfig</span></span><br></pre></td></tr></table></figure>
 
 <p><img data-src="https://pic4.zhimg.com/80/v2-97a8a74f9703d108b10fd361c2231d9f_720w.webp"></p>
 <p>找到默认网关地址</p>
-<p>默认没有提示断开连接的那个网络就是你当前的网络。如果你安装了虚拟机（如VMware）的话另说（要排除这些项目）。</p>
+<p>默认没有提示断开连接的那个网络就是你当前的网络。如果你安装了虚拟机（如<code>VMware</code>）的话另说（要排除这些项目）。</p>
 <h3 id="2。访问管理页面"><a href="#2。访问管理页面" class="headerlink" title="2。访问管理页面"></a>2。访问管理页面</h3><p>在浏览器直接输入默认网关的IP（图中框出内容冒号后面的一串数字，要输入点），回车访问。</p>
 <p><img data-src="https://pic2.zhimg.com/80/v2-d1f5c6fd04655f23c9dca69c7a701bdd_720w.webp"></p>
 <p>输入管理密码</p>
-<p>如果管理密码不记得了，可以找到路由器，长按上面的重置键（或者叫Reset键、WPS&#x2F;Reset键等。有些路由器也许不会标，反正整个路由器除了电源键以外就几乎只会有这一个按键了，自己找找。有些时候这个按键可能会被做成一个孔，像手机电话卡弹出孔那样需要用针来按）</p>
+<p>如果管理密码不记得了，可以找到路由器，长按上面的重置键（或者叫<code>Reset</code>键、<code>WPS/Reset</code>键等。有些路由器也许不会标，反正整个路由器除了电源键以外就几乎只会有这一个按键了，自己找找。有些时候这个按键可能会被做成一个孔，像手机电话卡弹出孔那样需要用针来按）</p>
 <h3 id="3。登录并进行设置"><a href="#3。登录并进行设置" class="headerlink" title="3。登录并进行设置"></a>3。登录并进行设置</h3><p>点击登录，进入管理页面，点击路由设置：</p>
 <p><img data-src="https://pic3.zhimg.com/80/v2-f763767f821181a105374e9b465a223a_720w.webp"></p>
 <p>TP-LINK管理页面，在右下角点击路由设置</p>
@@ -136,7 +236,7 @@
 <p>而且这个方式有一点好处。</p>
 <p>当你完成了以上配置后，在父级路由下的任何一个子级路由都可以直接访问你的设备所在网络。因为这时候相当于你的设备连接到了父级网络。而子级网络是可以直接访问父级网络设备的。因此，你可以在任何父级网络提供的子级网络下自由访问你的设备！</p>
 <p>当然，子级网的子级网还是要配置一下的。因为这时，子级网相当于子级网的子级网的父级网。</p>
-<p>好啦，就说这么多，下次见，拜拜┏(＾0＾)┛！</p>
+<p><strong>好啦，就说这么多，下次见，拜拜┏(＾0＾)┛！</strong></p>
 ]]></content>
       <tags>
         <tag>网络</tag>
@@ -144,6 +244,18 @@
         <tag>远程桌面</tag>
         <tag>路由器</tag>
         <tag>TP-LINK</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>刷专业版系统上传测试</title>
+    <url>/blog/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p>刷Windows11系统测试一下上传博客文章</p>
+<p>事实告诉我们，重新构建博客比恢复博客更简单。</p>
+]]></content>
+      <tags>
+        <tag>测试</tag>
+        <tag>日常类</tag>
+        <tag>系统</tag>
       </tags>
   </entry>
   <entry>
@@ -167,6 +279,24 @@
         <tag>游戏</tag>
         <tag>逐梦</tag>
         <tag>创新</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>坦白了</title>
+    <url>/blog/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
+    <content><![CDATA[<p>很抱歉骗了大家这么久。</p>
+<p>从DAN智云创建以来就从来没有过什么技术团队，工作人员。</p>
+<p>从来没有！</p>
+<p>无论是在哪个时期，你所看到的DAN智云工作室一切的发展，其实都是我一个人在工作。</p>
+<p>也就是说，这个工作室自始至终就是一个只有一个人的工作室。</p>
+<p>没错，我的确狂热的爱好着计算机和相关的东西。</p>
+<p>但是继续隐瞒下去已经没有意义了。</p>
+<p>感谢大家多年以来对DAN智云的支持与鼓励，感谢那些在DAN智云工作室成长路上伸出援手的人们！谢谢你们！</p>
+<p>从2015到如今的2023。八余载的光阴，真快。</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>事实</tag>
       </tags>
   </entry>
   <entry>
@@ -194,132 +324,14 @@
 ]]></content>
   </entry>
   <entry>
-    <title>刷专业版系统上传测试</title>
-    <url>/blog/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<p>刷Windows11系统测试一下上传博客文章</p>
-<p>事实告诉我们，重新构建博客比恢复博客更简单。</p>
-]]></content>
-      <tags>
-        <tag>测试</tag>
-        <tag>日常类</tag>
-        <tag>系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>全免费GitHub Pages建站方法</title>
-    <url>/blog/2023/08/27/%E5%85%A8%E5%85%8D%E8%B4%B9GitHub%20Pages%E5%BB%BA%E7%AB%99%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="全免费GitHub-Pages建站方法"><a href="#全免费GitHub-Pages建站方法" class="headerlink" title="全免费GitHub Pages建站方法"></a>全免费GitHub Pages建站方法</h1><p><strong>一切的一切都不是从github开始！</strong></p>
-<p><strong>从这个软件开始：</strong></p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-eee0d9bdcecd9e62ca78155dfee06552_720w.webp">​</p>
-<p>Devsidecar</p>
-<p>直接附上下载链接，不多说。软件里面引导很全面，也不必多说。只不过访问github网站的时候记得打开系统代理。</p>
-<p><a href="https://link.zhihu.com/?target=http://dansmartcloud.github.io/U/DevSidecar-1.7.2.exe">Dev-Sidecar下载</a>​<a href="https://link.zhihu.com/?target=http://dansmartcloud.github.io/U/DevSidecar-1.7.2.exe"><strong>dansmartcloud.github.io&#x2F;U&#x2F;DevSidecar-1.7.2.exe</strong></a></p>
-<p>1.打开软件，根据提示安装根证书，点击左侧大按钮开启。（当然有时候这个软件会起反作用，但是自己试试就知道了）</p>
-<p>​<img data-src="https://pic1.zhimg.com/80/v2-cfe4329edd838db983915ae00b7ecea4_720w.webp">​</p>
-<p>开启代理</p>
-<p>2.然后打开浏览器，访问<a href="https://link.zhihu.com/?target=http://github.com">github官网</a>。</p>
-<p>自行注册验证邮箱并登录，全程有向导，不必多说。</p>
-<p>3.进入主页，点击左上角列表上方绿色的的“new”按钮。</p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-fe6aa4fb8d314261b0945e3f67d2ca46_720w.webp">​</p>
-<p>点击“new”</p>
-<p>4.设置都不要动，只是在“Repository name”框中输入你想要的存储库名称（网址二级目录名，不要用中文，不然容易出错），下面的长框框是存储库名称，可选填。然后直接划到最下面，点击绿色的“Create epository”按钮。</p>
-<p>​<img data-src="https://pic2.zhimg.com/80/v2-c43ef12a79fed091d407f56a71a9f651_720w.webp">​</p>
-<p>存储库命名和描述</p>
-<p>​<img data-src="https://pic1.zhimg.com/80/v2-426589bb8ae9fd79e03ad4ad4088bec8_720w.webp">​</p>
-<p>点击绿色的“Create epository”</p>
-<p>完了以后进入这个页面：</p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-26ac22b8bd0abdefb1f0b3fe235e5ec2_720w.webp">​</p>
-<p>存储库初始化</p>
-<p>5.这时，下载“Github Desktop软件”，登录。然后点击“file”，点击“Clone repository”。附上下载链接：</p>
-<p><a href="https://link.zhihu.com/?target=https://desktop.github.com/">https://desktop.github.com/</a>​<a href="https://link.zhihu.com/?target=https://desktop.github.com/"><strong>desktop.github.com&#x2F;</strong></a></p>
-<p>​<img data-src="https://pic4.zhimg.com/80/v2-bc2eba8a488fb88f4bf24bd30f18ece7_720w.webp">​</p>
-<p>克隆存储库</p>
-<p>6.找到我们刚刚创建的存储库名称，选好本地目录，点击“clone”。</p>
-<p>​<img data-src="https://pic2.zhimg.com/80/v2-a5421d8a72949351cf3166ae5b034f91_720w.webp">​</p>
-<p>选择存储库克隆</p>
-<p>7.克隆完成长这样</p>
-<p>​<img data-src="https://pic1.zhimg.com/80/v2-09e096ba84bc8ac79fd0c2d0008cb6b8_720w.webp">​</p>
-<p>克隆完成</p>
-<p>8.点击右侧的“Show in Explorer”就能在资源管理器里面看到克隆的存储库啦！（注意，里面的“.git”文件夹千万不能删，或者直接在默认代码编辑器打开也可以，这里的第一个大项，我的默认代码编辑器是vscode）</p>
-<p>9.右键新建文本文档，重命名为index.html（一定是这个名字，这是主页，浏览器访问域名默认访问的就是这个页面），在里面写好html代码。我这里就写的简单一些。可以用记事本编辑，但是最好用Vscode。</p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-3d14018ce8f2809e91101f717eb7dc06_720w.webp">​</p>
-<p>新建文档</p>
-<p>10.编辑代码，保存。附上VScode下载链接：</p>
-<p>​<img data-src="https://pic3.zhimg.com/v2-63e52fdadb13be3ac60dc477fd3fb15e_180x120.jpg"><a href="https://link.zhihu.com/?target=https://code.visualstudio.com/">Visual Studio Code - Code Editing. Redefined</a>​<a href="https://link.zhihu.com/?target=https://code.visualstudio.com/"><strong>code.visualstudio.com&#x2F;</strong></a></p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-287cf6fe7be9677a5f7869dabf89bd5a_720w.webp">​</p>
-<p>编辑代码并保存</p>
-<p>11.双击打开刚刚创建的文件，测试网页（或者直接在代码编辑器按下f5）。</p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-fcf2bf1e02e0f52b3f50eb42123f003a_720w.webp">​</p>
-<p>双击打开文件</p>
-<p>​<img data-src="https://pic4.zhimg.com/80/v2-e21c260dd6a865873b2044afccf350f7_720w.webp">​</p>
-<p>测试网页</p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-78116cbf80b40efaa00b934aa647cc92_720w.webp">​</p>
-<p>测试网页</p>
-<p>12.确认网页无误时，回到Github Desktop。软件会自动检测到你刚刚增加的文件和更改的代码。绿色代表增加，红色代表删除，黄色代表更改。</p>
-<p>​<img data-src="https://pic1.zhimg.com/80/v2-6d526755047297a5dbd463d1b407b4c0_720w.webp">​</p>
-<p>检测到更改</p>
-<p>一般情况下软件会自动为你创建提交名称。但是有时候不会，所以就要你自己加个提交名称啦~（位置为左下角“Create index.html”编辑框的位置）</p>
-<p>13.完事以后“commit to main”按钮会亮起，点击这个蓝色的按钮。稍等片刻，等待“Publish Branch”按钮亮起，点击这个按钮。</p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-00e5034ddf66b6f7b67179cd3edf3516_720w.webp">​</p>
-<p>提交更改</p>
-<p>稍等片刻，等待文件提交到存储库。如果“publish branch”菜单没有消失，就再试一次，直到消失为止。</p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-c189121acb652f883fc10bb172b9aee2_720w.webp">​</p>
-<p>提交中</p>
-<p>提交完成大概长这样：</p>
-<p>​<img data-src="https://pic3.zhimg.com/80/v2-47473751d7caf09e7381ceb4ed865b3e_720w.webp">​</p>
-<p>提交完成</p>
-<p>14.回到github网站，刷新一下我们刚刚提交的一个文件出现了。</p>
-<p>​<img data-src="https://pic1.zhimg.com/80/v2-abdcb9f6bac81d0332ff2ee64fa7eac0_720w.webp">​</p>
-<p>文件出现</p>
-<p>这时候如果你心情好，可以添加一个“readme”的文件介绍一下自己的存储库。</p>
-<p>15.点击工具栏的“Settings”，点击左侧的“pages”，Branch项下拉选择“main”，点击右侧的“save”。</p>
-<p>​<img data-src="https://pic1.zhimg.com/80/v2-9f0656fcb153a47b24bf5bb81c5dfb60_720w.webp">​</p>
-<p>开启pages</p>
-<p>16.当最上方出现横幅提示“GitHub Pages source saved.”时，稍等片刻。</p>
-<p>​<img data-src="https://pic2.zhimg.com/80/v2-90adc640fb3df001b4b16f965c2ed049_720w.webp">​</p>
-<p>页面资源保存成功</p>
-<p>17.你可以在“actions”选项卡查看页面构建进度。图标由旋转的黄点变为绿色的“√“时，页面构建就完成了。</p>
-<p>​<img data-src="https://pic4.zhimg.com/80/v2-d5573699590606a48fe64654fab025e3_720w.webp">​</p>
-<p>18.返回到“pages”设置页面，手动刷新页面，看到“Your site is live at……”提示，后面的蓝色字网址就是你的网站网址。点击右侧的“Visit site”即可访问你刚刚编辑的网页在线版。</p>
-<p>​<img data-src="https://pic4.zhimg.com/80/v2-0a9c1b9a0caec3c6ad006c94f9757c07_720w.webp">​</p>
-<p>出现网址</p>
-<p>访问效果：</p>
-<p>​<img data-src="https://pic2.zhimg.com/80/v2-93fa740ba5ebf890e0e767ea10f16779_720w.webp">​</p>
-<p>访问效果</p>
-<p>​<img data-src="https://pic2.zhimg.com/80/v2-a6e5c5acf285b65bb83cfc830a01eea5_720w.webp">​</p>
-<p>访问效果</p>
-<p>以后更新网站，就只需要重复第8-13步就可以啦！提交完文件以后，稍等页面构建片刻（可以用第17步的方法查看进度）就能看到自己的网站更新啦！</p>
-<p>不过还是要有几点注意的：</p>
-<p>1。单个文件不得大于100MB</p>
-<p>2。不能创建非法网站</p>
-<p>3。github pages配置带宽比较低，所以不要使用过大的图片，可能会需要很长时间加载，影响体验。所以尽量使用小一点的图片。或者使用图床也未必不是一个好主意。这里就不教怎么引用图床了。推荐一个图片压缩网站。</p>
-<p><a href="https://docsmall.com/image-compress">压缩图片-docsmall</a></p>
-<p>顺便说一下，这个工具来自docsmall，这是一个全免费的超全面电脑在线小工具网站！</p>
-<p>‍</p>
-]]></content>
-      <tags>
-        <tag>薅羊毛</tag>
-        <tag>建站</tag>
-        <tag>github</tag>
-        <tag>前端类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>坦白了</title>
-    <url>/blog/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
-    <content><![CDATA[<p>很抱歉骗了大家这么久。</p>
-<p>从DAN智云创建以来就从来没有过什么技术团队，工作人员。</p>
-<p>从来没有！</p>
-<p>无论是在哪个时期，你所看到的DAN智云工作室一切的发展，其实都是我一个人在工作。</p>
-<p>也就是说，这个工作室自始至终就是一个只有一个人的工作室。</p>
-<p>没错，我的确狂热的爱好着计算机和相关的东西。</p>
-<p>但是继续隐瞒下去已经没有意义了。</p>
-<p>感谢大家多年以来对DAN智云的支持与鼓励，感谢那些在DAN智云工作室成长路上伸出援手的人们！谢谢你们！</p>
-<p>从2015到如今的2023。八余载的光阴，真快。</p>
+    <title>我的博客-慕·露·雨</title>
+    <url>/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
+    <content><![CDATA[<h1 id="我的博客-慕·露·雨"><a href="#我的博客-慕·露·雨" class="headerlink" title="我的博客 - 慕·露·雨"></a>我的博客 - 慕·露·雨</h1><h3 id="这是我发的第一篇博客哦"><a href="#这是我发的第一篇博客哦" class="headerlink" title="这是我发的第一篇博客哦~"></a>这是我发的第一篇博客哦~</h3><h3 id="纪念一下这个博客站初次建成开始使用的日子-2023-08-26"><a href="#纪念一下这个博客站初次建成开始使用的日子-2023-08-26" class="headerlink" title="纪念一下这个博客站初次建成开始使用的日子-2023.08.26~"></a>纪念一下这个博客站初次建成开始使用的日子-2023.08.26~</h3><p>顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~</p>
 ]]></content>
       <tags>
         <tag>日常类</tag>
-        <tag>事实</tag>
+        <tag>新体验</tag>
+        <tag>心情</tag>
       </tags>
   </entry>
   <entry>
@@ -328,6 +340,20 @@
     <content><![CDATA[<p>明天就要去学校了呢😊</p>
 <p>这个博客小站，刚刚建立，更新的事情就要和大家告一段落了😅</p>
 <h5 id="其实我还有几件事，在这里列出来，有兴趣的可以看看。"><a href="#其实我还有几件事，在这里列出来，有兴趣的可以看看。" class="headerlink" title="其实我还有几件事，在这里列出来，有兴趣的可以看看。"></a>其实我还有几件事，在这里列出来，有兴趣的可以看看。</h5><h6 id="1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"><a href="#1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！" class="headerlink" title="1。会逆向的可以帮我看看Genshin Impact Game 4.0.0的安卓包lib/*/lib2cpp.so里面的libil2cpp.so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"></a>1。会逆向的可以帮我看看<code>Genshin Impact Game 4.0.0</code>的安卓包<code>lib/*/lib2cpp.so</code>里面的<code>libil2cpp.so</code>文件，改一下里面的密钥，改为<code>grasscutter</code>通用密钥就行，谢谢啦！</h6><h6 id="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"><a href="#2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！" class="headerlink" title="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"></a>2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！</h6><h6 id="3。还有啥事来着……"><a href="#3。还有啥事来着……" class="headerlink" title="3。还有啥事来着……"></a>3。还有啥事来着……</h6><p>算了，润！</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>学校</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>放假了</title>
+    <url>/blog/2024/02/05/%E6%94%BE%E5%81%87%E4%BA%86/</url>
+    <content><![CDATA[<p><strong>终于放假了</strong></p>
+<p>博客站和我的网名正式改了，DirRain。</p>
+<p>不过其他平台的同步还有待进行。</p>
+<p>我大概元宵节过后返校。</p>
+<p><strong>好啦，感谢你阅读到这里~</strong></p>
 ]]></content>
       <tags>
         <tag>日常类</tag>
@@ -472,31 +498,6 @@
       </tags>
   </entry>
   <entry>
-    <title>我的博客-慕·露·雨</title>
-    <url>/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
-    <content><![CDATA[<h1 id="我的博客-慕·露·雨"><a href="#我的博客-慕·露·雨" class="headerlink" title="我的博客 - 慕·露·雨"></a>我的博客 - 慕·露·雨</h1><h3 id="这是我发的第一篇博客哦"><a href="#这是我发的第一篇博客哦" class="headerlink" title="这是我发的第一篇博客哦~"></a>这是我发的第一篇博客哦~</h3><h3 id="纪念一下这个博客站初次建成开始使用的日子-2023-08-26"><a href="#纪念一下这个博客站初次建成开始使用的日子-2023-08-26" class="headerlink" title="纪念一下这个博客站初次建成开始使用的日子-2023.08.26~"></a>纪念一下这个博客站初次建成开始使用的日子-2023.08.26~</h3><p>顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~</p>
-]]></content>
-      <tags>
-        <tag>日常类</tag>
-        <tag>新体验</tag>
-        <tag>心情</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>放假了</title>
-    <url>/blog/2024/02/05/%E6%94%BE%E5%81%87%E4%BA%86/</url>
-    <content><![CDATA[<p><strong>终于放假了</strong></p>
-<p>博客站和我的网名正式改了，DirRain。</p>
-<p>不过其他平台的同步还有待进行。</p>
-<p>我大概元宵节过后返校。</p>
-<p><strong>好啦，感谢你阅读到这里~</strong></p>
-]]></content>
-      <tags>
-        <tag>日常类</tag>
-        <tag>学校</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>禾云·青春</title>
     <url>/blog/2024/01/01/%E7%A6%BE%E4%BA%91%C2%B7%E9%9D%92%E6%98%A5/</url>
     <content><![CDATA[<p><strong>青春，请原谅初来乍到的我们闯入你的世界；愿我们能伴随着你的身影，望沧海，观星辰。</strong><br>微风吹过，我们曾共同站在这片土地上，见花开花落，看云卷云舒。<br>两千五百多个日夜里，沉默的坚持，滚烫的汗滴，殷切的希望，汇聚成我们赴汤蹈火的执着！<br>曾经经历的困苦与挫折，虽沉淀在眼底，明暗交杂，但只要我们与青春通行，就仍可以追逐天边云彩，一笑生花。<br>岁月凝成一颗珍珠，却无法拥有。<br>掉在地上，冰凉；<br>握在手里，滚烫。<br>我想拥抱它，却扑了个空。<br>它化作一堆杂物，散落在桌上。<br>泛黄的日记本，气数已尽的铅笔……<br>那年，铅笔在日记本上写道，<br>真好，我没有打搅你的暗自芬芳；<br>真好，你也没有戳穿我的刻意坚强。<br>人生，就是一次次幸福的相遇，<br>夹杂着一次次伤感的别离。<br>你说，秋天的第一缕凉风，吹起的是何种的悸动呢？<br>任河流变道改向，随星辰创生泯灭，愿我们初心不变，执一颗素然的心，带着美好的期盼，诗意地面对生命中的岁岁年年。<br><strong>“我不是在最好的时光中遇见了你们，<br>而是遇见了你们，<br>才给了我这段<br>最好的时光。”</strong></p>
@@ -509,9 +510,10 @@
       </tags>
   </entry>
   <entry>
-    <title>苦逼的我又上线了</title>
-    <url>/blog/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
-    <content><![CDATA[<p>害，终究还是找不到几个靠谱的图床……<br>还是白嫖用知乎的服务吧~<br>润！</p>
+    <title>苦逼的我又得下线了……</title>
+    <url>/blog/2023/09/30/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E5%BE%97%E4%B8%8B%E7%BA%BF%E4%BA%86%E2%80%A6%E2%80%A6/</url>
+    <content><![CDATA[<h1 id="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"><a href="#周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）" class="headerlink" title="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"></a>周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）</h1><h2 id="承诺书"><a href="#承诺书" class="headerlink" title="承诺书"></a>承诺书</h2><p>正常周末放学当日晚上时间自由支配。周末、法定节假日、寒假及暑假每天晚上22:30必须开始洗漱睡觉。从第二天开始，电脑、手机、平板电脑等电子产品使用时间限制在每天2小时以内。电脑、手机、平板电脑等电子产品日常放到书房的书桌上将由父母监管。加强各科的自主学习，周末、法定节假日、寒假及暑假自主学习时间每一节课为1个小时，课间休息15分钟，课间休息期间可以手机回复同学的聊天等相关社交消息。（外出与全家出游期间除外）<br>承诺人应严格按照以上承诺执行，若上述承诺执行过程中承诺人未能严格按照执行，责令负责承担当日的全部家务并责令当日的学习任务立即执行。若连续3次违反承诺则处罚3周不能接触电脑、手机、平板电脑等电子产品。本承诺自承诺人签字之日起生效至2025年高考结束后失效。<br>附加奖励措施：学校组织的期末考试成绩年级排名在50-80名次的寒假及暑假期间奖励每周自由支配时间1天；学校组织的期末考试成绩年级排名在50名次以内的寒假及暑假期间奖励每周自由支配时间2天。但同样每天晚上22:30必须开始洗漱睡觉。<br>（同时父母承诺： 承诺人只要遵照以上承诺执行，父母不允许无端指责与乱发脾气。2025年高考后赠送一台捌仟圆以内的智能手机）<br>承诺人签字:<br>2023年10月1日</p>
+<p>这是我父母和我“协商”的限制。更苦逼的是我还是住校生，周末才能回家……<br>以后上线机会就少了。工作室那边早就停运了。<br>还是一起期待一下2025年我高考胜利的捷报吧！<br>感谢大家一路以来的支持、理解与配合~</p>
 ]]></content>
       <tags>
         <tag>日常类</tag>
@@ -520,10 +522,9 @@
       </tags>
   </entry>
   <entry>
-    <title>苦逼的我又得下线了……</title>
-    <url>/blog/2023/09/30/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E5%BE%97%E4%B8%8B%E7%BA%BF%E4%BA%86%E2%80%A6%E2%80%A6/</url>
-    <content><![CDATA[<h1 id="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"><a href="#周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）" class="headerlink" title="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"></a>周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）</h1><h2 id="承诺书"><a href="#承诺书" class="headerlink" title="承诺书"></a>承诺书</h2><p>正常周末放学当日晚上时间自由支配。周末、法定节假日、寒假及暑假每天晚上22:30必须开始洗漱睡觉。从第二天开始，电脑、手机、平板电脑等电子产品使用时间限制在每天2小时以内。电脑、手机、平板电脑等电子产品日常放到书房的书桌上将由父母监管。加强各科的自主学习，周末、法定节假日、寒假及暑假自主学习时间每一节课为1个小时，课间休息15分钟，课间休息期间可以手机回复同学的聊天等相关社交消息。（外出与全家出游期间除外）<br>承诺人应严格按照以上承诺执行，若上述承诺执行过程中承诺人未能严格按照执行，责令负责承担当日的全部家务并责令当日的学习任务立即执行。若连续3次违反承诺则处罚3周不能接触电脑、手机、平板电脑等电子产品。本承诺自承诺人签字之日起生效至2025年高考结束后失效。<br>附加奖励措施：学校组织的期末考试成绩年级排名在50-80名次的寒假及暑假期间奖励每周自由支配时间1天；学校组织的期末考试成绩年级排名在50名次以内的寒假及暑假期间奖励每周自由支配时间2天。但同样每天晚上22:30必须开始洗漱睡觉。<br>（同时父母承诺： 承诺人只要遵照以上承诺执行，父母不允许无端指责与乱发脾气。2025年高考后赠送一台捌仟圆以内的智能手机）<br>承诺人签字:<br>2023年10月1日</p>
-<p>这是我父母和我“协商”的限制。更苦逼的是我还是住校生，周末才能回家……<br>以后上线机会就少了。工作室那边早就停运了。<br>还是一起期待一下2025年我高考胜利的捷报吧！<br>感谢大家一路以来的支持、理解与配合~</p>
+    <title>苦逼的我又上线了</title>
+    <url>/blog/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
+    <content><![CDATA[<p>害，终究还是找不到几个靠谱的图床……<br>还是白嫖用知乎的服务吧~<br>润！</p>
 ]]></content>
       <tags>
         <tag>日常类</tag>
