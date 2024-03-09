@@ -177,7 +177,7 @@ body {
 body {
   background: var(--body-bg-color);
   color: var(--text-color);
-  font-family: 'Lato', "SDK_SC_Web", "Microsoft YaHei", sans-serif;
+  font-family: 'Lato', "汉仪文黑-85W", "Microsoft YaHei", sans-serif;
   font-size: 1em;
   line-height: 2;
 }
@@ -193,7 +193,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Lato', "SDK_SC_Web", "Microsoft YaHei", sans-serif;
+  font-family: 'Lato', "汉仪文黑-85W", "Microsoft YaHei", sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 20px 0 15px;
@@ -436,7 +436,7 @@ pre {
 }
 pre,
 code {
-  font-family: consolas, Menlo, monospace, "SDK_SC_Web", "Microsoft YaHei";
+  font-family: consolas, Menlo, monospace, "汉仪文黑-85W", "Microsoft YaHei";
 }
 code {
   background: #eee;
@@ -1065,7 +1065,7 @@ pre .javascript .function {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: 'Lato', "SDK_SC_Web", "Microsoft YaHei", sans-serif;
+  font-family: 'Lato', "汉仪文黑-85W", "Microsoft YaHei", sans-serif;
   font-size: 1.375em;
   font-weight: normal;
   margin: 0;
@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c2cce8;
+  background: #8bffff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1606,7 +1606,7 @@ pre .javascript .function {
   top: 0;
 }
 .post-body {
-  font-family: 'Lato', "SDK_SC_Web", "Microsoft YaHei", sans-serif;
+  font-family: 'Lato', "汉仪文黑-85W", "Microsoft YaHei", sans-serif;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -1904,7 +1904,7 @@ pre .javascript .function {
 }
 .posts-expand .post-meta {
   color: #999;
-  font-family: 'Lato', "SDK_SC_Web", "Microsoft YaHei", sans-serif;
+  font-family: 'Lato', "汉仪文黑-85W", "Microsoft YaHei", sans-serif;
   font-size: 0.75em;
   margin: 3px 0 60px 0;
   text-align: center;
@@ -2973,10 +2973,10 @@ body {
   }
 }
 @font-face {
-  font-family: 'SDK_SC_Web';
-  src: url("https://dansmartcloud.github.io/aboutme/font.ttf");
+  font-family: '汉仪文黑-85W';
+  src: url("https://webstatic.mihoyo.com/common/clgm-static/ys/fonts/zh-cn.ttf");
 }
 ​,
 body {
-  font-family: 'SDK_SC_Web';
+  font-family: '汉仪文黑-85W';
 }

@@ -1,8 +1,8 @@
 @font-face {
-  font-family: 'SDK_SC_Web';
-  src: url("https://dansmartcloud.github.io/aboutme/font.ttf");
+  font-family: '汉仪文黑-85W';
+  src: url("https://webstatic.mihoyo.com/common/clgm-static/ys/fonts/zh-cn.ttf");
 }
 ​,
 body {
-  font-family: 'SDK_SC_Web';
+  font-family: '汉仪文黑-85W';
 }

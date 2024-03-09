@@ -72,35 +72,6 @@
       </tags>
   </entry>
   <entry>
-    <title>GC服连接教程</title>
-    <url>/blog/2023/09/29/GC%E6%9C%8D%E8%BF%9E%E6%8E%A5%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p>现在Grasscutter服务器也出来这么久了，是时候跟大家说一说服务器<strong>怎么连接</strong>了。</p>
-<h3 id="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"><a href="#重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！" class="headerlink" title="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"></a>重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！</h3><h3 id="PC连接服务器教程"><a href="#PC连接服务器教程" class="headerlink" title="PC连接服务器教程"></a>PC连接服务器教程</h3><p>获取Genshinimpact PC 4.0中国版，确保资源下载完成，然后回到官服启动器，点击启动按钮右侧菜单键，点击安装位置。如果该版本不再是最新版本，请单独下载资源和游戏本体的整合压缩包并解压。</p>
-<p><img data-src="https://pic1.zhimg.com/80/v2-669faeb63c87ff962329b4f600bf0b90_720w.webp"></p>
-<p>然后找到提示的目录</p>
-<p><img data-src="https://pic1.zhimg.com/80/v2-a00b6b5a203cb99ed955b4f210861100_720w.webp"></p>
-<p>找到提示的目录</p>
-<p>打开目录，向里面加入如图所示的补丁文件</p>
-<p><img data-src="https://pic1.zhimg.com/80/v2-4535e980ef48b724db39b79f2722f220_720w.webp"></p>
-<p>加入补丁文件</p>
-<p>下载Genshin代理助手并输入给出的服务器地址与端口号。点击启动代理。提示启动成功后即可启动原神PC。</p>
-<p><img data-src="https://pic2.zhimg.com/80/v2-f3463dcf8610499158106ac72553e5d1_720w.webp"></p>
-<p>点击启动代理</p>
-<p><strong>原神，启动！</strong></p>
-<h3 id="Android连接服务器教程"><a href="#Android连接服务器教程" class="headerlink" title="Android连接服务器教程"></a>Android连接服务器教程</h3><p>下载安装禾云原神，下载4.0资源包。启动禾云原神，等待数据加载至45%。这一步用于创建数据目录2。</p>
-<p><img data-src="https://pic1.zhimg.com/80/v2-2a84ab7844eac6d7556b0a7b4d73ead0_720w.webp"></p>
-<p>禾云原神</p>
-<p>使用MT管理器解压资源包至数据目录2同名文件夹。替换现有files。完成后启动禾云原神。</p>
-<p>详细教程、视频演示以及相关文件资源下载，请加入技术交流QQ群。</p>
-<p>点击链接加入群聊【Grasscutter 4.0服务器技术】：<a href="https://link.zhihu.com/?target=http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=4c_xPrLhppTzwS8KvIGjTrWSOo1jnE2z&authKey=lwXISHuyzRoYTeFJ%252FMSvjLU7Mxy4YZQgV7d42ek5vxmctIM9aHk48ofBnMhWtTNd&noverify=0&group_code=209204640">GC4.0服务器技术交流</a></p>
-]]></content>
-      <tags>
-        <tag>简单</tag>
-        <tag>薅羊毛</tag>
-        <tag>游戏类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题</title>
     <url>/blog/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>最近正好升级了电脑系统，变成了专业版系统，想试试远程桌面，结果从我家父级网连接子级网下的电脑连不上。</p>
@@ -144,6 +115,35 @@
         <tag>远程桌面</tag>
         <tag>路由器</tag>
         <tag>TP-LINK</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GC服连接教程</title>
+    <url>/blog/2023/09/29/GC%E6%9C%8D%E8%BF%9E%E6%8E%A5%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p>现在Grasscutter服务器也出来这么久了，是时候跟大家说一说服务器<strong>怎么连接</strong>了。</p>
+<h3 id="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"><a href="#重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！" class="headerlink" title="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"></a>重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！</h3><h3 id="PC连接服务器教程"><a href="#PC连接服务器教程" class="headerlink" title="PC连接服务器教程"></a>PC连接服务器教程</h3><p>获取Genshinimpact PC 4.0中国版，确保资源下载完成，然后回到官服启动器，点击启动按钮右侧菜单键，点击安装位置。如果该版本不再是最新版本，请单独下载资源和游戏本体的整合压缩包并解压。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-669faeb63c87ff962329b4f600bf0b90_720w.webp"></p>
+<p>然后找到提示的目录</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-a00b6b5a203cb99ed955b4f210861100_720w.webp"></p>
+<p>找到提示的目录</p>
+<p>打开目录，向里面加入如图所示的补丁文件</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-4535e980ef48b724db39b79f2722f220_720w.webp"></p>
+<p>加入补丁文件</p>
+<p>下载Genshin代理助手并输入给出的服务器地址与端口号。点击启动代理。提示启动成功后即可启动原神PC。</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-f3463dcf8610499158106ac72553e5d1_720w.webp"></p>
+<p>点击启动代理</p>
+<p><strong>原神，启动！</strong></p>
+<h3 id="Android连接服务器教程"><a href="#Android连接服务器教程" class="headerlink" title="Android连接服务器教程"></a>Android连接服务器教程</h3><p>下载安装禾云原神，下载4.0资源包。启动禾云原神，等待数据加载至45%。这一步用于创建数据目录2。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-2a84ab7844eac6d7556b0a7b4d73ead0_720w.webp"></p>
+<p>禾云原神</p>
+<p>使用MT管理器解压资源包至数据目录2同名文件夹。替换现有files。完成后启动禾云原神。</p>
+<p>详细教程、视频演示以及相关文件资源下载，请加入技术交流QQ群。</p>
+<p>点击链接加入群聊【Grasscutter 4.0服务器技术】：<a href="https://link.zhihu.com/?target=http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=4c_xPrLhppTzwS8KvIGjTrWSOo1jnE2z&authKey=lwXISHuyzRoYTeFJ%252FMSvjLU7Mxy4YZQgV7d42ek5vxmctIM9aHk48ofBnMhWtTNd&noverify=0&group_code=209204640">GC4.0服务器技术交流</a></p>
+]]></content>
+      <tags>
+        <tag>简单</tag>
+        <tag>薅羊毛</tag>
+        <tag>游戏类</tag>
       </tags>
   </entry>
   <entry>
@@ -192,18 +192,6 @@
 
 
 ]]></content>
-  </entry>
-  <entry>
-    <title>刷专业版系统上传测试</title>
-    <url>/blog/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<p>刷Windows11系统测试一下上传博客文章</p>
-<p>事实告诉我们，重新构建博客比恢复博客更简单。</p>
-]]></content>
-      <tags>
-        <tag>测试</tag>
-        <tag>日常类</tag>
-        <tag>系统</tag>
-      </tags>
   </entry>
   <entry>
     <title>全免费GitHub Pages建站方法</title>
@@ -306,6 +294,18 @@
       </tags>
   </entry>
   <entry>
+    <title>刷专业版系统上传测试</title>
+    <url>/blog/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p>刷Windows11系统测试一下上传博客文章</p>
+<p>事实告诉我们，重新构建博客比恢复博客更简单。</p>
+]]></content>
+      <tags>
+        <tag>测试</tag>
+        <tag>日常类</tag>
+        <tag>系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>坦白了</title>
     <url>/blog/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
     <content><![CDATA[<p>很抱歉骗了大家这么久。</p>
@@ -336,17 +336,6 @@
       </tags>
   </entry>
   <entry>
-    <title>我的博客-慕·露·雨</title>
-    <url>/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
-    <content><![CDATA[<h1 id="我的博客-慕·露·雨"><a href="#我的博客-慕·露·雨" class="headerlink" title="我的博客 - 慕·露·雨"></a>我的博客 - 慕·露·雨</h1><h3 id="这是我发的第一篇博客哦"><a href="#这是我发的第一篇博客哦" class="headerlink" title="这是我发的第一篇博客哦~"></a>这是我发的第一篇博客哦~</h3><h3 id="纪念一下这个博客站初次建成开始使用的日子-2023-08-26"><a href="#纪念一下这个博客站初次建成开始使用的日子-2023-08-26" class="headerlink" title="纪念一下这个博客站初次建成开始使用的日子-2023.08.26~"></a>纪念一下这个博客站初次建成开始使用的日子-2023.08.26~</h3><p>顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~</p>
-]]></content>
-      <tags>
-        <tag>日常类</tag>
-        <tag>新体验</tag>
-        <tag>心情</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>接入评论区</title>
     <url>/blog/2023/12/23/%E6%8E%A5%E5%85%A5%E8%AF%84%E8%AE%BA%E5%8C%BA/</url>
     <content><![CDATA[<p>慕·露·雨正式接入评论区功能啦！</p>
@@ -362,6 +351,17 @@
         <tag>日常类</tag>
         <tag>事实</tag>
         <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的博客-慕·露·雨</title>
+    <url>/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
+    <content><![CDATA[<h1 id="我的博客-慕·露·雨"><a href="#我的博客-慕·露·雨" class="headerlink" title="我的博客 - 慕·露·雨"></a>我的博客 - 慕·露·雨</h1><h3 id="这是我发的第一篇博客哦"><a href="#这是我发的第一篇博客哦" class="headerlink" title="这是我发的第一篇博客哦~"></a>这是我发的第一篇博客哦~</h3><h3 id="纪念一下这个博客站初次建成开始使用的日子-2023-08-26"><a href="#纪念一下这个博客站初次建成开始使用的日子-2023-08-26" class="headerlink" title="纪念一下这个博客站初次建成开始使用的日子-2023.08.26~"></a>纪念一下这个博客站初次建成开始使用的日子-2023.08.26~</h3><p>顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>新体验</tag>
+        <tag>心情</tag>
       </tags>
   </entry>
   <entry>
@@ -391,10 +391,9 @@
       </tags>
   </entry>
   <entry>
-    <title>苦逼的我又得下线了……</title>
-    <url>/blog/2023/09/30/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E5%BE%97%E4%B8%8B%E7%BA%BF%E4%BA%86%E2%80%A6%E2%80%A6/</url>
-    <content><![CDATA[<h1 id="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"><a href="#周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）" class="headerlink" title="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"></a>周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）</h1><h2 id="承诺书"><a href="#承诺书" class="headerlink" title="承诺书"></a>承诺书</h2><p>正常周末放学当日晚上时间自由支配。周末、法定节假日、寒假及暑假每天晚上22:30必须开始洗漱睡觉。从第二天开始，电脑、手机、平板电脑等电子产品使用时间限制在每天2小时以内。电脑、手机、平板电脑等电子产品日常放到书房的书桌上将由父母监管。加强各科的自主学习，周末、法定节假日、寒假及暑假自主学习时间每一节课为1个小时，课间休息15分钟，课间休息期间可以手机回复同学的聊天等相关社交消息。（外出与全家出游期间除外）<br>承诺人应严格按照以上承诺执行，若上述承诺执行过程中承诺人未能严格按照执行，责令负责承担当日的全部家务并责令当日的学习任务立即执行。若连续3次违反承诺则处罚3周不能接触电脑、手机、平板电脑等电子产品。本承诺自承诺人签字之日起生效至2025年高考结束后失效。<br>附加奖励措施：学校组织的期末考试成绩年级排名在50-80名次的寒假及暑假期间奖励每周自由支配时间1天；学校组织的期末考试成绩年级排名在50名次以内的寒假及暑假期间奖励每周自由支配时间2天。但同样每天晚上22:30必须开始洗漱睡觉。<br>（同时父母承诺： 承诺人只要遵照以上承诺执行，父母不允许无端指责与乱发脾气。2025年高考后赠送一台捌仟圆以内的智能手机）<br>承诺人签字:<br>2023年10月1日</p>
-<p>这是我父母和我“协商”的限制。更苦逼的是我还是住校生，周末才能回家……<br>以后上线机会就少了。工作室那边早就停运了。<br>还是一起期待一下2025年我高考胜利的捷报吧！<br>感谢大家一路以来的支持、理解与配合~</p>
+    <title>苦逼的我又上线了</title>
+    <url>/blog/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
+    <content><![CDATA[<p>害，终究还是找不到几个靠谱的图床……<br>还是白嫖用知乎的服务吧~<br>润！</p>
 ]]></content>
       <tags>
         <tag>日常类</tag>
@@ -522,9 +521,10 @@
       </tags>
   </entry>
   <entry>
-    <title>苦逼的我又上线了</title>
-    <url>/blog/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
-    <content><![CDATA[<p>害，终究还是找不到几个靠谱的图床……<br>还是白嫖用知乎的服务吧~<br>润！</p>
+    <title>苦逼的我又得下线了……</title>
+    <url>/blog/2023/09/30/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E5%BE%97%E4%B8%8B%E7%BA%BF%E4%BA%86%E2%80%A6%E2%80%A6/</url>
+    <content><![CDATA[<h1 id="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"><a href="#周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）" class="headerlink" title="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"></a>周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）</h1><h2 id="承诺书"><a href="#承诺书" class="headerlink" title="承诺书"></a>承诺书</h2><p>正常周末放学当日晚上时间自由支配。周末、法定节假日、寒假及暑假每天晚上22:30必须开始洗漱睡觉。从第二天开始，电脑、手机、平板电脑等电子产品使用时间限制在每天2小时以内。电脑、手机、平板电脑等电子产品日常放到书房的书桌上将由父母监管。加强各科的自主学习，周末、法定节假日、寒假及暑假自主学习时间每一节课为1个小时，课间休息15分钟，课间休息期间可以手机回复同学的聊天等相关社交消息。（外出与全家出游期间除外）<br>承诺人应严格按照以上承诺执行，若上述承诺执行过程中承诺人未能严格按照执行，责令负责承担当日的全部家务并责令当日的学习任务立即执行。若连续3次违反承诺则处罚3周不能接触电脑、手机、平板电脑等电子产品。本承诺自承诺人签字之日起生效至2025年高考结束后失效。<br>附加奖励措施：学校组织的期末考试成绩年级排名在50-80名次的寒假及暑假期间奖励每周自由支配时间1天；学校组织的期末考试成绩年级排名在50名次以内的寒假及暑假期间奖励每周自由支配时间2天。但同样每天晚上22:30必须开始洗漱睡觉。<br>（同时父母承诺： 承诺人只要遵照以上承诺执行，父母不允许无端指责与乱发脾气。2025年高考后赠送一台捌仟圆以内的智能手机）<br>承诺人签字:<br>2023年10月1日</p>
+<p>这是我父母和我“协商”的限制。更苦逼的是我还是住校生，周末才能回家……<br>以后上线机会就少了。工作室那边早就停运了。<br>还是一起期待一下2025年我高考胜利的捷报吧！<br>感谢大家一路以来的支持、理解与配合~</p>
 ]]></content>
       <tags>
         <tag>日常类</tag>
