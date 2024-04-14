@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #8bffff;
+  background: #825cff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2919,6 +2919,10 @@ body {
 }
 .gt-header-textarea {
   background: rgba(255,255,255,0.9) none repeat scroll !important;
+}
+.gt-comment-avatar {
+  border: 2px solid rgba(255,255,255,0.817);
+  border-radius: 5px;
 }
 @-moz-keyframes typedjsBlink {
   50% {
