@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #4fa66f;
+  background: #f1d1af;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2923,6 +2923,10 @@ body {
 .gt-comment-avatar {
   border: 2px solid rgba(255,255,255,0.817);
   border-radius: 5px;
+}
+.back-to-top-on {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 .pace {
   -webkit-pointer-events: none;
