@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f1d1af;
+  background: #ff36ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2770,6 +2770,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 120%;
+  cursor: url("https://dansmartcloud.github.io/aboutme/cur/Arrow.cur"), auto;
 }
 .post-block {
   background: rgba(255,255,255,0.8) none repeat scroll !important;
@@ -3310,6 +3311,18 @@ body {
 }
 .pace.pace-inactive {
   display: none;
+}
+img {
+  cursor: url("https://dansmartcloud.github.io/aboutme/cur/pointer.cur"), auto;
+}
+a {
+  cursor: url("https://dansmartcloud.github.io/aboutme/cur/pointer.cur"), auto;
+}
+input {
+  cursor: url("https://dansmartcloud.github.io/aboutme/cur/IBeam.cur"), auto;
+}
+canvas {
+  cursor: url("https://dansmartcloud.github.io/aboutme/cur/UpArrow.cur"), auto;
 }
 @-moz-keyframes typedjsBlink {
   50% {
