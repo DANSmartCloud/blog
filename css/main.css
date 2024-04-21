@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff36ff;
+  background: #585c9a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -3323,6 +3323,15 @@ input {
 }
 canvas {
   cursor: url("https://dansmartcloud.github.io/aboutme/cur/UpArrow.cur"), auto;
+}
+textarea {
+  cursor: url("https://dansmartcloud.github.io/aboutme/cur/IBeam.cur"), auto;
+}
+button {
+  cursor: url("https://dansmartcloud.github.io/aboutme/cur/pointer.cur"), auto;
+}
+span {
+  cursor: url("https://dansmartcloud.github.io/aboutme/cur/pointer.cur"), auto;
 }
 @-moz-keyframes typedjsBlink {
   50% {
