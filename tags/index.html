@@ -103,7 +103,7 @@
       <h1 class="site-title">慕·露·雨</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">DirRain的个人博客小站</p>
+      <p class="site-subtitle" itemprop="description">DirRain-一个野生创客的个人博客小站</p>
   </div>
 
   <div class="site-nav-right">
@@ -288,7 +288,7 @@
     <img class="site-author-image" itemprop="image" alt="DirRain"
       src="https://dansmartcloud.github.io/aboutme/pic.jpeg">
   <p class="site-author-name" itemprop="name">DirRain</p>
-  <div class="site-description" itemprop="description">保持热爱，奔赴山海~</div>
+  <div class="site-description" itemprop="description">天生的创客不一定够优秀，但野生的创客一定够野</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -402,7 +402,7 @@ setInterval("createtime()",250);
    var typed = new Typed('.typewriter-content',{
       // 注意：输出的可以是标签,将标签当节点运行.比如下面的h1
 	  // 这是一个字符串数组,可以填充多个值,使用引号修饰,使用逗号分割
-      strings: ['<h1>DirRain的个人博客小站<h1>'],
+      strings: ['<h1>DirRain-一个野生创客的个人博客小站<h1>'],
 	  // 速度值越小打字速度越快
       typeSpeed:80,
 	  // 用于在在输出字符结尾闪烁的符号
@@ -16520,6 +16520,41 @@ console.log(`
 	        window.cancelAnimationFrame(stop);
 	    }
     }
+})();
+</script>
+<script>
+(function(){
+document.addEventListener('DOMContentLoaded', function() {
+            const body = document.querySelector('body');
+            
+            // 备用背景图片URL
+            const backupUrls = [
+                "https://tpapi.haouou.com/drblog/",
+				"https://img.xjh.me/random_img.php?type=bg&ctype=acg&return=302"
+            ];
+            let currentBackupIndex = 0;
+
+            // 尝试加载背景图片
+            function loadBackground() {
+                const url = backupUrls[currentBackupIndex] || body.style.backgroundImage.slice(5, -2);
+                const img = new Image();
+                img.src = url;
+                img.onerror = function() {
+                    currentBackupIndex++;
+                    if (currentBackupIndex < backupUrls.length) {
+                        loadBackground(); // 尝试下一个备用链接
+                    } else {
+                        console.error('所有背景图片加载失败');
+                    }
+                };
+                img.onload = function() {
+                    body.style.backgroundImage = `url("${url}")`;
+                };
+            }
+
+            // 首先尝试加载主背景图片，然后按顺序尝试备用链接
+            loadBackground();
+        });
 })();
 </script>
       </div>

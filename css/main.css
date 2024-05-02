@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #585c9a;
+  background: #4057ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2928,6 +2928,7 @@ body {
 .back-to-top-on {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  cursor: url("https://dansmartcloud.github.io/aboutme/cur/UpArrow.cur"), auto;
 }
 .pace {
   -webkit-pointer-events: none;
