@@ -1,6 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>GC服连接教程</title>
+    <url>/blog/2023/09/29/GC%E6%9C%8D%E8%BF%9E%E6%8E%A5%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p>现在Grasscutter服务器也出来这么久了，是时候跟大家说一说服务器<strong>怎么连接</strong>了。</p>
+<h3 id="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"><a href="#重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！" class="headerlink" title="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"></a>重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！</h3><h3 id="PC连接服务器教程"><a href="#PC连接服务器教程" class="headerlink" title="PC连接服务器教程"></a>PC连接服务器教程</h3><p>获取Genshinimpact PC 4.0中国版，确保资源下载完成，然后回到官服启动器，点击启动按钮右侧菜单键，点击安装位置。如果该版本不再是最新版本，请单独下载资源和游戏本体的整合压缩包并解压。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-669faeb63c87ff962329b4f600bf0b90_720w.webp"></p>
+<p>然后找到提示的目录</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-a00b6b5a203cb99ed955b4f210861100_720w.webp"></p>
+<p>找到提示的目录</p>
+<p>打开目录，向里面加入如图所示的补丁文件</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-4535e980ef48b724db39b79f2722f220_720w.webp"></p>
+<p>加入补丁文件</p>
+<p>下载Genshin代理助手并输入给出的服务器地址与端口号。点击启动代理。提示启动成功后即可启动原神PC。</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-f3463dcf8610499158106ac72553e5d1_720w.webp"></p>
+<p>点击启动代理</p>
+<p><strong>原神，启动！</strong></p>
+<h3 id="Android连接服务器教程"><a href="#Android连接服务器教程" class="headerlink" title="Android连接服务器教程"></a>Android连接服务器教程</h3><p>下载安装禾云原神，下载4.0资源包。启动禾云原神，等待数据加载至45%。这一步用于创建数据目录2。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-2a84ab7844eac6d7556b0a7b4d73ead0_720w.webp"></p>
+<p>禾云原神</p>
+<p>使用MT管理器解压资源包至数据目录2同名文件夹。替换现有files。完成后启动禾云原神。</p>
+<p>详细教程、视频演示以及相关文件资源下载，请加入技术交流QQ群。</p>
+<p>点击链接加入群聊【Grasscutter 4.0服务器技术】：<a href="https://link.zhihu.com/?target=http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=4c_xPrLhppTzwS8KvIGjTrWSOo1jnE2z&authKey=lwXISHuyzRoYTeFJ%252FMSvjLU7Mxy4YZQgV7d42ek5vxmctIM9aHk48ofBnMhWtTNd&noverify=0&group_code=209204640">GC4.0服务器技术交流</a></p>
+]]></content>
+      <tags>
+        <tag>薅羊毛</tag>
+        <tag>简单</tag>
+        <tag>游戏类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题</title>
+    <url>/blog/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>最近正好升级了电脑系统，变成了专业版系统，想试试远程桌面，结果从我家父级网连接子级网下的电脑连不上。</p>
+<p>我电脑在房间，子级网是房间的专用网。父级网是客厅的网络。我总不可能总是跑到房间去远程桌面吧！</p>
+<p>那根没有有什么区别……</p>
+<p>于是我开始研究这个问题。</p>
+<p>在网上找了一大堆资料，都是说端口转发和DMZ主机啥的。全部试了一遍，<strong>没P用……</strong></p>
+<p>然后当我在路由器设置世界里遨游的时候，突然发现了这个：</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-31958c0f452e8576670b227a15eacf41_720w.webp"></p>
+<p>桥模式</p>
+<p>如果你的和我一样是普联（<code>TP-LINK</code>）路由器，<strong>别信其他教程，信我的！</strong></p>
+<p>直接在路由&#x2F;桥模式切换中切换为桥模式，解决一切问题！（相当于将当前子路由网络下所有设备全部并入父路由网络）</p>
+<p>方法：</p>
+<h3 id="在计算机中查看默认网关，找到路由器管理地址"><a href="#在计算机中查看默认网关，找到路由器管理地址" class="headerlink" title="在计算机中查看默认网关，找到路由器管理地址"></a>在计算机中查看默认网关，找到路由器管理地址</h3><p>win+R打开<code>cmd</code>，输入命令并回车：</p>
+<figure class="highlight bat"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ipconfig</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://pic4.zhimg.com/80/v2-97a8a74f9703d108b10fd361c2231d9f_720w.webp"></p>
+<p>找到默认网关地址</p>
+<p>默认没有提示断开连接的那个网络就是你当前的网络。如果你安装了虚拟机（如<code>VMware</code>）的话另说（要排除这些项目）。</p>
+<h3 id="访问管理页面"><a href="#访问管理页面" class="headerlink" title="访问管理页面"></a>访问管理页面</h3><p>在浏览器直接输入默认网关的IP（图中框出内容冒号后面的一串数字，要输入点），回车访问。</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-d1f5c6fd04655f23c9dca69c7a701bdd_720w.webp"></p>
+<p>输入管理密码</p>
+<p>如果管理密码不记得了，可以找到路由器，长按上面的重置键（或者叫<code>Reset</code>键、<code>WPS/Reset</code>键等。有些路由器也许不会标，反正整个路由器除了电源键以外就几乎只会有这一个按键了，自己找找。有些时候这个按键可能会被做成一个孔，像手机电话卡弹出孔那样需要用针来按）</p>
+<h3 id="登录并进行设置"><a href="#登录并进行设置" class="headerlink" title="登录并进行设置"></a>登录并进行设置</h3><p>点击登录，进入管理页面，点击路由设置：</p>
+<p><img data-src="https://pic3.zhimg.com/80/v2-f763767f821181a105374e9b465a223a_720w.webp"></p>
+<p>TP-LINK管理页面，在右下角点击路由设置</p>
+<p>左侧路由设置，下滑找到“路由&#x2F;桥模式切换”：</p>
+<p><img data-src="https://pic3.zhimg.com/80/v2-0c042a36b85b7aecdfb1ead81ebd78c6_720w.webp"></p>
+<p>找到路由&#x2F;桥模式切换，并选择“桥模式”</p>
+<p>选择右侧桥模式，点击保存。</p>
+<p><strong>你的设备将会断网一段时间，不要慌张。这是路由器正在执行模式切换。</strong></p>
+<p>当你的设备再次联网时，一般就代表切换成功了。这时候，你的设备会被父级路由分配一个新的IP地址。而此时，你的网段已经和父级路由下的所有设备相同了。这时就可以实现互联（比如我要的远程桌面）了。</p>
+<p>而且这个方式有一点好处。</p>
+<p>当你完成了以上配置后，在父级路由下的任何一个子级路由都可以直接访问你的设备所在网络。因为这时候相当于你的设备连接到了父级网络。而子级网络是可以直接访问父级网络设备的。因此，你可以在任何父级网络提供的子级网络下自由访问你的设备！</p>
+<p>当然，子级网的子级网还是要配置一下的。因为这时，子级网相当于子级网的子级网的父级网。</p>
+<p><strong>好啦，就说这么多，下次见，拜拜┏(＾0＾)┛！</strong></p>
+]]></content>
+      <tags>
+        <tag>网络</tag>
+        <tag>连接</tag>
+        <tag>远程桌面</tag>
+        <tag>路由器</tag>
+        <tag>TP-LINK</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MicrosoftOffice完全安装与激活教程（保证成功）</title>
     <url>/blog/2023/08/27/MicrosoftOffice%E5%AE%8C%E5%85%A8%E5%AE%89%E8%A3%85%E4%B8%8E%E6%BF%80%E6%B4%BB%E6%95%99%E7%A8%8B%EF%BC%88%E4%BF%9D%E8%AF%81%E6%88%90%E5%8A%9F%EF%BC%89/</url>
     <content><![CDATA[<h1 id="MicrosoftOffice完全安装与激活教程（保证成功）"><a href="#MicrosoftOffice完全安装与激活教程（保证成功）" class="headerlink" title="MicrosoftOffice完全安装与激活教程（保证成功）"></a>MicrosoftOffice完全安装与激活教程（保证成功）</h1><h2 id="首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！"><a href="#首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！" class="headerlink" title="首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！"></a><strong>首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！</strong></h2><p><strong>下面正文开始：</strong></p>
@@ -72,116 +147,6 @@
       </tags>
   </entry>
   <entry>
-    <title>TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题</title>
-    <url>/blog/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>最近正好升级了电脑系统，变成了专业版系统，想试试远程桌面，结果从我家父级网连接子级网下的电脑连不上。</p>
-<p>我电脑在房间，子级网是房间的专用网。父级网是客厅的网络。我总不可能总是跑到房间去远程桌面吧！</p>
-<p>那根没有有什么区别……</p>
-<p>于是我开始研究这个问题。</p>
-<p>在网上找了一大堆资料，都是说端口转发和DMZ主机啥的。全部试了一遍，<strong>没P用……</strong></p>
-<p>然后当我在路由器设置世界里遨游的时候，突然发现了这个：</p>
-<p><img data-src="https://pic2.zhimg.com/80/v2-31958c0f452e8576670b227a15eacf41_720w.webp"></p>
-<p>桥模式</p>
-<p>如果你的和我一样是普联（<code>TP-LINK</code>）路由器，<strong>别信其他教程，信我的！</strong></p>
-<p>直接在路由&#x2F;桥模式切换中切换为桥模式，解决一切问题！（相当于将当前子路由网络下所有设备全部并入父路由网络）</p>
-<p>方法：</p>
-<h3 id="在计算机中查看默认网关，找到路由器管理地址"><a href="#在计算机中查看默认网关，找到路由器管理地址" class="headerlink" title="在计算机中查看默认网关，找到路由器管理地址"></a>在计算机中查看默认网关，找到路由器管理地址</h3><p>win+R打开<code>cmd</code>，输入命令并回车：</p>
-<figure class="highlight bat"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ipconfig</span></span><br></pre></td></tr></table></figure>
-
-<p><img data-src="https://pic4.zhimg.com/80/v2-97a8a74f9703d108b10fd361c2231d9f_720w.webp"></p>
-<p>找到默认网关地址</p>
-<p>默认没有提示断开连接的那个网络就是你当前的网络。如果你安装了虚拟机（如<code>VMware</code>）的话另说（要排除这些项目）。</p>
-<h3 id="访问管理页面"><a href="#访问管理页面" class="headerlink" title="访问管理页面"></a>访问管理页面</h3><p>在浏览器直接输入默认网关的IP（图中框出内容冒号后面的一串数字，要输入点），回车访问。</p>
-<p><img data-src="https://pic2.zhimg.com/80/v2-d1f5c6fd04655f23c9dca69c7a701bdd_720w.webp"></p>
-<p>输入管理密码</p>
-<p>如果管理密码不记得了，可以找到路由器，长按上面的重置键（或者叫<code>Reset</code>键、<code>WPS/Reset</code>键等。有些路由器也许不会标，反正整个路由器除了电源键以外就几乎只会有这一个按键了，自己找找。有些时候这个按键可能会被做成一个孔，像手机电话卡弹出孔那样需要用针来按）</p>
-<h3 id="登录并进行设置"><a href="#登录并进行设置" class="headerlink" title="登录并进行设置"></a>登录并进行设置</h3><p>点击登录，进入管理页面，点击路由设置：</p>
-<p><img data-src="https://pic3.zhimg.com/80/v2-f763767f821181a105374e9b465a223a_720w.webp"></p>
-<p>TP-LINK管理页面，在右下角点击路由设置</p>
-<p>左侧路由设置，下滑找到“路由&#x2F;桥模式切换”：</p>
-<p><img data-src="https://pic3.zhimg.com/80/v2-0c042a36b85b7aecdfb1ead81ebd78c6_720w.webp"></p>
-<p>找到路由&#x2F;桥模式切换，并选择“桥模式”</p>
-<p>选择右侧桥模式，点击保存。</p>
-<p><strong>你的设备将会断网一段时间，不要慌张。这是路由器正在执行模式切换。</strong></p>
-<p>当你的设备再次联网时，一般就代表切换成功了。这时候，你的设备会被父级路由分配一个新的IP地址。而此时，你的网段已经和父级路由下的所有设备相同了。这时就可以实现互联（比如我要的远程桌面）了。</p>
-<p>而且这个方式有一点好处。</p>
-<p>当你完成了以上配置后，在父级路由下的任何一个子级路由都可以直接访问你的设备所在网络。因为这时候相当于你的设备连接到了父级网络。而子级网络是可以直接访问父级网络设备的。因此，你可以在任何父级网络提供的子级网络下自由访问你的设备！</p>
-<p>当然，子级网的子级网还是要配置一下的。因为这时，子级网相当于子级网的子级网的父级网。</p>
-<p><strong>好啦，就说这么多，下次见，拜拜┏(＾0＾)┛！</strong></p>
-]]></content>
-      <tags>
-        <tag>网络</tag>
-        <tag>连接</tag>
-        <tag>远程桌面</tag>
-        <tag>路由器</tag>
-        <tag>TP-LINK</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GC服连接教程</title>
-    <url>/blog/2023/09/29/GC%E6%9C%8D%E8%BF%9E%E6%8E%A5%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p>现在Grasscutter服务器也出来这么久了，是时候跟大家说一说服务器<strong>怎么连接</strong>了。</p>
-<h3 id="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"><a href="#重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！" class="headerlink" title="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"></a>重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！</h3><h3 id="PC连接服务器教程"><a href="#PC连接服务器教程" class="headerlink" title="PC连接服务器教程"></a>PC连接服务器教程</h3><p>获取Genshinimpact PC 4.0中国版，确保资源下载完成，然后回到官服启动器，点击启动按钮右侧菜单键，点击安装位置。如果该版本不再是最新版本，请单独下载资源和游戏本体的整合压缩包并解压。</p>
-<p><img data-src="https://pic1.zhimg.com/80/v2-669faeb63c87ff962329b4f600bf0b90_720w.webp"></p>
-<p>然后找到提示的目录</p>
-<p><img data-src="https://pic1.zhimg.com/80/v2-a00b6b5a203cb99ed955b4f210861100_720w.webp"></p>
-<p>找到提示的目录</p>
-<p>打开目录，向里面加入如图所示的补丁文件</p>
-<p><img data-src="https://pic1.zhimg.com/80/v2-4535e980ef48b724db39b79f2722f220_720w.webp"></p>
-<p>加入补丁文件</p>
-<p>下载Genshin代理助手并输入给出的服务器地址与端口号。点击启动代理。提示启动成功后即可启动原神PC。</p>
-<p><img data-src="https://pic2.zhimg.com/80/v2-f3463dcf8610499158106ac72553e5d1_720w.webp"></p>
-<p>点击启动代理</p>
-<p><strong>原神，启动！</strong></p>
-<h3 id="Android连接服务器教程"><a href="#Android连接服务器教程" class="headerlink" title="Android连接服务器教程"></a>Android连接服务器教程</h3><p>下载安装禾云原神，下载4.0资源包。启动禾云原神，等待数据加载至45%。这一步用于创建数据目录2。</p>
-<p><img data-src="https://pic1.zhimg.com/80/v2-2a84ab7844eac6d7556b0a7b4d73ead0_720w.webp"></p>
-<p>禾云原神</p>
-<p>使用MT管理器解压资源包至数据目录2同名文件夹。替换现有files。完成后启动禾云原神。</p>
-<p>详细教程、视频演示以及相关文件资源下载，请加入技术交流QQ群。</p>
-<p>点击链接加入群聊【Grasscutter 4.0服务器技术】：<a href="https://link.zhihu.com/?target=http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=4c_xPrLhppTzwS8KvIGjTrWSOo1jnE2z&authKey=lwXISHuyzRoYTeFJ%252FMSvjLU7Mxy4YZQgV7d42ek5vxmctIM9aHk48ofBnMhWtTNd&noverify=0&group_code=209204640">GC4.0服务器技术交流</a></p>
-]]></content>
-      <tags>
-        <tag>简单</tag>
-        <tag>薅羊毛</tag>
-        <tag>游戏类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《逐梦》——一个由一群高中兴趣爱好者开发的二次元沙盒RPG大型游戏</title>
-    <url>/blog/2023/11/05/%E3%80%8A%E9%80%90%E6%A2%A6%E3%80%8B%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E7%94%B1%E4%B8%80%E7%BE%A4%E9%AB%98%E4%B8%AD%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD%E8%80%85%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%8C%E6%AC%A1%E5%85%83%E6%B2%99%E7%9B%92RPG%E5%A4%A7%E5%9E%8B%E6%B8%B8%E6%88%8F/</url>
-    <content><![CDATA[<p>这款游戏可能会颠覆你的认知。</p>
-<p>它像是原神又不是原神，像是MC又不是MC。因为，它兼而有之。</p>
-<p>我们<strong>不是</strong>什么很专业的开发团队，更没有特别专业的技术知识。但我们<strong>有一颗热忱的心</strong>。</p>
-<p><strong>我们相信自己能行！</strong></p>
-<p>不过我们还是希望更多的爱好者能够加入我们。这将会是一个巨大的挑战，因为它是<strong>零成本</strong>的。</p>
-<p>虽然禾云信创之前的所有产品都是零成本产品。</p>
-<p>但是上述阻碍都不足以成为阻止我们的理由。</p>
-<p>这款游戏预计在2027年发布第一版吧，虽然不知道现在这个团队可以坚持多久。</p>
-<p><mark>我们也期待着你亮闪闪的金点子和好技术！</mark></p>
-<p>顺便说一下，这个团队是我在制定完这个计划后招募成立的。</p>
-<p>主要还是缺立绘、建模和写代码（Unreal引擎）的人才。</p>
-<p>好啦，感谢读到这里的你~</p>
-<p>加入我们，点击链接加入群聊<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=uijIfKwVI77APwx0NIQ1zEhF12b9zvn5&authKey=RZOyvAdrspwVfwdjSU3S8DeDacV+rWoDMTRAY2NO8rRH0UOhlANXkgfaZtMypQ85&noverify=0&group_code=935560368">【禾云信创 工作室技术讨论群】</a></p>
-]]></content>
-      <tags>
-        <tag>游戏</tag>
-        <tag>逐梦</tag>
-        <tag>创新</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>刷专业版系统上传测试</title>
-    <url>/blog/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<p>刷Windows11系统测试一下上传博客文章</p>
-<p>事实告诉我们，重新构建博客比恢复博客更简单。</p>
-]]></content>
-      <tags>
-        <tag>测试</tag>
-        <tag>日常类</tag>
-        <tag>系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>主页-DirRain的个人博客</title>
     <url>/blog//index.html</url>
     <content><![CDATA[<p><em><strong>保持热爱，奔赴山海~</strong></em></p>
@@ -206,15 +171,38 @@
 ]]></content>
   </entry>
   <entry>
-    <title>开学了</title>
-    <url>/blog/2023/08/28/%E5%BC%80%E5%AD%A6/</url>
-    <content><![CDATA[<p>明天就要去学校了呢😊</p>
-<p>这个博客小站，刚刚建立，更新的事情就要和大家告一段落了😅</p>
-<h5 id="其实我还有几件事，在这里列出来，有兴趣的可以看看。"><a href="#其实我还有几件事，在这里列出来，有兴趣的可以看看。" class="headerlink" title="其实我还有几件事，在这里列出来，有兴趣的可以看看。"></a>其实我还有几件事，在这里列出来，有兴趣的可以看看。</h5><h6 id="1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"><a href="#1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！" class="headerlink" title="1。会逆向的可以帮我看看Genshin Impact Game 4.0.0的安卓包lib/*/lib2cpp.so里面的libil2cpp.so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"></a>1。会逆向的可以帮我看看<code>Genshin Impact Game 4.0.0</code>的安卓包<code>lib/*/lib2cpp.so</code>里面的<code>libil2cpp.so</code>文件，改一下里面的密钥，改为<code>grasscutter</code>通用密钥就行，谢谢啦！</h6><h6 id="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"><a href="#2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！" class="headerlink" title="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"></a>2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！</h6><h6 id="3。还有啥事来着……"><a href="#3。还有啥事来着……" class="headerlink" title="3。还有啥事来着……"></a>3。还有啥事来着……</h6><p>算了，润！</p>
+    <title>『星༓梦』——一个由一群青年兴趣爱好者开发的二次元沙盒RPG大型游戏</title>
+    <url>/blog/2023/11/05/%E3%80%8E%E6%98%9F%E0%BC%93%E6%A2%A6%E3%80%8F%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E7%94%B1%E4%B8%80%E7%BE%A4%E9%9D%92%E5%B9%B4%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD%E8%80%85%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%8C%E6%AC%A1%E5%85%83%E6%B2%99%E7%9B%92RPG%E5%A4%A7%E5%9E%8B%E6%B8%B8%E6%88%8F/</url>
+    <content><![CDATA[<p>这款游戏可能会颠覆你的认知。</p>
+<p>它像是原神又不是原神，像是MC又不是MC。因为，它兼而有之。</p>
+<p>我们<strong>不是</strong>什么很专业的开发团队，更没有特别专业的技术知识。但我们<strong>有一颗热忱的心</strong>。</p>
+<p><strong>我们相信自己能行！</strong></p>
+<p>不过我们还是希望更多的爱好者能够加入我们。这将会是一个巨大的挑战，因为它是<strong>零成本</strong>的。</p>
+<p>虽然禾云工作室之前的所有产品都是零成本产品。</p>
+<p>但是上述阻碍都不足以成为阻止我们的理由。</p>
+<p>这款游戏预计在2027年发布第一版吧，虽然不知道现在这个团队可以坚持多久。</p>
+<p><mark>我们也期待着你亮闪闪的金点子和好技术！</mark></p>
+<p>顺便说一下，这个团队是我在制定完这个计划后招募成立的。</p>
+<p>主要还是缺立绘、建模和写代码（Unreal引擎5）的人才。</p>
+<p>好啦，感谢读到这里的你~</p>
+<p>加入我们，点击链接加入QQ群聊点击链接加入群聊<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=B_iYFHTZuvVvCMeThRGnFnB1QzqKz7SB&authKey=BkW6FG+8EsBIBHkN3oWi4AO0vMexbgyAEO1q6KU28SqVUN566UFV4wbSkmnfPEuh&noverify=0&group_code=261951048">『星༓梦』开发组</a></p>
 ]]></content>
       <tags>
+        <tag>游戏</tag>
+        <tag>逐梦</tag>
+        <tag>创新</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>刷专业版系统上传测试</title>
+    <url>/blog/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p>刷Windows11系统测试一下上传博客文章</p>
+<p>事实告诉我们，重新构建博客比恢复博客更简单。</p>
+]]></content>
+      <tags>
+        <tag>测试</tag>
         <tag>日常类</tag>
-        <tag>学校</tag>
+        <tag>系统</tag>
       </tags>
   </entry>
   <entry>
@@ -336,6 +324,43 @@
       </tags>
   </entry>
   <entry>
+    <title>我的博客-慕·露·雨</title>
+    <url>/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
+    <content><![CDATA[<h1 id="我的博客-慕·露·雨"><a href="#我的博客-慕·露·雨" class="headerlink" title="我的博客 - 慕·露·雨"></a>我的博客 - 慕·露·雨</h1><h3 id="这是我发的第一篇博客哦"><a href="#这是我发的第一篇博客哦" class="headerlink" title="这是我发的第一篇博客哦~"></a>这是我发的第一篇博客哦~</h3><h3 id="纪念一下这个博客站初次建成开始使用的日子-2023-08-26"><a href="#纪念一下这个博客站初次建成开始使用的日子-2023-08-26" class="headerlink" title="纪念一下这个博客站初次建成开始使用的日子-2023.08.26~"></a>纪念一下这个博客站初次建成开始使用的日子-2023.08.26~</h3><p>顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>新体验</tag>
+        <tag>心情</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开学了</title>
+    <url>/blog/2023/08/28/%E5%BC%80%E5%AD%A6/</url>
+    <content><![CDATA[<p>明天就要去学校了呢😊</p>
+<p>这个博客小站，刚刚建立，更新的事情就要和大家告一段落了😅</p>
+<h5 id="其实我还有几件事，在这里列出来，有兴趣的可以看看。"><a href="#其实我还有几件事，在这里列出来，有兴趣的可以看看。" class="headerlink" title="其实我还有几件事，在这里列出来，有兴趣的可以看看。"></a>其实我还有几件事，在这里列出来，有兴趣的可以看看。</h5><h6 id="1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"><a href="#1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！" class="headerlink" title="1。会逆向的可以帮我看看Genshin Impact Game 4.0.0的安卓包lib/*/lib2cpp.so里面的libil2cpp.so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"></a>1。会逆向的可以帮我看看<code>Genshin Impact Game 4.0.0</code>的安卓包<code>lib/*/lib2cpp.so</code>里面的<code>libil2cpp.so</code>文件，改一下里面的密钥，改为<code>grasscutter</code>通用密钥就行，谢谢啦！</h6><h6 id="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"><a href="#2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！" class="headerlink" title="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"></a>2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！</h6><h6 id="3。还有啥事来着……"><a href="#3。还有啥事来着……" class="headerlink" title="3。还有啥事来着……"></a>3。还有啥事来着……</h6><p>算了，润！</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>学校</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>放假了</title>
+    <url>/blog/2024/02/05/%E6%94%BE%E5%81%87%E4%BA%86/</url>
+    <content><![CDATA[<p><strong>终于放假了</strong></p>
+<p>博客站和我的网名正式改了，DirRain。</p>
+<p>不过其他平台的同步还有待进行。</p>
+<p>我大概元宵节过后返校。</p>
+<p><strong>好啦，感谢你阅读到这里~</strong></p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>学校</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>接入评论区</title>
     <url>/blog/2023/12/23/%E6%8E%A5%E5%85%A5%E8%AF%84%E8%AE%BA%E5%8C%BA/</url>
     <content><![CDATA[<p>慕·露·雨正式接入评论区功能啦！</p>
@@ -351,31 +376,6 @@
         <tag>日常类</tag>
         <tag>事实</tag>
         <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我的博客-慕·露·雨</title>
-    <url>/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
-    <content><![CDATA[<h1 id="我的博客-慕·露·雨"><a href="#我的博客-慕·露·雨" class="headerlink" title="我的博客 - 慕·露·雨"></a>我的博客 - 慕·露·雨</h1><h3 id="这是我发的第一篇博客哦"><a href="#这是我发的第一篇博客哦" class="headerlink" title="这是我发的第一篇博客哦~"></a>这是我发的第一篇博客哦~</h3><h3 id="纪念一下这个博客站初次建成开始使用的日子-2023-08-26"><a href="#纪念一下这个博客站初次建成开始使用的日子-2023-08-26" class="headerlink" title="纪念一下这个博客站初次建成开始使用的日子-2023.08.26~"></a>纪念一下这个博客站初次建成开始使用的日子-2023.08.26~</h3><p>顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~</p>
-]]></content>
-      <tags>
-        <tag>日常类</tag>
-        <tag>新体验</tag>
-        <tag>心情</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>放假了</title>
-    <url>/blog/2024/02/05/%E6%94%BE%E5%81%87%E4%BA%86/</url>
-    <content><![CDATA[<p><strong>终于放假了</strong></p>
-<p>博客站和我的网名正式改了，DirRain。</p>
-<p>不过其他平台的同步还有待进行。</p>
-<p>我大概元宵节过后返校。</p>
-<p><strong>好啦，感谢你阅读到这里~</strong></p>
-]]></content>
-      <tags>
-        <tag>日常类</tag>
-        <tag>学校</tag>
       </tags>
   </entry>
   <entry>
@@ -396,8 +396,8 @@
     <content><![CDATA[<h3 id="第一部分，写文章"><a href="#第一部分，写文章" class="headerlink" title="第一部分，写文章"></a>第一部分，写文章</h3><p>这一部分几乎是综合素质评价中最核心的部分。它显示了个人文化修养和对综合素质评价的认真程度。</p>
 <p>不过，我们仍然有一些同学想要偷懒……</p>
 <p>所以这里让我们的高科技AI语言大模型来帮忙。</p>
-<p><a href="https://link.zhihu.com/?target=https://ai.qidianym.net/?from=yoogle.top%23/chat/1002">Chatgpt在线网页版-永久免费使用！​ai.qidianym.net&#x2F;?from&#x3D;yoogle.top#&#x2F;chat&#x2F;1002</a></p>
-<p>这个是我找到的全网范围内为数不多的良心chatgpt提供商，直接点击使用。不过要注意的是不要滥用，不然可能会被限流。</p>
+<p><strong>DeepSeek，启动！</strong>（下方挂链接⤵️）</p>
+<p>🔗<a href="https://www.deepseek.com/">DeepSeek | 深度求索</a></p>
 <p>和AI语言大模型说话需要掌握一定的技巧，不能废话多，简单干练的语言和突出关键词的语言能让AI更好的理解你的意思。</p>
 <p>比如说：</p>
 <p>我要在思想品德中的生活管理里面要写一篇文章，然而我日常根本没注意都干了些什么。就可以这样对AI说：</p>
@@ -406,10 +406,10 @@
 <p>以下使用文心一言做一个示范（不要抄这篇文章）：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">我是XX学校的XXX，以下是我日常生活的习惯记录，用于综合素质评价。这份记录将展示我的生活方式、学习习惯、健康管理以及社交活动等多个方面。</span><br><span class="line"></span><br><span class="line">一、早起与锻炼</span><br><span class="line"></span><br><span class="line">作为一名高中生，我深知良好的作息对于身体健康和学习效率的重要性。因此，我保持着早起的习惯，每天6点钟准时起床。起床后，我会进行简单的晨练，包括跑步、俯卧撑等，以激活身体机能，提高精神状态。</span><br><span class="line"></span><br><span class="line">二、健康饮食</span><br><span class="line"></span><br><span class="line">在饮食方面，我注重营养均衡和食物多样性。早餐通常会包括牛奶、全麦面包、水果等，以保证一天的能量需求。在校期间，我会选择学校食堂的蔬菜、肉类、豆类等菜品，确保摄入足够的蛋白质和膳食纤维。晚餐则以清淡为主，避免油腻和辛辣食物，有助于保持良好的睡眠质量。</span><br><span class="line"></span><br><span class="line">三、学习计划与时间管理</span><br><span class="line"></span><br><span class="line">在学习方面，我制定了详细的学习计划，合理安排每天的学习时间。课前会进行预习，课后及时复习巩固所学知识。遇到难题时，我会积极寻求老师或同学的帮助，共同探讨解决问题。同时，我善于利用碎片时间，如上下学途中、课间休息等，进行课外阅读或背诵知识点，提高学习效率。</span><br><span class="line"></span><br><span class="line">四、兴趣爱好与社交活动</span><br><span class="line"></span><br><span class="line">在课余时间，我热爱阅读、写作和绘画。阅读可以丰富我的知识体系，写作则有助于提高表达能力和逻辑思维；绘画是我放松心情、陶冶情操的方式。此外，我还积极参加学校的各类社交活动，如志愿者服务、学术竞赛等。这些活动不仅锻炼了我的团队协作能力，还拓宽了我的人际交往圈子。</span><br><span class="line"></span><br><span class="line">五、心理健康与自我调适</span><br><span class="line"></span><br><span class="line">面对学习生活中的压力和挑战，我注重心理健康和自我调适。遇到问题时，我会积极寻求解决办法，而非逃避或抱怨。同时，我会与同学、老师或家人分享自己的感受和困惑，倾听他们的建议和支持。此外，我还通过冥想、深呼吸等方法，调整自己的情绪和心态，保持平和乐观的心态。</span><br><span class="line"></span><br><span class="line">六、个人卫生与环境整洁</span><br><span class="line"></span><br><span class="line">在生活中，我注重个人卫生和环境整洁。每天洗漱干净、穿着整洁是我对自己的基本要求。此外，我会定期打扫房间、清理书桌，保持生活环境的整洁有序。在学校，我也积极参与环境卫生工作，不乱扔垃圾，保持教室和公共区域的干净美观。</span><br><span class="line"></span><br><span class="line">七、总结与展望</span><br><span class="line"></span><br><span class="line">通过以上日常生活的习惯记录，可以看到我在健康、学习、兴趣、心理和个人卫生等方面的努力和成果。然而，我也深知自己仍有不足之处，需要不断学习和提高。在未来的日子里，我将继续努力，保持良好的生活习惯，不断提升自己的综合素质，为成为一名优秀的高中生和未来的社会公民而努力。</span><br><span class="line">（由文心大模型3.5生成）</span><br></pre></td></tr></table></figure>
 
-<p>如果AI回答的跟你想要的内容不搭边，那么多半是你问题问的不好……</p>
+<p>如果AI回答的跟你想要的内容不搭边，那么多半是你问题问的不好。最简单的修改方式是找出你不满意的地方，回复AI，告诉AI你想要让他改成啥样。</p>
 <h3 id="第二部分，找图片"><a href="#第二部分，找图片" class="headerlink" title="第二部分，找图片"></a>第二部分，找图片</h3><p>找好自己的图片，最好可以分好类。如果你会用AI生成改图也行，不过不推荐。这里就不教了。</p>
-<h3 id="第三部分，开始上传（电脑版）"><a href="#第三部分，开始上传（电脑版）" class="headerlink" title="第三部分，开始上传（电脑版）"></a>第三部分，开始上传（电脑版）</h3><p>登录平台：</p>
-<p><a href="https://link.zhihu.com/?target=http://zhpj.hnedu.cn/login">综合素质评价平台系统登录​zhpj.hnedu.cn&#x2F;login</a></p>
+<h3 id="第三部分，开始上传（电脑版）"><a href="#第三部分，开始上传（电脑版）" class="headerlink" title="第三部分，开始上传（电脑版）"></a>第三部分，开始上传（电脑版）</h3><p>登录平台（下方挂链接⤵️）：</p>
+<p>🔗<a href="http://zhpj.hnedu.cn/login">综合素质评价平台系统登录​zhpj.hnedu.cn&#x2F;login</a></p>
 <p><img data-src="https://pic1.zhimg.com/80/v2-47d43a1338a4b63b021a2882ddbc3c44_720w.webp"></p>
 <p>登录平台</p>
 <p>可以使用EEID、手机号码或自定义的别称作为用户名登录平台。这个平台没有提供自助密码找回机制，如果忘记密码，只能找客服解决。所以请记住自己的密码，或者绑定第三方账号。这个引导很全，这里不再赘述。</p>
@@ -428,8 +428,8 @@
 <p>然后在上传图片的时候可能会遇到一个很“智慧”的问题……</p>
 <p>图片不支持大于0.5MB的，也就是说，单张图片大小不得大于512KB……</p>
 <p>我觉得这大概是这个平台最“智慧”的设定了……</p>
-<p>所以说，我们需要一个图片压缩平台。这里推荐一个在线且全免费的：</p>
-<p><a href="https://link.zhihu.com/?target=https://docsmall.com/image-compress">在线图片压缩 - docsmall 在线图片压缩工具,在线图片压缩软件​docsmall.com&#x2F;image-compress<img data-src="https://pic1.zhimg.com/v2-cbe37cd7f5c074086685a3ae12925fcc_ipico.jpg"></a></p>
+<p>所以说，我们需要一个图片压缩平台。这里推荐一个在线且全免费的（下方挂链接⤵️）：</p>
+<p>🔗<a href="https://docsmall.com/image-compress">在线图片压缩 - docsmall 在线图片压缩工具,在线图片压缩软件​docsmall.com&#x2F;image-compress</a></p>
 <p><img data-src="https://pic1.zhimg.com/80/v2-eb14e017a45557b9409eae58674388b4_720w.webp"></p>
 <p>压缩并下载图片</p>
 <p>肉眼可见的压缩效果，还是挺不错的。点击项目右侧的下载图标下载压缩好的图片。</p>
@@ -497,7 +497,11 @@
 <p><strong>艺术素养：</strong>乐理三级拿证（类别：艺术特长管理）</p>
 <p><strong>社会实践：</strong>研学（类别：学期实践活动，社会实践）、我的世界启动器开发（类别：科技活动发明，创造发明）</p>
 <p>这些是我的经验，仅供参考，也许还有不对的地方，欢迎大家指正！</p>
-<h3 id="第六部分，报错内容"><a href="#第六部分，报错内容" class="headerlink" title="第六部分，报错内容"></a><strong>第六部分，报错内容</strong></h3><p><img data-src="https://pic3.zhimg.com/80/v2-acdc123bceb2093353023c3bfd48f99a_720w.webp"></p>
+<h3 id="第六部分，毕业评价"><a href="#第六部分，毕业评价" class="headerlink" title="第六部分，毕业评价"></a><strong>第六部分，毕业评价</strong></h3><p><strong>毕业学生仍需上传材料，一样都不能少！上传后遴选已经上传的材料！</strong></p>
+<p><strong>毕业入口在左侧边栏”遴选上报&gt;毕业整理”,没有毕业入口的就是学校没给开，没法整理！别问了！</strong></p>
+<p>平台毕业学生操作手册说的很清楚！（下方挂链接⤵️）：</p>
+<p>🔗<a href="https://zhpj.hnedu.cn/zhpj/static/template/studentby.pdf">湖南高中综合素质评价-毕业材料整理操作说明</a></p>
+<h3 id="第七部分，报错内容"><a href="#第七部分，报错内容" class="headerlink" title="第七部分，报错内容"></a><strong>第七部分，报错内容</strong></h3><p><img data-src="https://pic3.zhimg.com/80/v2-acdc123bceb2093353023c3bfd48f99a_720w.webp"></p>
 <p>登录超时</p>
 <p>出现这个代表过长时间未操作，系统自动将你退出登录了，不过这个“智慧”系统没有搞提示，就直接报了个语法错误……</p>
 <p>所以说要刷新一下，重新登录。</p>
@@ -507,6 +511,7 @@
         <tag>日常类</tag>
         <tag>学校</tag>
         <tag>综测</tag>
+        <tag>湖南</tag>
       </tags>
   </entry>
   <entry>
@@ -581,8 +586,8 @@
 <p><strong>好啦，就说这么多，拜拜┏(＾0＾)┛</strong></p>
 ]]></content>
       <tags>
-        <tag>简单</tag>
         <tag>薅羊毛</tag>
+        <tag>简单</tag>
         <tag>游戏类</tag>
         <tag>端口映射</tag>
       </tags>
