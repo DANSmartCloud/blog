@@ -1,394 +1,598 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>论某动漫游戏服务端通信流程与端口映射</title>
-      <link href="/blog/2024/06/19/%E8%AE%BA%E6%9F%90%E5%8A%A8%E6%BC%AB%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B%E4%B8%8E%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84/"/>
-      <url>/blog/2024/06/19/%E8%AE%BA%E6%9F%90%E5%8A%A8%E6%BC%AB%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B%E4%B8%8E%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84/</url>
-      
-        <content type="html"><![CDATA[<p>现在<code>Grasscutter</code>服务器也出来这么久了，是时候跟大家说一说服务器<strong>怎么开放端口映射连接</strong>了。</p><h3 id="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"><a href="#重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！" class="headerlink" title="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"></a>重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！</h3><p>很多人都说开服需要使用<code>ZeroTier</code>或者<code>RedminLan</code>这样的VPN组网软件。实际上没有必要。我们完全可以直接使用端口映射软件进行开服。</p><p>先来了解一下服务端与客户端的通信流程。</p><h3 id="通信流程"><a href="#通信流程" class="headerlink" title="通信流程"></a>通信流程</h3><p><img data-src="https://pic2.zhimg.com/80/v2-33b82fa8bb4b376015309faa65e1e9b1_720w.webp"></p><p>客户端与服务端通信示意图</p><p>服务端开启后，会先后分别开放两个端口。一个是<code>TCP</code>端口，一个是<code>UDP</code>端口。该游戏的主要通信基于<code>KCP</code>协议进行。而<code>KCP</code>的底层是<code>UDP</code>，所以开放的是<code>UDP</code>端口。<code>TCP</code>端口用于登录分发。用户首先通过<code>TCP</code>端口连接服务器并登录（这个<code>TCP</code>端口也就是我们常说的<code>dispatch</code>端口），然后服务端返回服务器地区（<code>region</code>）列表给客户端。如果列表中只有一个服务器，那么客户端将会直接进入该服务器，而不是显示服务器选择列表。也就是说，要想要显示服务器列表，服务端的配置文件中<code>dispatch</code>配置必须包含多个<code>region</code>配置。</p><p>这里有一点需要辨析。</p><p>游戏服务器<code>UDP</code>端口地址（这个<code>UDP</code>端口也就是我们常说的<code>Game</code>端口）是由客户端与服务端的<code>TCP</code>协议<code>dispatch</code>交换信息得到的。所以说，客户端拿到服务端给的<code>Game</code>端口地址后会直接尝试与该地址进行通信。也就是说，如果想在非公网条件下开服，服务器配置文件中的<code>Game</code>端口地址配置<strong>必须配置为公网能够直接访问的地址才能保证客户端不会抛出<code>4206</code>错误。</strong></p><p>按照这个原理，我们只需要设置两条映射就可以让客户端与服务端顺利的通信了。一条为<code>TCP</code>协议，用作登录分发；另一条为<code>UDP</code>协议，用于游戏进行时的通信。</p><h3 id="配置服务端"><a href="#配置服务端" class="headerlink" title="配置服务端"></a>配置服务端</h3><p>由于<code>HTTPS</code>协议配置起来较为繁杂，我们此处选择采用<code>HTTP</code>协议进行通信。</p><p>打开<code>config</code>文件配置服务端，我们先关闭<code>SSL</code>，让服务端使用<code>HTTP</code>模式。修改这段代码：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;encryption&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;useEncryption&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;useInRouting&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;keystore&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./keystore.p12&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;keystorePassword&quot;</span><span class="punctuation">:</span> <span class="string">&quot;123456&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><p>       改为这样：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;encryption&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;useEncryption&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;useInRouting&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;keystore&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./keystore.p12&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;keystorePassword&quot;</span><span class="punctuation">:</span> <span class="string">&quot;123456&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><p>接着修改开服IP地址。改这两个地方：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;http&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;bindAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;bindPort&quot;</span><span class="punctuation">:</span> <span class="number">443</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessPort&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><p><code>bindPort</code>为服务端TCP端口号，<code>accessAddress</code>为服务器<code>dispatch</code>开服IP地址。一般情况我们不会使用<code>443</code>作为<code>dispatch</code>端口号。</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;game&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;bindAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;bindPort&quot;</span><span class="punctuation">:</span> <span class="number">22102</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessPort&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><p><code>bindPort</code>为服务端UDP端口号，<code>accessAddress</code>为服务器<code>Game</code>开服IP地址。一般情况我们不会使用<code>22102</code>作为<code>Game</code>端口号。</p><p>将开服IP改为服务器的局域网IP。<code>dispatch</code>端口号可以自定义。<code>Game</code>端口号将由端口映射软件分配到的公网端口号决定。具体如何获取局域网IP地址，可以参考我的另一篇文章：<a href="https://dansmartcloud.github.io/blog/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/">TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题 | 慕·露·雨 (dansmartcloud.github.io)</a></p><h3 id="端口映射配置"><a href="#端口映射配置" class="headerlink" title="端口映射配置"></a>端口映射配置</h3><p>笔者推荐的端口映射软件是路由侠，这是笔者认为目前比较稳定的免费国内端口映射。附上官网地址：<a href="https://www.luyouxia.com/">路由侠-局域网变公网 (luyouxia.com)</a></p><p>打开路由侠，注册登录，点击内网映射，点击右下角添加映射。</p><p>原生端口，直接点击开始创建。</p><p>按照图示分别更改设置。</p><p><img data-src="https://pic2.zhimg.com/80/v2-47057b58aa2e7242c0f1230abb6013b9_720w.webp"></p><p>创建<code>TCP</code>登录分发映射</p><p><img data-src="https://pic2.zhimg.com/80/v2-448e39aec335224f43eaa35f8ae7a87d_720w.webp"></p><p>创建<code>UDP</code>游戏<code>KCP</code>通信映射</p><p><code>UDP</code>内网端口先随便填的原因是需要改为一会路由侠给的公网端口。</p><p>创建完成，打开映射列表。</p><p><img data-src="https://pic4.zhimg.com/80/v2-615b74c4019f86caac00e406c31d00a7_720w.webp"></p><p>公网地址一栏最后面的数字即为分配到的公网端口号。</p><p>选中刚刚创建的<code>UDP</code>映射，记住分配的公网端口号，点击左下角的编辑。</p><p>将内网端口号改为和公网端口号一致。</p><p>同样的，按照之前的方法，服务端配置文件也需要更改。比如，路由侠的公网<code>UDP</code>端口映射地址为：<code>http://admin.example.com:55625</code>，那么配置文件就应当这样改：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;game&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;bindAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;bindPort&quot;</span><span class="punctuation">:</span> <span class="number">55625</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;admin.example.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessPort&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><p>值得注意的是，路由侠<code>UDP</code>端口内网地址无需更改，保持局域网IP地址即可。</p><p>至此，全部配置已经完成。在客户端的服务器连接地址输入路由侠提供的<code>TCP</code>公网地址即可正常连接！</p><p><strong>好啦，就说这么多，拜拜┏(＾0＾)┛</strong></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 薅羊毛 </tag>
-            
-            <tag> 简单 </tag>
-            
-            <tag> 游戏类 </tag>
-            
-            <tag> 端口映射 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题</title>
-      <link href="/blog/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/"/>
-      <url>/blog/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/</url>
-      
-        <content type="html"><![CDATA[<p>最近正好升级了电脑系统，变成了专业版系统，想试试远程桌面，结果从我家父级网连接子级网下的电脑连不上。</p><p>我电脑在房间，子级网是房间的专用网。父级网是客厅的网络。我总不可能总是跑到房间去远程桌面吧！</p><p>那根没有有什么区别……</p><p>于是我开始研究这个问题。</p><p>在网上找了一大堆资料，都是说端口转发和DMZ主机啥的。全部试了一遍，<strong>没P用……</strong></p><p>然后当我在路由器设置世界里遨游的时候，突然发现了这个：</p><p><img data-src="https://pic2.zhimg.com/80/v2-31958c0f452e8576670b227a15eacf41_720w.webp"></p><p>桥模式</p><p>如果你的和我一样是普联（<code>TP-LINK</code>）路由器，<strong>别信其他教程，信我的！</strong></p><p>直接在路由&#x2F;桥模式切换中切换为桥模式，解决一切问题！（相当于将当前子路由网络下所有设备全部并入父路由网络）</p><p>方法：</p><h3 id="在计算机中查看默认网关，找到路由器管理地址"><a href="#在计算机中查看默认网关，找到路由器管理地址" class="headerlink" title="在计算机中查看默认网关，找到路由器管理地址"></a>在计算机中查看默认网关，找到路由器管理地址</h3><p>win+R打开<code>cmd</code>，输入命令并回车：</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ipconfig</span></span><br></pre></td></tr></table></figure><p><img data-src="https://pic4.zhimg.com/80/v2-97a8a74f9703d108b10fd361c2231d9f_720w.webp"></p><p>找到默认网关地址</p><p>默认没有提示断开连接的那个网络就是你当前的网络。如果你安装了虚拟机（如<code>VMware</code>）的话另说（要排除这些项目）。</p><h3 id="访问管理页面"><a href="#访问管理页面" class="headerlink" title="访问管理页面"></a>访问管理页面</h3><p>在浏览器直接输入默认网关的IP（图中框出内容冒号后面的一串数字，要输入点），回车访问。</p><p><img data-src="https://pic2.zhimg.com/80/v2-d1f5c6fd04655f23c9dca69c7a701bdd_720w.webp"></p><p>输入管理密码</p><p>如果管理密码不记得了，可以找到路由器，长按上面的重置键（或者叫<code>Reset</code>键、<code>WPS/Reset</code>键等。有些路由器也许不会标，反正整个路由器除了电源键以外就几乎只会有这一个按键了，自己找找。有些时候这个按键可能会被做成一个孔，像手机电话卡弹出孔那样需要用针来按）</p><h3 id="登录并进行设置"><a href="#登录并进行设置" class="headerlink" title="登录并进行设置"></a>登录并进行设置</h3><p>点击登录，进入管理页面，点击路由设置：</p><p><img data-src="https://pic3.zhimg.com/80/v2-f763767f821181a105374e9b465a223a_720w.webp"></p><p>TP-LINK管理页面，在右下角点击路由设置</p><p>左侧路由设置，下滑找到“路由&#x2F;桥模式切换”：</p><p><img data-src="https://pic3.zhimg.com/80/v2-0c042a36b85b7aecdfb1ead81ebd78c6_720w.webp"></p><p>找到路由&#x2F;桥模式切换，并选择“桥模式”</p><p>选择右侧桥模式，点击保存。</p><p><strong>你的设备将会断网一段时间，不要慌张。这是路由器正在执行模式切换。</strong></p><p>当你的设备再次联网时，一般就代表切换成功了。这时候，你的设备会被父级路由分配一个新的IP地址。而此时，你的网段已经和父级路由下的所有设备相同了。这时就可以实现互联（比如我要的远程桌面）了。</p><p>而且这个方式有一点好处。</p><p>当你完成了以上配置后，在父级路由下的任何一个子级路由都可以直接访问你的设备所在网络。因为这时候相当于你的设备连接到了父级网络。而子级网络是可以直接访问父级网络设备的。因此，你可以在任何父级网络提供的子级网络下自由访问你的设备！</p><p>当然，子级网的子级网还是要配置一下的。因为这时，子级网相当于子级网的子级网的父级网。</p><p><strong>好啦，就说这么多，下次见，拜拜┏(＾0＾)┛！</strong></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 网络 </tag>
-            
-            <tag> 连接 </tag>
-            
-            <tag> 远程桌面 </tag>
-            
-            <tag> 路由器 </tag>
-            
-            <tag> TP-LINK </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>放假了</title>
-      <link href="/blog/2024/02/05/%E6%94%BE%E5%81%87%E4%BA%86/"/>
-      <url>/blog/2024/02/05/%E6%94%BE%E5%81%87%E4%BA%86/</url>
-      
-        <content type="html"><![CDATA[<p><strong>终于放假了</strong></p><p>博客站和我的网名正式改了，DirRain。</p><p>不过其他平台的同步还有待进行。</p><p>我大概元宵节过后返校。</p><p><strong>好啦，感谢你阅读到这里~</strong></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 学校 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>主页-DirRain的个人博客</title>
-      <link href="/blog//index.html"/>
-      <url>/blog//index.html</url>
-      
-        <content type="html"><![CDATA[<p><em><strong>保持热爱，奔赴山海~</strong></em></p><p>这是一个梦想聚集的地方，希望我能为你提供一些有用的帮助，顺便备忘一下自己做过的事情。</p><p>DirRain坚持做中华人民共和国的爱国主义坚定维护者！</p><p>DirRain，原云云探索者。</p><p>这个小小的博客站，承载着诗、远方和迷惘的我们，一路向前……</p><p>若评论系统登录失败，请科学上网。</p><div><style>.nav{text-align:center;}.nav ul{display:inline;}.nav ul input {    background-color: #add8e6; }<p></style><br><a href="/blog/archives/"><div class="nav"><br>    <ul><br>        <input type="button" value=">" style="width: 50px; height: 50px; border-radius:              50%;border: none"><br>    </ul></p></div></a></div>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>刷专业版系统上传测试</title>
-      <link href="/blog/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/"/>
-      <url>/blog/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
-      
-        <content type="html"><![CDATA[<p>刷Windows11系统测试一下上传博客文章</p><p>事实告诉我们，重新构建博客比恢复博客更简单。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 测试 </tag>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 系统 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>禾云·青春</title>
-      <link href="/blog/2024/01/01/%E7%A6%BE%E4%BA%91%C2%B7%E9%9D%92%E6%98%A5/"/>
-      <url>/blog/2024/01/01/%E7%A6%BE%E4%BA%91%C2%B7%E9%9D%92%E6%98%A5/</url>
-      
-        <content type="html"><![CDATA[<p><strong>青春，请原谅初来乍到的我们闯入你的世界；愿我们能伴随着你的身影，望沧海，观星辰。</strong><br>微风吹过，我们曾共同站在这片土地上，见花开花落，看云卷云舒。<br>两千五百多个日夜里，沉默的坚持，滚烫的汗滴，殷切的希望，汇聚成我们赴汤蹈火的执着！<br>曾经经历的困苦与挫折，虽沉淀在眼底，明暗交杂，但只要我们与青春通行，就仍可以追逐天边云彩，一笑生花。<br>岁月凝成一颗珍珠，却无法拥有。<br>掉在地上，冰凉；<br>握在手里，滚烫。<br>我想拥抱它，却扑了个空。<br>它化作一堆杂物，散落在桌上。<br>泛黄的日记本，气数已尽的铅笔……<br>那年，铅笔在日记本上写道，<br>真好，我没有打搅你的暗自芬芳；<br>真好，你也没有戳穿我的刻意坚强。<br>人生，就是一次次幸福的相遇，<br>夹杂着一次次伤感的别离。<br>你说，秋天的第一缕凉风，吹起的是何种的悸动呢？<br>任河流变道改向，随星辰创生泯灭，愿我们初心不变，执一颗素然的心，带着美好的期盼，诗意地面对生命中的岁岁年年。<br><strong>“我不是在最好的时光中遇见了你们，<br>而是遇见了你们，<br>才给了我这段<br>最好的时光。”</strong></p><h4 id="2024，禾云信创，9周年"><a href="#2024，禾云信创，9周年" class="headerlink" title="2024，禾云信创，9周年"></a><strong>2024，禾云信创，9周年</strong></h4>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 心情 </tag>
-            
-            <tag> 新年 </tag>
-            
-            <tag> 感悟 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>接入评论区</title>
-      <link href="/blog/2023/12/23/%E6%8E%A5%E5%85%A5%E8%AF%84%E8%AE%BA%E5%8C%BA/"/>
-      <url>/blog/2023/12/23/%E6%8E%A5%E5%85%A5%E8%AF%84%E8%AE%BA%E5%8C%BA/</url>
-      
-        <content type="html"><![CDATA[<p>慕·露·雨正式接入评论区功能啦！</p><p>为防止低素质评论以及网络喷子，评论区采用github登录方式。采用gitalk。</p><p>感谢大家的理解与支持！</p><p>在这篇博客下方留下你的第一条评论吧！</p><p>对了，顺便说一句，云云探索者以后可能要改名了，不要不认识我哦！</p><p>大概会改成：</p><p>DirRain</p><p>目录雨</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 事实 </tag>
-            
-            <tag> 博客 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>湖南高中综合素质评价教程</title>
-      <link href="/blog/2023/11/11/%E6%B9%96%E5%8D%97%E9%AB%98%E4%B8%AD%E7%BB%BC%E5%90%88%E7%B4%A0%E8%B4%A8%E8%AF%84%E4%BB%B7%E6%95%99%E7%A8%8B/"/>
-      <url>/blog/2023/11/11/%E6%B9%96%E5%8D%97%E9%AB%98%E4%B8%AD%E7%BB%BC%E5%90%88%E7%B4%A0%E8%B4%A8%E8%AF%84%E4%BB%B7%E6%95%99%E7%A8%8B/</url>
-      
-        <content type="html"><![CDATA[<h3 id="第一部分，写文章"><a href="#第一部分，写文章" class="headerlink" title="第一部分，写文章"></a>第一部分，写文章</h3><p>这一部分几乎是综合素质评价中最核心的部分。它显示了个人文化修养和对综合素质评价的认真程度。</p><p>不过，我们仍然有一些同学想要偷懒……</p><p>所以这里让我们的高科技AI语言大模型来帮忙。</p><p><strong>DeepSeek，启动！</strong>（下方挂链接⤵️）</p><p>🔗<a href="https://www.deepseek.com/">DeepSeek | 深度求索</a></p><p>和AI语言大模型说话需要掌握一定的技巧，不能废话多，简单干练的语言和突出关键词的语言能让AI更好的理解你的意思。</p><p>比如说：</p><p>我要在思想品德中的生活管理里面要写一篇文章，然而我日常根本没注意都干了些什么。就可以这样对AI说：</p><p>“为我生成1000字的日常生活习惯记录，我是XX学校的XXX，用于上传高中综合素质评价，用自述口吻。”</p><p>这样就能简单的快速达到获取你想要的文章内容的目的。AI生成的文章通过模型训练数据实时生成，流式传输，网络查重机制几乎拿它没办法，所以不必担心。</p><p>以下使用文心一言做一个示范（不要抄这篇文章）：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">我是XX学校的XXX，以下是我日常生活的习惯记录，用于综合素质评价。这份记录将展示我的生活方式、学习习惯、健康管理以及社交活动等多个方面。</span><br><span class="line"></span><br><span class="line">一、早起与锻炼</span><br><span class="line"></span><br><span class="line">作为一名高中生，我深知良好的作息对于身体健康和学习效率的重要性。因此，我保持着早起的习惯，每天6点钟准时起床。起床后，我会进行简单的晨练，包括跑步、俯卧撑等，以激活身体机能，提高精神状态。</span><br><span class="line"></span><br><span class="line">二、健康饮食</span><br><span class="line"></span><br><span class="line">在饮食方面，我注重营养均衡和食物多样性。早餐通常会包括牛奶、全麦面包、水果等，以保证一天的能量需求。在校期间，我会选择学校食堂的蔬菜、肉类、豆类等菜品，确保摄入足够的蛋白质和膳食纤维。晚餐则以清淡为主，避免油腻和辛辣食物，有助于保持良好的睡眠质量。</span><br><span class="line"></span><br><span class="line">三、学习计划与时间管理</span><br><span class="line"></span><br><span class="line">在学习方面，我制定了详细的学习计划，合理安排每天的学习时间。课前会进行预习，课后及时复习巩固所学知识。遇到难题时，我会积极寻求老师或同学的帮助，共同探讨解决问题。同时，我善于利用碎片时间，如上下学途中、课间休息等，进行课外阅读或背诵知识点，提高学习效率。</span><br><span class="line"></span><br><span class="line">四、兴趣爱好与社交活动</span><br><span class="line"></span><br><span class="line">在课余时间，我热爱阅读、写作和绘画。阅读可以丰富我的知识体系，写作则有助于提高表达能力和逻辑思维；绘画是我放松心情、陶冶情操的方式。此外，我还积极参加学校的各类社交活动，如志愿者服务、学术竞赛等。这些活动不仅锻炼了我的团队协作能力，还拓宽了我的人际交往圈子。</span><br><span class="line"></span><br><span class="line">五、心理健康与自我调适</span><br><span class="line"></span><br><span class="line">面对学习生活中的压力和挑战，我注重心理健康和自我调适。遇到问题时，我会积极寻求解决办法，而非逃避或抱怨。同时，我会与同学、老师或家人分享自己的感受和困惑，倾听他们的建议和支持。此外，我还通过冥想、深呼吸等方法，调整自己的情绪和心态，保持平和乐观的心态。</span><br><span class="line"></span><br><span class="line">六、个人卫生与环境整洁</span><br><span class="line"></span><br><span class="line">在生活中，我注重个人卫生和环境整洁。每天洗漱干净、穿着整洁是我对自己的基本要求。此外，我会定期打扫房间、清理书桌，保持生活环境的整洁有序。在学校，我也积极参与环境卫生工作，不乱扔垃圾，保持教室和公共区域的干净美观。</span><br><span class="line"></span><br><span class="line">七、总结与展望</span><br><span class="line"></span><br><span class="line">通过以上日常生活的习惯记录，可以看到我在健康、学习、兴趣、心理和个人卫生等方面的努力和成果。然而，我也深知自己仍有不足之处，需要不断学习和提高。在未来的日子里，我将继续努力，保持良好的生活习惯，不断提升自己的综合素质，为成为一名优秀的高中生和未来的社会公民而努力。</span><br><span class="line">（由文心大模型3.5生成）</span><br></pre></td></tr></table></figure><p>如果AI回答的跟你想要的内容不搭边，那么多半是你问题问的不好。最简单的修改方式是找出你不满意的地方，回复AI，告诉AI你想要让他改成啥样。</p><h3 id="第二部分，找图片"><a href="#第二部分，找图片" class="headerlink" title="第二部分，找图片"></a>第二部分，找图片</h3><p>找好自己的图片，最好可以分好类。如果你会用AI生成改图也行，不过不推荐。这里就不教了。</p><h3 id="第三部分，开始上传（电脑版）"><a href="#第三部分，开始上传（电脑版）" class="headerlink" title="第三部分，开始上传（电脑版）"></a>第三部分，开始上传（电脑版）</h3><p>登录平台（下方挂链接⤵️）：</p><p>🔗<a href="http://zhpj.hnedu.cn/login">综合素质评价平台系统登录​zhpj.hnedu.cn&#x2F;login</a></p><p><img data-src="https://pic1.zhimg.com/80/v2-47d43a1338a4b63b021a2882ddbc3c44_720w.webp"></p><p>登录平台</p><p>可以使用EEID、手机号码或自定义的别称作为用户名登录平台。这个平台没有提供自助密码找回机制，如果忘记密码，只能找客服解决。所以请记住自己的密码，或者绑定第三方账号。这个引导很全，这里不再赘述。</p><p>使用你方便的登录方式，登录平台，来到主页。</p><p><img data-src="https://pic1.zhimg.com/80/v2-8b581b2656967e7c7f5b68b929da70b4_720w.webp"></p><p>来到主页</p><p>左边侧边栏的五个维度（思想品德、学业水平、身心健康、艺术素养、社会实践）指的是我们要上传的五个大项目，每个大项目里有几个小项目。在这里，至少保证每个大项目里面都有一个小项目有素材上传，也就是说最少得上传五个项目。</p><p>我们用思想品德里面的生活管理做示范。</p><p>点击左侧的思想品德，在展开的菜单中点击生活管理，进入管理页面。</p><p>这个页面用于管理已经上传的材料。我们现在没有材料，所以需要新增材料。</p><p>我们首先确认页面偏上方的“所属学期”是否有误（一般没有改动默认当前学期）。</p><p>然后点击页面偏下方位置的“新增”。</p><p><img data-src="https://pic1.zhimg.com/80/v2-f493ed573f9360ae0a744cf6bc2fa3f8_720w.webp"></p><p>新增材料</p><p>然后按照表单要求填入材料。</p><p>然后在上传图片的时候可能会遇到一个很“智慧”的问题……</p><p>图片不支持大于0.5MB的，也就是说，单张图片大小不得大于512KB……</p><p>我觉得这大概是这个平台最“智慧”的设定了……</p><p>所以说，我们需要一个图片压缩的方式。</p><h4 id="图片压缩"><a href="#图片压缩" class="headerlink" title="图片压缩"></a>图片压缩</h4><p>这里我用<code>Java</code>自己编写了一个图片压缩软件，只要把软件和要压缩的图片放在一起，双击运行软件，在命令窗口中输入<code>y</code>然后回车即可。软件会自动处理所有与软件放在同一目录下的大于0.5MB的图片，并原地替换成符合综合素质评价平台图片要求的图片。完成处理后软件会自动退出，如果添加了新的图片需要继续处理，请手动再次运行软件。软件会自动忽略符合规定的图片，不会压缩他们。需要注意的是，这个软件只能在Windows操作系统的电脑上使用（下方挂链接⤵️）。</p><p>🔗<a href="https://wwir.lanzoum.com/inl7O2tf3qwd">蓝奏云-禾云信创-综合素质评价图批量压缩工具</a><br>密码:b18q</p><p>如果是手机的话，推荐一个在线且全免费的（下方挂链接⤵️）：</p><p>🔗<a href="https://docsmall.com/image-compress">在线图片压缩 - docsmall 在线图片压缩工具,在线图片压缩软件​docsmall.com&#x2F;image-compress</a></p><p><img data-src="https://pic1.zhimg.com/80/v2-eb14e017a45557b9409eae58674388b4_720w.webp"></p><p>压缩并下载图片</p><p>肉眼可见的压缩效果，还是挺不错的。点击项目右侧的下载图标下载压缩好的图片。</p><p>然后一定要记得选择上传压缩后的图片！</p><p>不过这里平台有一个bug。也是很智慧……</p><p>同一个文件名图片上传失败一次以后第二次上传同一文件名的图片会上传失败，但是平台没有任何提示……</p><p>这个时候就需要把我们压缩好的图片改个名再上传，或者传一张其他的图片再传原图，完了以后把其他图片删掉（这个其他图片上传失败也没关系，主要是为了刷新文件名）再上传压缩好的图片。</p><p>上传成功后应该在上传框的下方显示图片文件名。否则无法提交增加材料。</p><p><img data-src="https://pic1.zhimg.com/80/v2-8238a0f1506e801aea450a1e3a57a794_720w.webp"></p><p>上传成功</p><p>然后这里有一个惊天大坑！</p><p>就在图片上传的下面有一个经常被忽略的选项，是否公开。这个决定了其他人是否能在平台公开版上直接看到你上传的材料。如果你很在意自己的隐私，请注意这个选项！</p><p>全部填写完毕后，点击“增加”。</p><p><img data-src="https://pic1.zhimg.com/80/v2-f5944c4707fae6ec6a1611fa34a9d9e0_720w.webp"></p><p>增加材料</p><p>新增成功，点击“OK”。</p><p><img data-src="https://pic1.zhimg.com/80/v2-78ff5e6d902dc9a665ef36a928f9f3f0_720w.webp"></p><p>新增成功</p><p>页面跳转到管理页面，我们发现材料列表多了一条，这就是我们刚刚新增的材料。</p><p><img data-src="https://pic1.zhimg.com/80/v2-a0ad065753e839f4ddf085a8f11cb0b8_720w.webp"></p><p>管理列表</p><p>其他维度材料上传方式以此类推，这里不再赘述。</p><h3 id="第四部分，遴选上报"><a href="#第四部分，遴选上报" class="headerlink" title="第四部分，遴选上报"></a>第四部分，遴选上报</h3><p>上传的材料必须遴选上报，否则等于没传。</p><p>当然，这里的遴选功能是用来给一些综测卷王（一个项目上传十几份材料的那种）用的。也就是说，遴选材料才能上报，没有遴选的材料就作废了。一般情况下都不会用到，所以几乎就是无脑的一键遴选和上报。</p><p>我们点击侧边栏的首页回到首页。</p><p><img data-src="https://pic2.zhimg.com/80/v2-4790853b1680ced408954d6049fde3cd_720w.webp"></p><p>回到首页</p><p>点击左侧的“遴选上报”，然后点击展开的“遴选管理”。</p><p><img data-src="https://pic1.zhimg.com/80/v2-db69eec6249b6224013e4e5fd645c548_720w.webp"></p><p>进入遴选管理</p><p>遴选我们刚刚添加的材料，点击材料项右侧的“遴选”按钮。</p><p><img data-src="https://pic4.zhimg.com/80/v2-e2f156fb4a53d11339e492460d3eef33_720w.webp"></p><p>点击遴选</p><p>弹出确认窗口，点击确认完成遴选。</p><p><img data-src="https://pic3.zhimg.com/80/v2-977b225be906a10fd719ff4a8c6bb032_720w.webp"></p><p>确认遴选</p><p>操作成功，点击“OK”。</p><p><img data-src="https://pic4.zhimg.com/80/v2-56525ef08c1df4554ca9492c5772434b_720w.webp"></p><p>遴选成功</p><p>此时遴选材料列表将会清除已经完成遴选的项目。点击“管理已遴选的材料”可以进入管理页面，在这里可以取消遴选。</p><p><img data-src="https://pic1.zhimg.com/80/v2-2b548c56811cbbfc2d9b5df3770f55c4_720w.webp"></p><p>遴选列表</p><p><img data-src="https://pic3.zhimg.com/80/v2-34a8d0e063b67beefb4eb0095619ec9e_720w.webp"></p><p>管理已遴选材料，可在此页面撤销遴选操作</p><p><strong>接下来是上报操作。</strong></p><p><strong>警告！上报后的材料无法撤销上报，并且无法修改，请谨慎操作！</strong></p><p>点击左侧侧边栏的“上报管理”，可以查看已经遴选的材料。在这里点击上报，整个上传过程才算结束了。</p><p>点击表头的统一上报上报材料。</p><p><img data-src="https://pic1.zhimg.com/80/v2-dcab1eb2e74287ac3830bd557ba66d00_720w.webp"></p><p>上报材料</p><p>弹出警告，确认后点击“确认”。</p><p><img data-src="https://pic4.zhimg.com/80/v2-4dce3ca2b1acccb8cb5306c7c1e385af_720w.webp"></p><p>确认无误并点击确认</p><p>弹出提示，点击确定。</p><p><img data-src="https://pic3.zhimg.com/80/v2-9a2d81da6d81ebde9bcb89ba77fdb68e_720w.webp"></p><p>上报成功</p><p>回到主页，若以上操作全部成功，那么大概是这样的：</p><p><img data-src="https://pic1.zhimg.com/80/v2-3f6d5122c39c53eb817eb32a1c7266fc_720w.webp"></p><p>上传成功显示数据</p><p>至此，上传过程全部结束。</p><h3 id="第五部分，该上传什么"><a href="#第五部分，该上传什么" class="headerlink" title="第五部分，该上传什么"></a>第五部分，该上传什么</h3><p>这个部分其实可以参考官方文档。不过这里还是分享一下我的经验。</p><p><strong>思想品德：</strong>运动会手机使用情况（未使用或已合规使用，类别：生活管理，守纪）</p><p><strong>学业水平：</strong>英语竞赛得奖</p><p><strong>身心健康：</strong>日常讲文明，树新风（类别：日常习惯管理）</p><p><strong>艺术素养：</strong>乐理三级拿证（类别：艺术特长管理）</p><p><strong>社会实践：</strong>研学（类别：学期实践活动，社会实践）、我的世界启动器开发（类别：科技活动发明，创造发明）</p><p>这些是我的经验，仅供参考，也许还有不对的地方，欢迎大家指正！</p><h3 id="第六部分，毕业评价"><a href="#第六部分，毕业评价" class="headerlink" title="第六部分，毕业评价"></a><strong>第六部分，毕业评价</strong></h3><p><strong>毕业学生仍需上传材料，一样都不能少！上传后遴选已经上传的材料！</strong></p><p><strong>毕业入口在左侧边栏”遴选上报&gt;毕业整理”,没有毕业入口的就是学校没给开，没法整理！别问了！</strong></p><p>平台毕业学生操作手册说的很清楚！（下方挂链接⤵️）：</p><p>🔗<a href="https://zhpj.hnedu.cn/zhpj/static/template/studentby.pdf">湖南高中综合素质评价-毕业材料整理操作说明</a></p><h3 id="第七部分，报错内容"><a href="#第七部分，报错内容" class="headerlink" title="第七部分，报错内容"></a><strong>第七部分，报错内容</strong></h3><p><img data-src="https://pic3.zhimg.com/80/v2-acdc123bceb2093353023c3bfd48f99a_720w.webp"></p><p>登录超时</p><p>出现这个代表过长时间未操作，系统自动将你退出登录了，不过这个“智慧”系统没有搞提示，就直接报了个语法错误……</p><p>所以说要刷新一下，重新登录。</p><p><strong>行吧，就讲这么多，拜拜！</strong></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 学校 </tag>
-            
-            <tag> 综测 </tag>
-            
-            <tag> 湖南 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>『星༓梦』——一个由一群青年兴趣爱好者开发的二次元沙盒RPG大型游戏</title>
-      <link href="/blog/2023/11/05/%E3%80%8E%E6%98%9F%E0%BC%93%E6%A2%A6%E3%80%8F%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E7%94%B1%E4%B8%80%E7%BE%A4%E9%9D%92%E5%B9%B4%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD%E8%80%85%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%8C%E6%AC%A1%E5%85%83%E6%B2%99%E7%9B%92RPG%E5%A4%A7%E5%9E%8B%E6%B8%B8%E6%88%8F/"/>
-      <url>/blog/2023/11/05/%E3%80%8E%E6%98%9F%E0%BC%93%E6%A2%A6%E3%80%8F%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E7%94%B1%E4%B8%80%E7%BE%A4%E9%9D%92%E5%B9%B4%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD%E8%80%85%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%8C%E6%AC%A1%E5%85%83%E6%B2%99%E7%9B%92RPG%E5%A4%A7%E5%9E%8B%E6%B8%B8%E6%88%8F/</url>
-      
-        <content type="html"><![CDATA[<p>这款游戏可能会颠覆你的认知。</p><p>它像是原神又不是原神，像是MC又不是MC。因为，它兼而有之。</p><p>我们<strong>不是</strong>什么很专业的开发团队，更没有特别专业的技术知识。但我们<strong>有一颗热忱的心</strong>。</p><p><strong>我们相信自己能行！</strong></p><p>不过我们还是希望更多的爱好者能够加入我们。这将会是一个巨大的挑战，因为它是<strong>零成本</strong>的。</p><p>虽然禾云工作室之前的所有产品都是零成本产品。</p><p>但是上述阻碍都不足以成为阻止我们的理由。</p><p>这款游戏预计在2027年发布第一版吧，虽然不知道现在这个团队可以坚持多久。</p><p><mark>我们也期待着你亮闪闪的金点子和好技术！</mark></p><p>顺便说一下，这个团队是我在制定完这个计划后招募成立的。</p><p>主要还是缺立绘、建模和写代码（Unreal引擎5）的人才。</p><p>好啦，感谢读到这里的你~</p><p>加入我们，点击链接加入QQ群聊点击链接加入群聊<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=B_iYFHTZuvVvCMeThRGnFnB1QzqKz7SB&authKey=BkW6FG+8EsBIBHkN3oWi4AO0vMexbgyAEO1q6KU28SqVUN566UFV4wbSkmnfPEuh&noverify=0&group_code=261951048">『星༓梦』开发组</a></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 游戏 </tag>
-            
-            <tag> 逐梦 </tag>
-            
-            <tag> 创新 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>苦逼的我又得下线了……</title>
-      <link href="/blog/2023/09/30/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E5%BE%97%E4%B8%8B%E7%BA%BF%E4%BA%86%E2%80%A6%E2%80%A6/"/>
-      <url>/blog/2023/09/30/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E5%BE%97%E4%B8%8B%E7%BA%BF%E4%BA%86%E2%80%A6%E2%80%A6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"><a href="#周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）" class="headerlink" title="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"></a>周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）</h1><h2 id="承诺书"><a href="#承诺书" class="headerlink" title="承诺书"></a>承诺书</h2><p>正常周末放学当日晚上时间自由支配。周末、法定节假日、寒假及暑假每天晚上22:30必须开始洗漱睡觉。从第二天开始，电脑、手机、平板电脑等电子产品使用时间限制在每天2小时以内。电脑、手机、平板电脑等电子产品日常放到书房的书桌上将由父母监管。加强各科的自主学习，周末、法定节假日、寒假及暑假自主学习时间每一节课为1个小时，课间休息15分钟，课间休息期间可以手机回复同学的聊天等相关社交消息。（外出与全家出游期间除外）<br>承诺人应严格按照以上承诺执行，若上述承诺执行过程中承诺人未能严格按照执行，责令负责承担当日的全部家务并责令当日的学习任务立即执行。若连续3次违反承诺则处罚3周不能接触电脑、手机、平板电脑等电子产品。本承诺自承诺人签字之日起生效至2025年高考结束后失效。<br>附加奖励措施：学校组织的期末考试成绩年级排名在50-80名次的寒假及暑假期间奖励每周自由支配时间1天；学校组织的期末考试成绩年级排名在50名次以内的寒假及暑假期间奖励每周自由支配时间2天。但同样每天晚上22:30必须开始洗漱睡觉。<br>（同时父母承诺： 承诺人只要遵照以上承诺执行，父母不允许无端指责与乱发脾气。2025年高考后赠送一台捌仟圆以内的智能手机）<br>承诺人签字:<br>2023年10月1日</p><p>这是我父母和我“协商”的限制。更苦逼的是我还是住校生，周末才能回家……<br>以后上线机会就少了。工作室那边早就停运了。<br>还是一起期待一下2025年我高考胜利的捷报吧！<br>感谢大家一路以来的支持、理解与配合~</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 事实 </tag>
-            
-            <tag> 苦逼 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>苦逼的我又上线了</title>
-      <link href="/blog/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/"/>
-      <url>/blog/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
-      
-        <content type="html"><![CDATA[<p>害，终究还是找不到几个靠谱的图床……<br>还是白嫖用知乎的服务吧~<br>润！</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 事实 </tag>
-            
-            <tag> 苦逼 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>GC服连接教程</title>
-      <link href="/blog/2023/09/29/GC%E6%9C%8D%E8%BF%9E%E6%8E%A5%E6%95%99%E7%A8%8B/"/>
-      <url>/blog/2023/09/29/GC%E6%9C%8D%E8%BF%9E%E6%8E%A5%E6%95%99%E7%A8%8B/</url>
-      
-        <content type="html"><![CDATA[<p>现在Grasscutter服务器也出来这么久了，是时候跟大家说一说服务器<strong>怎么连接</strong>了。</p><h3 id="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"><a href="#重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！" class="headerlink" title="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"></a>重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！</h3><h3 id="PC连接服务器教程"><a href="#PC连接服务器教程" class="headerlink" title="PC连接服务器教程"></a>PC连接服务器教程</h3><p>获取Genshinimpact PC 4.0中国版，确保资源下载完成，然后回到官服启动器，点击启动按钮右侧菜单键，点击安装位置。如果该版本不再是最新版本，请单独下载资源和游戏本体的整合压缩包并解压。</p><p><img data-src="https://pic1.zhimg.com/80/v2-669faeb63c87ff962329b4f600bf0b90_720w.webp"></p><p>然后找到提示的目录</p><p><img data-src="https://pic1.zhimg.com/80/v2-a00b6b5a203cb99ed955b4f210861100_720w.webp"></p><p>找到提示的目录</p><p>打开目录，向里面加入如图所示的补丁文件</p><p><img data-src="https://pic1.zhimg.com/80/v2-4535e980ef48b724db39b79f2722f220_720w.webp"></p><p>加入补丁文件</p><p>下载Genshin代理助手并输入给出的服务器地址与端口号。点击启动代理。提示启动成功后即可启动原神PC。</p><p><img data-src="https://pic2.zhimg.com/80/v2-f3463dcf8610499158106ac72553e5d1_720w.webp"></p><p>点击启动代理</p><p><strong>原神，启动！</strong></p><h3 id="Android连接服务器教程"><a href="#Android连接服务器教程" class="headerlink" title="Android连接服务器教程"></a>Android连接服务器教程</h3><p>下载安装禾云原神，下载4.0资源包。启动禾云原神，等待数据加载至45%。这一步用于创建数据目录2。</p><p><img data-src="https://pic1.zhimg.com/80/v2-2a84ab7844eac6d7556b0a7b4d73ead0_720w.webp"></p><p>禾云原神</p><p>使用MT管理器解压资源包至数据目录2同名文件夹。替换现有files。完成后启动禾云原神。</p><p>详细教程、视频演示以及相关文件资源下载，请加入技术交流QQ群。</p><p>点击链接加入群聊【Grasscutter 4.0服务器技术】：<a href="https://link.zhihu.com/?target=http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=4c_xPrLhppTzwS8KvIGjTrWSOo1jnE2z&authKey=lwXISHuyzRoYTeFJ%252FMSvjLU7Mxy4YZQgV7d42ek5vxmctIM9aHk48ofBnMhWtTNd&noverify=0&group_code=209204640">GC4.0服务器技术交流</a></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 薅羊毛 </tag>
-            
-            <tag> 简单 </tag>
-            
-            <tag> 游戏类 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>坦白了</title>
-      <link href="/blog/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/"/>
-      <url>/blog/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
-      
-        <content type="html"><![CDATA[<p>很抱歉骗了大家这么久。</p><p>从DAN智云创建以来就从来没有过什么技术团队，工作人员。</p><p>从来没有！</p><p>无论是在哪个时期，你所看到的DAN智云工作室一切的发展，其实都是我一个人在工作。</p><p>也就是说，这个工作室自始至终就是一个只有一个人的工作室。</p><p>没错，我的确狂热的爱好着计算机和相关的东西。</p><p>但是继续隐瞒下去已经没有意义了。</p><p>感谢大家多年以来对DAN智云的支持与鼓励，感谢那些在DAN智云工作室成长路上伸出援手的人们！谢谢你们！</p><p>从2015到如今的2023。八余载的光阴，真快。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 事实 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>开学了</title>
-      <link href="/blog/2023/08/28/%E5%BC%80%E5%AD%A6/"/>
-      <url>/blog/2023/08/28/%E5%BC%80%E5%AD%A6/</url>
-      
-        <content type="html"><![CDATA[<p>明天就要去学校了呢😊</p><p>这个博客小站，刚刚建立，更新的事情就要和大家告一段落了😅</p><h5 id="其实我还有几件事，在这里列出来，有兴趣的可以看看。"><a href="#其实我还有几件事，在这里列出来，有兴趣的可以看看。" class="headerlink" title="其实我还有几件事，在这里列出来，有兴趣的可以看看。"></a>其实我还有几件事，在这里列出来，有兴趣的可以看看。</h5><h6 id="1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"><a href="#1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！" class="headerlink" title="1。会逆向的可以帮我看看Genshin Impact Game 4.0.0的安卓包lib/*/lib2cpp.so里面的libil2cpp.so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"></a>1。会逆向的可以帮我看看<code>Genshin Impact Game 4.0.0</code>的安卓包<code>lib/*/lib2cpp.so</code>里面的<code>libil2cpp.so</code>文件，改一下里面的密钥，改为<code>grasscutter</code>通用密钥就行，谢谢啦！</h6><h6 id="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"><a href="#2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！" class="headerlink" title="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"></a>2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！</h6><h6 id="3。还有啥事来着……"><a href="#3。还有啥事来着……" class="headerlink" title="3。还有啥事来着……"></a>3。还有啥事来着……</h6><p>算了，润！</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 学校 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>全免费GitHub Pages建站方法</title>
-      <link href="/blog/2023/08/27/%E5%85%A8%E5%85%8D%E8%B4%B9GitHub%20Pages%E5%BB%BA%E7%AB%99%E6%96%B9%E6%B3%95/"/>
-      <url>/blog/2023/08/27/%E5%85%A8%E5%85%8D%E8%B4%B9GitHub%20Pages%E5%BB%BA%E7%AB%99%E6%96%B9%E6%B3%95/</url>
-      
-        <content type="html"><![CDATA[<h1 id="全免费GitHub-Pages建站方法"><a href="#全免费GitHub-Pages建站方法" class="headerlink" title="全免费GitHub Pages建站方法"></a>全免费GitHub Pages建站方法</h1><h2 id="从这里开始，下载Dev-Sidecar"><a href="#从这里开始，下载Dev-Sidecar" class="headerlink" title="从这里开始，下载Dev-Sidecar"></a>从这里开始，下载Dev-Sidecar</h2><p><strong>一切的一切都不是从github开始！</strong></p><p><strong>从这个软件开始：</strong></p><p>​<img data-src="https://pic3.zhimg.com/80/v2-eee0d9bdcecd9e62ca78155dfee06552_720w.webp">​</p><p>Devsidecar</p><p>直接附上下载链接，不多说。软件里面引导很全面，也不必多说。只不过访问github网站的时候记得打开系统代理。</p><p><a href="https://link.zhihu.com/?target=http://dansmartcloud.github.io/U/DevSidecar-1.7.2.exe">Dev-Sidecar下载</a>​<a href="https://dansmartcloud.github.io/U/DevSidecar-1.7.2.exe"><strong>dansmartcloud.github.io&#x2F;U&#x2F;DevSidecar-1.7.2.exe</strong></a></p><h2 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h2><p>打开软件，根据提示安装根证书，点击左侧大按钮开启。（当然有时候这个软件会起反作用，但是自己试试就知道了）</p><p>​<img data-src="https://pic1.zhimg.com/80/v2-cfe4329edd838db983915ae00b7ecea4_720w.webp">​</p><p>开启代理</p><h2 id="访问github"><a href="#访问github" class="headerlink" title="访问github"></a>访问github</h2><p>打开浏览器，访问<a href="https://link.zhihu.com/?target=http://github.com">github官网</a>。</p><p>自行注册验证邮箱并登录，全程有向导，不必多说。</p><h2 id="创建存储库"><a href="#创建存储库" class="headerlink" title="创建存储库"></a>创建存储库</h2><p>进入主页，点击左上角列表上方绿色的的“new”按钮。</p><p>​<img data-src="https://pic3.zhimg.com/80/v2-fe6aa4fb8d314261b0945e3f67d2ca46_720w.webp">​</p><p>点击“new”</p><p>设置都不要动，只是在“Repository name”框中输入你想要的存储库名称（网址二级目录名，不要用中文，不然容易出错），下面的长框框是存储库名称，可选填。然后直接划到最下面，点击绿色的“Create epository”按钮。</p><p>​<img data-src="https://pic2.zhimg.com/80/v2-c43ef12a79fed091d407f56a71a9f651_720w.webp">​</p><p>存储库命名和描述</p><p>​<img data-src="https://pic1.zhimg.com/80/v2-426589bb8ae9fd79e03ad4ad4088bec8_720w.webp">​</p><p>点击绿色的“Create epository”</p><p>完了以后进入这个页面：</p><p>​<img data-src="https://pic3.zhimg.com/80/v2-26ac22b8bd0abdefb1f0b3fe235e5ec2_720w.webp">​</p><p>存储库初始化</p><h2 id="使用GitHubDesktop管理和提交源代码"><a href="#使用GitHubDesktop管理和提交源代码" class="headerlink" title="使用GitHubDesktop管理和提交源代码"></a>使用GitHubDesktop管理和提交源代码</h2><p>下载“Github Desktop软件”，登录。然后点击“file”，点击“Clone repository”。附上下载链接：</p><p><a href="https://link.zhihu.com/?target=https://desktop.github.com/">https://desktop.github.com/</a>​<a href="https://link.zhihu.com/?target=https://desktop.github.com/"><strong>desktop.github.com&#x2F;</strong></a></p><p>​<img data-src="https://pic4.zhimg.com/80/v2-bc2eba8a488fb88f4bf24bd30f18ece7_720w.webp">​</p><p>克隆存储库</p><p>找到我们刚刚创建的存储库名称，选好本地目录，点击“clone”。</p><p>​<img data-src="https://pic2.zhimg.com/80/v2-a5421d8a72949351cf3166ae5b034f91_720w.webp">​</p><p>选择存储库克隆</p><p>克隆完成长这样</p><p>​<img data-src="https://pic1.zhimg.com/80/v2-09e096ba84bc8ac79fd0c2d0008cb6b8_720w.webp">​</p><p>克隆完成</p><p>点击右侧的<code>Show in Explorer</code>就能在资源管理器里面看到克隆的存储库啦！（注意，里面的<code>.git</code>文件夹千万不能删，或者直接在默认代码编辑器打开也可以，这里的第一个大项，我的默认代码编辑器是vscode）</p><h2 id="编辑网站"><a href="#编辑网站" class="headerlink" title="编辑网站"></a>编辑网站</h2><p>右键新建文本文档，重命名为<code>index.html</code>（一定是这个名字，这是主页，浏览器访问域名默认访问的就是这个页面），在里面写好html代码。我这里就写的简单一些。可以用记事本编辑，但是最好用vscode。</p><p>​<img data-src="https://pic3.zhimg.com/80/v2-3d14018ce8f2809e91101f717eb7dc06_720w.webp">​</p><p>新建文档</p><p>编辑你的网站代码，保存。这里附上VScode下载链接：</p><p>​<a href="https://link.zhihu.com/?target=https://code.visualstudio.com/">Visual Studio Code - Code Editing. Redefined</a>​<a href="https://code.visualstudio.com/"><strong>code.visualstudio.com&#x2F;</strong></a></p><p>​<img data-src="https://pic3.zhimg.com/80/v2-287cf6fe7be9677a5f7869dabf89bd5a_720w.webp">​</p><p>编辑代码并保存</p><p>双击打开刚刚创建的文件，测试网页（或者直接在代码编辑器按下f5）。</p><p>​<img data-src="https://pic3.zhimg.com/80/v2-fcf2bf1e02e0f52b3f50eb42123f003a_720w.webp">​</p><p>双击打开文件</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-e21c260dd6a865873b2044afccf350f7_720w.webp">​</p><p>测试网页</p><p>​<img data-src="https://pic3.zhimg.com/80/v2-78116cbf80b40efaa00b934aa647cc92_720w.webp">​</p><p>测试网页</p><h2 id="提交代码到GitHub"><a href="#提交代码到GitHub" class="headerlink" title="提交代码到GitHub"></a>提交代码到GitHub</h2><p>确认网页无误时，回到Github Desktop。软件会自动检测到你刚刚增加的文件和更改的代码。绿色代表增加，红色代表删除，黄色代表更改。</p><p>​<img data-src="https://pic1.zhimg.com/80/v2-6d526755047297a5dbd463d1b407b4c0_720w.webp">​</p><p>检测到更改</p><p>一般情况下软件会自动为你创建提交名称。但是有时候不会，所以就要你自己加个提交名称啦~（位置为左下角<code>Create index.html</code>编辑框的位置）</p><p>完事以后<code>commit to main</code>按钮会亮起，点击这个蓝色的按钮。稍等片刻，等待<code>Publish Branch</code>按钮亮起，点击这个按钮。</p><p>​<img data-src="https://pic3.zhimg.com/80/v2-00e5034ddf66b6f7b67179cd3edf3516_720w.webp">​</p><p>提交更改</p><p>稍等片刻，等待文件提交到存储库。如果<code>publish branch</code>菜单没有消失，就再试一次，直到消失为止。</p><p>​<img data-src="https://pic3.zhimg.com/80/v2-c189121acb652f883fc10bb172b9aee2_720w.webp">​</p><p>提交中</p><p>提交完成大概长这样：</p><p>​<img data-src="https://pic3.zhimg.com/80/v2-47473751d7caf09e7381ceb4ed865b3e_720w.webp">​</p><p>提交完成</p><p>回到github网站，刷新一下我们刚刚提交的一个文件出现了。</p><p>​<img data-src="https://pic1.zhimg.com/80/v2-abdcb9f6bac81d0332ff2ee64fa7eac0_720w.webp">​</p><p>文件出现</p><p>这时候如果你心情好，可以添加一个<code>readme</code>的文件介绍一下自己的存储库。</p><h2 id="部署到GithubPages，发布你的网站"><a href="#部署到GithubPages，发布你的网站" class="headerlink" title="部署到GithubPages，发布你的网站"></a>部署到GithubPages，发布你的网站</h2><p>点击工具栏的<code>Settings</code>，点击左侧的<code>pages</code>，<code>Branch</code>项下拉选择<code>main</code>，点击右侧的<code>save</code>。</p><p>​<img data-src="https://pic1.zhimg.com/80/v2-9f0656fcb153a47b24bf5bb81c5dfb60_720w.webp">​</p><p>开启pages</p><p>当最上方出现横幅提示<code>GitHub Pages source saved.</code>时，稍等片刻。</p><p>​<img data-src="https://pic2.zhimg.com/80/v2-90adc640fb3df001b4b16f965c2ed049_720w.webp">​</p><p>页面资源保存成功</p><p>17.你可以在<code>actions</code>选项卡查看页面构建进度。图标由旋转的黄点变为绿色的<code>√</code>时，页面构建就完成了。</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-d5573699590606a48fe64654fab025e3_720w.webp">​</p><p>18.返回到<code>pages</code>设置页面，手动刷新页面，看到<code>Your site is live at……</code>提示，后面的蓝色字网址就是你的网站网址。点击右侧的<code>Visit site</code>即可访问你刚刚编辑的网页在线版。</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-0a9c1b9a0caec3c6ad006c94f9757c07_720w.webp">​</p><p>出现网址</p><p>访问效果：</p><p>​<img data-src="https://pic2.zhimg.com/80/v2-93fa740ba5ebf890e0e767ea10f16779_720w.webp">​</p><p>访问效果</p><p>​<img data-src="https://pic2.zhimg.com/80/v2-a6e5c5acf285b65bb83cfc830a01eea5_720w.webp">​</p><p>访问效果</p><p>以后更新网站，就只需要重复第8-13步就可以啦！提交完文件以后，稍等页面构建片刻（可以用第17步的方法查看进度）就能看到自己的网站更新啦！</p><p>不过还是要有几点注意的：</p><p><strong>1。单个文件不得大于<code>100MB</code></strong></p><p><strong>2。不能创建非法网站</strong></p><p><strong>3。github pages配置带宽比较低，</strong>所以不要使用过大的图片，可能会需要很长时间加载，影响体验。所以尽量使用小一点的图片。或者使用图床也未必不是一个好主意。这里就不教怎么引用图床了。推荐一个图片压缩网站。</p><p><a href="https://docsmall.com/image-compress">压缩图片-docsmall</a></p><p>顺便说一下，这个工具来自docsmall，这是一个全免费的超全面电脑在线小工具网站！</p><p><strong>好啦，就说这么多，拜拜┏(＾0＾)┛！</strong></p><p>‍</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 薅羊毛 </tag>
-            
-            <tag> 建站 </tag>
-            
-            <tag> github </tag>
-            
-            <tag> 前端类 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>MicrosoftOffice完全安装与激活教程（保证成功）</title>
-      <link href="/blog/2023/08/27/MicrosoftOffice%E5%AE%8C%E5%85%A8%E5%AE%89%E8%A3%85%E4%B8%8E%E6%BF%80%E6%B4%BB%E6%95%99%E7%A8%8B%EF%BC%88%E4%BF%9D%E8%AF%81%E6%88%90%E5%8A%9F%EF%BC%89/"/>
-      <url>/blog/2023/08/27/MicrosoftOffice%E5%AE%8C%E5%85%A8%E5%AE%89%E8%A3%85%E4%B8%8E%E6%BF%80%E6%B4%BB%E6%95%99%E7%A8%8B%EF%BC%88%E4%BF%9D%E8%AF%81%E6%88%90%E5%8A%9F%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[<h1 id="MicrosoftOffice完全安装与激活教程（保证成功）"><a href="#MicrosoftOffice完全安装与激活教程（保证成功）" class="headerlink" title="MicrosoftOffice完全安装与激活教程（保证成功）"></a>MicrosoftOffice完全安装与激活教程（保证成功）</h1><h2 id="首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！"><a href="#首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！" class="headerlink" title="首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！"></a><strong>首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！</strong></h2><p><strong>下面正文开始：</strong></p><p>‍</p><h3 id="第一部分，安装"><a href="#第一部分，安装" class="headerlink" title="第一部分，安装"></a><strong>第一部分，安装</strong></h3><p>首先我们应当了解MICROSOFT OFFICE软件怎样从纯净安全的渠道获取。这时候我们要用到一个大神制作的软件——OFFICE TOOL PLUS。我们首先从OFFICE TOOL PLUS官网下载 OFFICE TOOL PLUS要注意的一点是要选择山东大学镜像站。因为山东大学镜像站速度比较快。下载的时候建议带框架一起下载ZIP压缩文件。</p><p>顺便附上OFFICE TOOL PLUS官网的网址：</p><p><a href="https://otp.landian.vip/zh-cn/">Office Tool Plus</a></p><p>由于OFFICE TOOL PLUS整个软件的功能非常多，在这里我就不一一介绍。只介绍我们安装和激活OFFICE软件需要用到的功能。</p><p>下载好我们的压缩包以后，直接解压整个压缩包，运行解压后文件夹中的主程序“Office Tool Plus.exe”，打开OFFICE TOOL PLUS软件。</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-a60b37b57635b1c7d41765ed4d34548b_720w.webp">​</p><p>双击打开选中的文件</p><p>如果弹出这个提示，点击“更多信息”。</p><p>​<img data-src="https://pic2.zhimg.com/80/v2-14804111c1a4d7a5a31def9871aebdb9_720w.webp">​</p><p>点击“更多信息”</p><p>然后点击“仍要运行”。</p><p>​<img data-src="https://pic2.zhimg.com/80/v2-ca2d6a4b2d952127db8831e4a62ccf45_720w.webp">​</p><p>点击“仍要运行”</p><p>同意许可条款。点击“是”。</p><p>​<img data-src="https://pic1.zhimg.com/80/v2-2f22789571678b100b23c77d502a7854_720w.webp">​</p><p>同意许可条款，点击“是”</p><p>如果提示升级，点击立即升级。这个速度非常快，30秒之内下载完成。然后OfficeToolPlus将会在大约20秒钟之内完成一次重新启动软件的操作。</p><p>完事以后打开主界面，大概长这样。如果侧边栏没有自动展开就点击窗口最右上角的的三个横杠展开。当然直接点图标也可以。点击左侧的“部署”。你会看到这样一个界面：</p><p>​<img data-src="https://pic1.zhimg.com/80/v2-391d3cfc90b6e551423077dcb97facc4_720w.webp">​</p><p>部署</p><p>根据电脑配置选择选项。但是注意更新通道最好改为当前通道，不然可能造成Office不稳定。下翻，找到“产品”。</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-289f61526e872fa6dce78b32ec4b2677_720w.webp">​</p><p>添加产品</p><p>点击“添加产品”，这里</p><h4 id="一定注意！！！（敲黑板！）"><a href="#一定注意！！！（敲黑板！）" class="headerlink" title="一定注意！！！（敲黑板！）"></a><strong>一定注意！！！（敲黑板！）</strong></h4><p><strong>不要选Microsoft365！！！不要选Microsoft365！！！不要选Microsoft365！！！</strong></p><p><strong>想要Microsoft365的后期激活的时候可以转换！</strong></p><p>​<img data-src="https://pic3.zhimg.com/80/v2-122bf65b5977274457e03ea0a571b5da_720w.webp">​</p><p>选择并确定</p><p>选择Office专业增强版2021，点击确定。<strong>（注意：Windows7用户最高安装Office2016）</strong></p><p>点击添加语言，默认为简体中文，不用更改。</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-570973bc9653f8c1c1fe60dd3ab8a193_720w.webp">​</p><p>检查配置</p><p>弹出窗口，检查配置，点击“是”。</p><p>接下来你要做的就是去刷刷剧，喝喝茶。大概30分钟后再回来（我不知道是我网速慢还是怎么，反正我部署加载很慢），你就可以看到完成安装的提示啦！</p><h3 id="第二部分，激活"><a href="#第二部分，激活" class="headerlink" title="第二部分，激活"></a><strong>第二部分，激活</strong></h3><p>我们采用HEU KMS Activator激活。附上下载链接（这篇文章写的时候用的是27.0.2版本，链接<a href="https://aichunjing.lanzoui.com/izagF0k1d1kb">在这里</a>，新版激活速度更快，操作无区别）：</p><p><a href="https://aichunjing.lanzoui.com/i0ltS10fyjsd">HEU_KMS_Activator_v30.3.0.zip - 蓝奏云</a></p><p>完成下载后解压并打开，同意免责声明，点击“是”。</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-4f3db19f8469db34ce2a8db35b49b12b_720w.webp">​</p><p>同意声明，点击“是”</p><p>进入主界面，直接点击“开始”，解决一切问题，包括Windows激活和Office激活。</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-fcc4ce234beb16ae98e407ec26c9f703_720w.webp">​</p><p>HEU KMS Activator</p><p>激活完成，Office显示为LTSC2021专业增强版。</p><h3 id="第三部分，更改许可证"><a href="#第三部分，更改许可证" class="headerlink" title="第三部分，更改许可证"></a><strong>第三部分，更改许可证</strong></h3><p>很多人看着这个“LTSC”就非常不舒服，想要改成Microsoft365的许可证，启动时展示Microsoft365的角标提示，想体验最新的office功能。这么说，教程来了。</p><p>我们回到Office Tool Plus软件，点击左边边栏的“激活”，再展开右边的“许可证管理”，点击“安装许可证”右边的“安装”按钮。</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-f710256755a62854a390862f8b8ae2d3_720w.webp">​</p><p>点击安装</p><p>然后选择Office Mondo 2016许可证（Mondo许可证最高版本2016，也可以根据自己的需要选择。）然后点击“确定”。</p><h4 id="–再次强调！"><a href="#–再次强调！" class="headerlink" title="–再次强调！"></a><strong>–再次强调！</strong></h4><p><strong>不要选Microsoft365！！！不要选Microsoft365！！！不要选Microsoft365！！！</strong></p><p>​<img data-src="https://pic1.zhimg.com/80/v2-87781c2ec649841e1c437db3304a2ea0_720w.webp">​</p><p>按需选择许可证并确定</p><p>完了以后点击“激活”，等待窗口最下面的“输出”中出现“许可证安装成功”类似提示时就可以关闭Office Tool Plus。</p><p>​<img data-src="https://pic4.zhimg.com/80/v2-f74a69e2971cf8ad923e877fb19af43b_720w.webp">​</p><p>点击激活</p><p>如果你不小心搞坏了激活机制，可以进行卸载所有许可证、重置Office许可证状态等操作。<strong>但是一定要注意！！！</strong></p><p><strong>如果你重置或者卸载了所有Office许可证，那么Office很有可能直接崩溃无法打开！必须重新安装许可证并激活！（以上第三部分的内容说的就是安装许可证）</strong></p><p>​<img data-src="https://pic2.zhimg.com/80/v2-a8dbb791b3a0856ec8a55be162102c31_720w.webp">​</p><p>重置或卸载许可证</p><p>然后回到HEU KMS Activator，一键激活，这个就不多说了。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 简单 </tag>
-            
-            <tag> 激活 </tag>
-            
-            <tag> 软件类 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>我的博客-慕·露·雨</title>
-      <link href="/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/"/>
-      <url>/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
-      
-        <content type="html"><![CDATA[<h1 id="我的博客-慕·露·雨"><a href="#我的博客-慕·露·雨" class="headerlink" title="我的博客 - 慕·露·雨"></a>我的博客 - 慕·露·雨</h1><h3 id="这是我发的第一篇博客哦"><a href="#这是我发的第一篇博客哦" class="headerlink" title="这是我发的第一篇博客哦~"></a>这是我发的第一篇博客哦~</h3><h3 id="纪念一下这个博客站初次建成开始使用的日子-2023-08-26"><a href="#纪念一下这个博客站初次建成开始使用的日子-2023-08-26" class="headerlink" title="纪念一下这个博客站初次建成开始使用的日子-2023.08.26~"></a>纪念一下这个博客站初次建成开始使用的日子-2023.08.26~</h3><p>顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 日常类 </tag>
-            
-            <tag> 新体验 </tag>
-            
-            <tag> 心情 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+<search>
+  <entry>
+    <title>GC服连接教程</title>
+    <url>/blog/2023/09/29/GC%E6%9C%8D%E8%BF%9E%E6%8E%A5%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p>现在Grasscutter服务器也出来这么久了，是时候跟大家说一说服务器<strong>怎么连接</strong>了。</p>
+<h3 id="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"><a href="#重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！" class="headerlink" title="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"></a>重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！</h3><h3 id="PC连接服务器教程"><a href="#PC连接服务器教程" class="headerlink" title="PC连接服务器教程"></a>PC连接服务器教程</h3><p>获取Genshinimpact PC 4.0中国版，确保资源下载完成，然后回到官服启动器，点击启动按钮右侧菜单键，点击安装位置。如果该版本不再是最新版本，请单独下载资源和游戏本体的整合压缩包并解压。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-669faeb63c87ff962329b4f600bf0b90_720w.webp"></p>
+<p>然后找到提示的目录</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-a00b6b5a203cb99ed955b4f210861100_720w.webp"></p>
+<p>找到提示的目录</p>
+<p>打开目录，向里面加入如图所示的补丁文件</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-4535e980ef48b724db39b79f2722f220_720w.webp"></p>
+<p>加入补丁文件</p>
+<p>下载Genshin代理助手并输入给出的服务器地址与端口号。点击启动代理。提示启动成功后即可启动原神PC。</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-f3463dcf8610499158106ac72553e5d1_720w.webp"></p>
+<p>点击启动代理</p>
+<p><strong>原神，启动！</strong></p>
+<h3 id="Android连接服务器教程"><a href="#Android连接服务器教程" class="headerlink" title="Android连接服务器教程"></a>Android连接服务器教程</h3><p>下载安装禾云原神，下载4.0资源包。启动禾云原神，等待数据加载至45%。这一步用于创建数据目录2。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-2a84ab7844eac6d7556b0a7b4d73ead0_720w.webp"></p>
+<p>禾云原神</p>
+<p>使用MT管理器解压资源包至数据目录2同名文件夹。替换现有files。完成后启动禾云原神。</p>
+<p>详细教程、视频演示以及相关文件资源下载，请加入技术交流QQ群。</p>
+<p>点击链接加入群聊【Grasscutter 4.0服务器技术】：<a href="https://link.zhihu.com/?target=http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=4c_xPrLhppTzwS8KvIGjTrWSOo1jnE2z&authKey=lwXISHuyzRoYTeFJ%252FMSvjLU7Mxy4YZQgV7d42ek5vxmctIM9aHk48ofBnMhWtTNd&noverify=0&group_code=209204640">GC4.0服务器技术交流</a></p>
+]]></content>
+      <tags>
+        <tag>薅羊毛</tag>
+        <tag>简单</tag>
+        <tag>游戏类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MicrosoftOffice完全安装与激活教程（保证成功）</title>
+    <url>/blog/2023/08/27/MicrosoftOffice%E5%AE%8C%E5%85%A8%E5%AE%89%E8%A3%85%E4%B8%8E%E6%BF%80%E6%B4%BB%E6%95%99%E7%A8%8B%EF%BC%88%E4%BF%9D%E8%AF%81%E6%88%90%E5%8A%9F%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="MicrosoftOffice完全安装与激活教程（保证成功）"><a href="#MicrosoftOffice完全安装与激活教程（保证成功）" class="headerlink" title="MicrosoftOffice完全安装与激活教程（保证成功）"></a>MicrosoftOffice完全安装与激活教程（保证成功）</h1><h2 id="首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！"><a href="#首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！" class="headerlink" title="首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！"></a><strong>首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！</strong></h2><p><strong>下面正文开始：</strong></p>
+<p>‍</p>
+<h3 id="第一部分，安装"><a href="#第一部分，安装" class="headerlink" title="第一部分，安装"></a><strong>第一部分，安装</strong></h3><p>首先我们应当了解MICROSOFT OFFICE软件怎样从纯净安全的渠道获取。这时候我们要用到一个大神制作的软件——OFFICE TOOL PLUS。我们首先从OFFICE TOOL PLUS官网下载 OFFICE TOOL PLUS要注意的一点是要选择山东大学镜像站。因为山东大学镜像站速度比较快。下载的时候建议带框架一起下载ZIP压缩文件。</p>
+<p>顺便附上OFFICE TOOL PLUS官网的网址：</p>
+<p><a href="https://otp.landian.vip/zh-cn/">Office Tool Plus</a></p>
+<p>由于OFFICE TOOL PLUS整个软件的功能非常多，在这里我就不一一介绍。只介绍我们安装和激活OFFICE软件需要用到的功能。</p>
+<p>下载好我们的压缩包以后，直接解压整个压缩包，运行解压后文件夹中的主程序“Office Tool Plus.exe”，打开OFFICE TOOL PLUS软件。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-a60b37b57635b1c7d41765ed4d34548b_720w.webp">​</p>
+<p>双击打开选中的文件</p>
+<p>如果弹出这个提示，点击“更多信息”。</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-14804111c1a4d7a5a31def9871aebdb9_720w.webp">​</p>
+<p>点击“更多信息”</p>
+<p>然后点击“仍要运行”。</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-ca2d6a4b2d952127db8831e4a62ccf45_720w.webp">​</p>
+<p>点击“仍要运行”</p>
+<p>同意许可条款。点击“是”。</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-2f22789571678b100b23c77d502a7854_720w.webp">​</p>
+<p>同意许可条款，点击“是”</p>
+<p>如果提示升级，点击立即升级。这个速度非常快，30秒之内下载完成。然后OfficeToolPlus将会在大约20秒钟之内完成一次重新启动软件的操作。</p>
+<p>完事以后打开主界面，大概长这样。如果侧边栏没有自动展开就点击窗口最右上角的的三个横杠展开。当然直接点图标也可以。点击左侧的“部署”。你会看到这样一个界面：</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-391d3cfc90b6e551423077dcb97facc4_720w.webp">​</p>
+<p>部署</p>
+<p>根据电脑配置选择选项。但是注意更新通道最好改为当前通道，不然可能造成Office不稳定。下翻，找到“产品”。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-289f61526e872fa6dce78b32ec4b2677_720w.webp">​</p>
+<p>添加产品</p>
+<p>点击“添加产品”，这里</p>
+<h4 id="一定注意！！！（敲黑板！）"><a href="#一定注意！！！（敲黑板！）" class="headerlink" title="一定注意！！！（敲黑板！）"></a><strong>一定注意！！！（敲黑板！）</strong></h4><p><strong>不要选Microsoft365！！！不要选Microsoft365！！！不要选Microsoft365！！！</strong></p>
+<p><strong>想要Microsoft365的后期激活的时候可以转换！</strong></p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-122bf65b5977274457e03ea0a571b5da_720w.webp">​</p>
+<p>选择并确定</p>
+<p>选择Office专业增强版2021，点击确定。<strong>（注意：Windows7用户最高安装Office2016）</strong></p>
+<p>点击添加语言，默认为简体中文，不用更改。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-570973bc9653f8c1c1fe60dd3ab8a193_720w.webp">​</p>
+<p>检查配置</p>
+<p>弹出窗口，检查配置，点击“是”。</p>
+<p>接下来你要做的就是去刷刷剧，喝喝茶。大概30分钟后再回来（我不知道是我网速慢还是怎么，反正我部署加载很慢），你就可以看到完成安装的提示啦！</p>
+<h3 id="第二部分，激活"><a href="#第二部分，激活" class="headerlink" title="第二部分，激活"></a><strong>第二部分，激活</strong></h3><p>我们采用HEU KMS Activator激活。附上下载链接（这篇文章写的时候用的是27.0.2版本，链接<a href="https://aichunjing.lanzoui.com/izagF0k1d1kb">在这里</a>，新版激活速度更快，操作无区别）：</p>
+<p><a href="https://aichunjing.lanzoui.com/i0ltS10fyjsd">HEU_KMS_Activator_v30.3.0.zip - 蓝奏云</a></p>
+<p>完成下载后解压并打开，同意免责声明，点击“是”。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-4f3db19f8469db34ce2a8db35b49b12b_720w.webp">​</p>
+<p>同意声明，点击“是”</p>
+<p>进入主界面，直接点击“开始”，解决一切问题，包括Windows激活和Office激活。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-fcc4ce234beb16ae98e407ec26c9f703_720w.webp">​</p>
+<p>HEU KMS Activator</p>
+<p>激活完成，Office显示为LTSC2021专业增强版。</p>
+<h3 id="第三部分，更改许可证"><a href="#第三部分，更改许可证" class="headerlink" title="第三部分，更改许可证"></a><strong>第三部分，更改许可证</strong></h3><p>很多人看着这个“LTSC”就非常不舒服，想要改成Microsoft365的许可证，启动时展示Microsoft365的角标提示，想体验最新的office功能。这么说，教程来了。</p>
+<p>我们回到Office Tool Plus软件，点击左边边栏的“激活”，再展开右边的“许可证管理”，点击“安装许可证”右边的“安装”按钮。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-f710256755a62854a390862f8b8ae2d3_720w.webp">​</p>
+<p>点击安装</p>
+<p>然后选择Office Mondo 2016许可证（Mondo许可证最高版本2016，也可以根据自己的需要选择。）然后点击“确定”。</p>
+<h4 id="–再次强调！"><a href="#–再次强调！" class="headerlink" title="–再次强调！"></a><strong>–再次强调！</strong></h4><p><strong>不要选Microsoft365！！！不要选Microsoft365！！！不要选Microsoft365！！！</strong></p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-87781c2ec649841e1c437db3304a2ea0_720w.webp">​</p>
+<p>按需选择许可证并确定</p>
+<p>完了以后点击“激活”，等待窗口最下面的“输出”中出现“许可证安装成功”类似提示时就可以关闭Office Tool Plus。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-f74a69e2971cf8ad923e877fb19af43b_720w.webp">​</p>
+<p>点击激活</p>
+<p>如果你不小心搞坏了激活机制，可以进行卸载所有许可证、重置Office许可证状态等操作。<strong>但是一定要注意！！！</strong></p>
+<p><strong>如果你重置或者卸载了所有Office许可证，那么Office很有可能直接崩溃无法打开！必须重新安装许可证并激活！（以上第三部分的内容说的就是安装许可证）</strong></p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-a8dbb791b3a0856ec8a55be162102c31_720w.webp">​</p>
+<p>重置或卸载许可证</p>
+<p>然后回到HEU KMS Activator，一键激活，这个就不多说了。</p>
+]]></content>
+      <tags>
+        <tag>简单</tag>
+        <tag>激活</tag>
+        <tag>软件类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题</title>
+    <url>/blog/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>最近正好升级了电脑系统，变成了专业版系统，想试试远程桌面，结果从我家父级网连接子级网下的电脑连不上。</p>
+<p>我电脑在房间，子级网是房间的专用网。父级网是客厅的网络。我总不可能总是跑到房间去远程桌面吧！</p>
+<p>那根没有有什么区别……</p>
+<p>于是我开始研究这个问题。</p>
+<p>在网上找了一大堆资料，都是说端口转发和DMZ主机啥的。全部试了一遍，<strong>没P用……</strong></p>
+<p>然后当我在路由器设置世界里遨游的时候，突然发现了这个：</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-31958c0f452e8576670b227a15eacf41_720w.webp"></p>
+<p>桥模式</p>
+<p>如果你的和我一样是普联（<code>TP-LINK</code>）路由器，<strong>别信其他教程，信我的！</strong></p>
+<p>直接在路由&#x2F;桥模式切换中切换为桥模式，解决一切问题！（相当于将当前子路由网络下所有设备全部并入父路由网络）</p>
+<p>方法：</p>
+<h3 id="在计算机中查看默认网关，找到路由器管理地址"><a href="#在计算机中查看默认网关，找到路由器管理地址" class="headerlink" title="在计算机中查看默认网关，找到路由器管理地址"></a>在计算机中查看默认网关，找到路由器管理地址</h3><p>win+R打开<code>cmd</code>，输入命令并回车：</p>
+<figure class="highlight bat"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ipconfig</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://pic4.zhimg.com/80/v2-97a8a74f9703d108b10fd361c2231d9f_720w.webp"></p>
+<p>找到默认网关地址</p>
+<p>默认没有提示断开连接的那个网络就是你当前的网络。如果你安装了虚拟机（如<code>VMware</code>）的话另说（要排除这些项目）。</p>
+<h3 id="访问管理页面"><a href="#访问管理页面" class="headerlink" title="访问管理页面"></a>访问管理页面</h3><p>在浏览器直接输入默认网关的IP（图中框出内容冒号后面的一串数字，要输入点），回车访问。</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-d1f5c6fd04655f23c9dca69c7a701bdd_720w.webp"></p>
+<p>输入管理密码</p>
+<p>如果管理密码不记得了，可以找到路由器，长按上面的重置键（或者叫<code>Reset</code>键、<code>WPS/Reset</code>键等。有些路由器也许不会标，反正整个路由器除了电源键以外就几乎只会有这一个按键了，自己找找。有些时候这个按键可能会被做成一个孔，像手机电话卡弹出孔那样需要用针来按）</p>
+<h3 id="登录并进行设置"><a href="#登录并进行设置" class="headerlink" title="登录并进行设置"></a>登录并进行设置</h3><p>点击登录，进入管理页面，点击路由设置：</p>
+<p><img data-src="https://pic3.zhimg.com/80/v2-f763767f821181a105374e9b465a223a_720w.webp"></p>
+<p>TP-LINK管理页面，在右下角点击路由设置</p>
+<p>左侧路由设置，下滑找到“路由&#x2F;桥模式切换”：</p>
+<p><img data-src="https://pic3.zhimg.com/80/v2-0c042a36b85b7aecdfb1ead81ebd78c6_720w.webp"></p>
+<p>找到路由&#x2F;桥模式切换，并选择“桥模式”</p>
+<p>选择右侧桥模式，点击保存。</p>
+<p><strong>你的设备将会断网一段时间，不要慌张。这是路由器正在执行模式切换。</strong></p>
+<p>当你的设备再次联网时，一般就代表切换成功了。这时候，你的设备会被父级路由分配一个新的IP地址。而此时，你的网段已经和父级路由下的所有设备相同了。这时就可以实现互联（比如我要的远程桌面）了。</p>
+<p>而且这个方式有一点好处。</p>
+<p>当你完成了以上配置后，在父级路由下的任何一个子级路由都可以直接访问你的设备所在网络。因为这时候相当于你的设备连接到了父级网络。而子级网络是可以直接访问父级网络设备的。因此，你可以在任何父级网络提供的子级网络下自由访问你的设备！</p>
+<p>当然，子级网的子级网还是要配置一下的。因为这时，子级网相当于子级网的子级网的父级网。</p>
+<p><strong>好啦，就说这么多，下次见，拜拜┏(＾0＾)┛！</strong></p>
+]]></content>
+      <tags>
+        <tag>网络</tag>
+        <tag>连接</tag>
+        <tag>远程桌面</tag>
+        <tag>路由器</tag>
+        <tag>TP-LINK</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>主页-DirRain的个人博客</title>
+    <url>/blog//index.html</url>
+    <content><![CDATA[<p><em><strong>保持热爱，奔赴山海~</strong></em></p>
+<p>这是一个梦想聚集的地方，希望我能为你提供一些有用的帮助，顺便备忘一下自己做过的事情。</p>
+<p>DirRain坚持做中华人民共和国的爱国主义坚定维护者！</p>
+<p>DirRain，原云云探索者。</p>
+<p>这个小小的博客站，承载着诗、远方和迷惘的我们，一路向前……</p>
+<p>若评论系统登录失败，请科学上网。</p>
+<div>
+<style>
+.nav{text-align:center;}
+.nav ul{display:inline;}
+.nav ul input {
+    background-color: #add8e6; 
+}
+
+<p></style><br><a href="/blog/archives/"><div class="nav"><br>    <ul><br>        <input type="button" value=">" style="width: 50px; height: 50px; border-radius:              50%;border: none"><br>    </ul></p>
+</div></a>
+</div>
+
+
+]]></content>
+  </entry>
+  <entry>
+    <title>『星༓梦』——一个由一群青年兴趣爱好者开发的二次元沙盒RPG大型游戏</title>
+    <url>/blog/2023/11/05/%E3%80%8E%E6%98%9F%E0%BC%93%E6%A2%A6%E3%80%8F%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E7%94%B1%E4%B8%80%E7%BE%A4%E9%9D%92%E5%B9%B4%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD%E8%80%85%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%8C%E6%AC%A1%E5%85%83%E6%B2%99%E7%9B%92RPG%E5%A4%A7%E5%9E%8B%E6%B8%B8%E6%88%8F/</url>
+    <content><![CDATA[<p>这款游戏可能会颠覆你的认知。</p>
+<p>它像是原神又不是原神，像是MC又不是MC。因为，它兼而有之。</p>
+<p>我们<strong>不是</strong>什么很专业的开发团队，更没有特别专业的技术知识。但我们<strong>有一颗热忱的心</strong>。</p>
+<p><strong>我们相信自己能行！</strong></p>
+<p>不过我们还是希望更多的爱好者能够加入我们。这将会是一个巨大的挑战，因为它是<strong>零成本</strong>的。</p>
+<p>虽然禾云工作室之前的所有产品都是零成本产品。</p>
+<p>但是上述阻碍都不足以成为阻止我们的理由。</p>
+<p>这款游戏预计在2027年发布第一版吧，虽然不知道现在这个团队可以坚持多久。</p>
+<p><mark>我们也期待着你亮闪闪的金点子和好技术！</mark></p>
+<p>顺便说一下，这个团队是我在制定完这个计划后招募成立的。</p>
+<p>主要还是缺立绘、建模和写代码（Unreal引擎5）的人才。</p>
+<p>好啦，感谢读到这里的你~</p>
+<p>加入我们，点击链接加入QQ群聊点击链接加入群聊<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=B_iYFHTZuvVvCMeThRGnFnB1QzqKz7SB&authKey=BkW6FG+8EsBIBHkN3oWi4AO0vMexbgyAEO1q6KU28SqVUN566UFV4wbSkmnfPEuh&noverify=0&group_code=261951048">『星༓梦』开发组</a></p>
+]]></content>
+      <tags>
+        <tag>游戏</tag>
+        <tag>逐梦</tag>
+        <tag>创新</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>刷专业版系统上传测试</title>
+    <url>/blog/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p>刷Windows11系统测试一下上传博客文章</p>
+<p>事实告诉我们，重新构建博客比恢复博客更简单。</p>
+]]></content>
+      <tags>
+        <tag>测试</tag>
+        <tag>日常类</tag>
+        <tag>系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的博客-慕·露·雨</title>
+    <url>/blog/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
+    <content><![CDATA[<h1 id="我的博客-慕·露·雨"><a href="#我的博客-慕·露·雨" class="headerlink" title="我的博客 - 慕·露·雨"></a>我的博客 - 慕·露·雨</h1><h3 id="这是我发的第一篇博客哦"><a href="#这是我发的第一篇博客哦" class="headerlink" title="这是我发的第一篇博客哦~"></a>这是我发的第一篇博客哦~</h3><h3 id="纪念一下这个博客站初次建成开始使用的日子-2023-08-26"><a href="#纪念一下这个博客站初次建成开始使用的日子-2023-08-26" class="headerlink" title="纪念一下这个博客站初次建成开始使用的日子-2023.08.26~"></a>纪念一下这个博客站初次建成开始使用的日子-2023.08.26~</h3><p>顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>新体验</tag>
+        <tag>心情</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>坦白了</title>
+    <url>/blog/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
+    <content><![CDATA[<p>很抱歉骗了大家这么久。</p>
+<p>从DAN智云创建以来就从来没有过什么技术团队，工作人员。</p>
+<p>从来没有！</p>
+<p>无论是在哪个时期，你所看到的DAN智云工作室一切的发展，其实都是我一个人在工作。</p>
+<p>也就是说，这个工作室自始至终就是一个只有一个人的工作室。</p>
+<p>没错，我的确狂热的爱好着计算机和相关的东西。</p>
+<p>但是继续隐瞒下去已经没有意义了。</p>
+<p>感谢大家多年以来对DAN智云的支持与鼓励，感谢那些在DAN智云工作室成长路上伸出援手的人们！谢谢你们！</p>
+<p>从2015到如今的2023。八余载的光阴，真快。</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>事实</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开学了</title>
+    <url>/blog/2023/08/28/%E5%BC%80%E5%AD%A6/</url>
+    <content><![CDATA[<p>明天就要去学校了呢😊</p>
+<p>这个博客小站，刚刚建立，更新的事情就要和大家告一段落了😅</p>
+<h5 id="其实我还有几件事，在这里列出来，有兴趣的可以看看。"><a href="#其实我还有几件事，在这里列出来，有兴趣的可以看看。" class="headerlink" title="其实我还有几件事，在这里列出来，有兴趣的可以看看。"></a>其实我还有几件事，在这里列出来，有兴趣的可以看看。</h5><h6 id="1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"><a href="#1。会逆向的可以帮我看看Genshin-Impact-Game-4-0-0的安卓包lib-lib2cpp-so里面的libil2cpp-so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！" class="headerlink" title="1。会逆向的可以帮我看看Genshin Impact Game 4.0.0的安卓包lib/*/lib2cpp.so里面的libil2cpp.so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！"></a>1。会逆向的可以帮我看看<code>Genshin Impact Game 4.0.0</code>的安卓包<code>lib/*/lib2cpp.so</code>里面的<code>libil2cpp.so</code>文件，改一下里面的密钥，改为<code>grasscutter</code>通用密钥就行，谢谢啦！</h6><h6 id="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"><a href="#2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！" class="headerlink" title="2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！"></a>2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！</h6><h6 id="3。还有啥事来着……"><a href="#3。还有啥事来着……" class="headerlink" title="3。还有啥事来着……"></a>3。还有啥事来着……</h6><p>算了，润！</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>学校</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>全免费GitHub Pages建站方法</title>
+    <url>/blog/2023/08/27/%E5%85%A8%E5%85%8D%E8%B4%B9GitHub%20Pages%E5%BB%BA%E7%AB%99%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="全免费GitHub-Pages建站方法"><a href="#全免费GitHub-Pages建站方法" class="headerlink" title="全免费GitHub Pages建站方法"></a>全免费GitHub Pages建站方法</h1><h2 id="从这里开始，下载Dev-Sidecar"><a href="#从这里开始，下载Dev-Sidecar" class="headerlink" title="从这里开始，下载Dev-Sidecar"></a>从这里开始，下载Dev-Sidecar</h2><p><strong>一切的一切都不是从github开始！</strong></p>
+<p><strong>从这个软件开始：</strong></p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-eee0d9bdcecd9e62ca78155dfee06552_720w.webp">​</p>
+<p>Devsidecar</p>
+<p>直接附上下载链接，不多说。软件里面引导很全面，也不必多说。只不过访问github网站的时候记得打开系统代理。</p>
+<p><a href="https://link.zhihu.com/?target=http://dansmartcloud.github.io/U/DevSidecar-1.7.2.exe">Dev-Sidecar下载</a>​<a href="https://dansmartcloud.github.io/U/DevSidecar-1.7.2.exe"><strong>dansmartcloud.github.io&#x2F;U&#x2F;DevSidecar-1.7.2.exe</strong></a></p>
+<h2 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h2><p>打开软件，根据提示安装根证书，点击左侧大按钮开启。（当然有时候这个软件会起反作用，但是自己试试就知道了）</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-cfe4329edd838db983915ae00b7ecea4_720w.webp">​</p>
+<p>开启代理</p>
+<h2 id="访问github"><a href="#访问github" class="headerlink" title="访问github"></a>访问github</h2><p>打开浏览器，访问<a href="https://link.zhihu.com/?target=http://github.com">github官网</a>。</p>
+<p>自行注册验证邮箱并登录，全程有向导，不必多说。</p>
+<h2 id="创建存储库"><a href="#创建存储库" class="headerlink" title="创建存储库"></a>创建存储库</h2><p>进入主页，点击左上角列表上方绿色的的“new”按钮。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-fe6aa4fb8d314261b0945e3f67d2ca46_720w.webp">​</p>
+<p>点击“new”</p>
+<p>设置都不要动，只是在“Repository name”框中输入你想要的存储库名称（网址二级目录名，不要用中文，不然容易出错），下面的长框框是存储库名称，可选填。然后直接划到最下面，点击绿色的“Create epository”按钮。</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-c43ef12a79fed091d407f56a71a9f651_720w.webp">​</p>
+<p>存储库命名和描述</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-426589bb8ae9fd79e03ad4ad4088bec8_720w.webp">​</p>
+<p>点击绿色的“Create epository”</p>
+<p>完了以后进入这个页面：</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-26ac22b8bd0abdefb1f0b3fe235e5ec2_720w.webp">​</p>
+<p>存储库初始化</p>
+<h2 id="使用GitHubDesktop管理和提交源代码"><a href="#使用GitHubDesktop管理和提交源代码" class="headerlink" title="使用GitHubDesktop管理和提交源代码"></a>使用GitHubDesktop管理和提交源代码</h2><p>下载“Github Desktop软件”，登录。然后点击“file”，点击“Clone repository”。附上下载链接：</p>
+<p><a href="https://link.zhihu.com/?target=https://desktop.github.com/">https://desktop.github.com/</a>​<a href="https://link.zhihu.com/?target=https://desktop.github.com/"><strong>desktop.github.com&#x2F;</strong></a></p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-bc2eba8a488fb88f4bf24bd30f18ece7_720w.webp">​</p>
+<p>克隆存储库</p>
+<p>找到我们刚刚创建的存储库名称，选好本地目录，点击“clone”。</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-a5421d8a72949351cf3166ae5b034f91_720w.webp">​</p>
+<p>选择存储库克隆</p>
+<p>克隆完成长这样</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-09e096ba84bc8ac79fd0c2d0008cb6b8_720w.webp">​</p>
+<p>克隆完成</p>
+<p>点击右侧的<code>Show in Explorer</code>就能在资源管理器里面看到克隆的存储库啦！（注意，里面的<code>.git</code>文件夹千万不能删，或者直接在默认代码编辑器打开也可以，这里的第一个大项，我的默认代码编辑器是vscode）</p>
+<h2 id="编辑网站"><a href="#编辑网站" class="headerlink" title="编辑网站"></a>编辑网站</h2><p>右键新建文本文档，重命名为<code>index.html</code>（一定是这个名字，这是主页，浏览器访问域名默认访问的就是这个页面），在里面写好html代码。我这里就写的简单一些。可以用记事本编辑，但是最好用vscode。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-3d14018ce8f2809e91101f717eb7dc06_720w.webp">​</p>
+<p>新建文档</p>
+<p>编辑你的网站代码，保存。这里附上VScode下载链接：</p>
+<p>​<a href="https://link.zhihu.com/?target=https://code.visualstudio.com/">Visual Studio Code - Code Editing. Redefined</a>​<a href="https://code.visualstudio.com/"><strong>code.visualstudio.com&#x2F;</strong></a></p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-287cf6fe7be9677a5f7869dabf89bd5a_720w.webp">​</p>
+<p>编辑代码并保存</p>
+<p>双击打开刚刚创建的文件，测试网页（或者直接在代码编辑器按下f5）。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-fcf2bf1e02e0f52b3f50eb42123f003a_720w.webp">​</p>
+<p>双击打开文件</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-e21c260dd6a865873b2044afccf350f7_720w.webp">​</p>
+<p>测试网页</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-78116cbf80b40efaa00b934aa647cc92_720w.webp">​</p>
+<p>测试网页</p>
+<h2 id="提交代码到GitHub"><a href="#提交代码到GitHub" class="headerlink" title="提交代码到GitHub"></a>提交代码到GitHub</h2><p>确认网页无误时，回到Github Desktop。软件会自动检测到你刚刚增加的文件和更改的代码。绿色代表增加，红色代表删除，黄色代表更改。</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-6d526755047297a5dbd463d1b407b4c0_720w.webp">​</p>
+<p>检测到更改</p>
+<p>一般情况下软件会自动为你创建提交名称。但是有时候不会，所以就要你自己加个提交名称啦~（位置为左下角<code>Create index.html</code>编辑框的位置）</p>
+<p>完事以后<code>commit to main</code>按钮会亮起，点击这个蓝色的按钮。稍等片刻，等待<code>Publish Branch</code>按钮亮起，点击这个按钮。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-00e5034ddf66b6f7b67179cd3edf3516_720w.webp">​</p>
+<p>提交更改</p>
+<p>稍等片刻，等待文件提交到存储库。如果<code>publish branch</code>菜单没有消失，就再试一次，直到消失为止。</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-c189121acb652f883fc10bb172b9aee2_720w.webp">​</p>
+<p>提交中</p>
+<p>提交完成大概长这样：</p>
+<p>​<img data-src="https://pic3.zhimg.com/80/v2-47473751d7caf09e7381ceb4ed865b3e_720w.webp">​</p>
+<p>提交完成</p>
+<p>回到github网站，刷新一下我们刚刚提交的一个文件出现了。</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-abdcb9f6bac81d0332ff2ee64fa7eac0_720w.webp">​</p>
+<p>文件出现</p>
+<p>这时候如果你心情好，可以添加一个<code>readme</code>的文件介绍一下自己的存储库。</p>
+<h2 id="部署到GithubPages，发布你的网站"><a href="#部署到GithubPages，发布你的网站" class="headerlink" title="部署到GithubPages，发布你的网站"></a>部署到GithubPages，发布你的网站</h2><p>点击工具栏的<code>Settings</code>，点击左侧的<code>pages</code>，<code>Branch</code>项下拉选择<code>main</code>，点击右侧的<code>save</code>。</p>
+<p>​<img data-src="https://pic1.zhimg.com/80/v2-9f0656fcb153a47b24bf5bb81c5dfb60_720w.webp">​</p>
+<p>开启pages</p>
+<p>当最上方出现横幅提示<code>GitHub Pages source saved.</code>时，稍等片刻。</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-90adc640fb3df001b4b16f965c2ed049_720w.webp">​</p>
+<p>页面资源保存成功</p>
+<p>17.你可以在<code>actions</code>选项卡查看页面构建进度。图标由旋转的黄点变为绿色的<code>√</code>时，页面构建就完成了。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-d5573699590606a48fe64654fab025e3_720w.webp">​</p>
+<p>18.返回到<code>pages</code>设置页面，手动刷新页面，看到<code>Your site is live at……</code>提示，后面的蓝色字网址就是你的网站网址。点击右侧的<code>Visit site</code>即可访问你刚刚编辑的网页在线版。</p>
+<p>​<img data-src="https://pic4.zhimg.com/80/v2-0a9c1b9a0caec3c6ad006c94f9757c07_720w.webp">​</p>
+<p>出现网址</p>
+<p>访问效果：</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-93fa740ba5ebf890e0e767ea10f16779_720w.webp">​</p>
+<p>访问效果</p>
+<p>​<img data-src="https://pic2.zhimg.com/80/v2-a6e5c5acf285b65bb83cfc830a01eea5_720w.webp">​</p>
+<p>访问效果</p>
+<p>以后更新网站，就只需要重复第8-13步就可以啦！提交完文件以后，稍等页面构建片刻（可以用第17步的方法查看进度）就能看到自己的网站更新啦！</p>
+<p>不过还是要有几点注意的：</p>
+<p><strong>1。单个文件不得大于<code>100MB</code></strong></p>
+<p><strong>2。不能创建非法网站</strong></p>
+<p><strong>3。github pages配置带宽比较低，</strong>所以不要使用过大的图片，可能会需要很长时间加载，影响体验。所以尽量使用小一点的图片。或者使用图床也未必不是一个好主意。这里就不教怎么引用图床了。推荐一个图片压缩网站。</p>
+<p><a href="https://docsmall.com/image-compress">压缩图片-docsmall</a></p>
+<p>顺便说一下，这个工具来自docsmall，这是一个全免费的超全面电脑在线小工具网站！</p>
+<p><strong>好啦，就说这么多，拜拜┏(＾0＾)┛！</strong></p>
+<p>‍</p>
+]]></content>
+      <tags>
+        <tag>薅羊毛</tag>
+        <tag>建站</tag>
+        <tag>github</tag>
+        <tag>前端类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>苦逼的我又得下线了……</title>
+    <url>/blog/2023/09/30/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E5%BE%97%E4%B8%8B%E7%BA%BF%E4%BA%86%E2%80%A6%E2%80%A6/</url>
+    <content><![CDATA[<h1 id="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"><a href="#周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）" class="headerlink" title="周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）"></a>周末、法定节假日、寒假及暑假作息时间安排（高二与高三期间）</h1><h2 id="承诺书"><a href="#承诺书" class="headerlink" title="承诺书"></a>承诺书</h2><p>正常周末放学当日晚上时间自由支配。周末、法定节假日、寒假及暑假每天晚上22:30必须开始洗漱睡觉。从第二天开始，电脑、手机、平板电脑等电子产品使用时间限制在每天2小时以内。电脑、手机、平板电脑等电子产品日常放到书房的书桌上将由父母监管。加强各科的自主学习，周末、法定节假日、寒假及暑假自主学习时间每一节课为1个小时，课间休息15分钟，课间休息期间可以手机回复同学的聊天等相关社交消息。（外出与全家出游期间除外）<br>承诺人应严格按照以上承诺执行，若上述承诺执行过程中承诺人未能严格按照执行，责令负责承担当日的全部家务并责令当日的学习任务立即执行。若连续3次违反承诺则处罚3周不能接触电脑、手机、平板电脑等电子产品。本承诺自承诺人签字之日起生效至2025年高考结束后失效。<br>附加奖励措施：学校组织的期末考试成绩年级排名在50-80名次的寒假及暑假期间奖励每周自由支配时间1天；学校组织的期末考试成绩年级排名在50名次以内的寒假及暑假期间奖励每周自由支配时间2天。但同样每天晚上22:30必须开始洗漱睡觉。<br>（同时父母承诺： 承诺人只要遵照以上承诺执行，父母不允许无端指责与乱发脾气。2025年高考后赠送一台捌仟圆以内的智能手机）<br>承诺人签字:<br>2023年10月1日</p>
+<p>这是我父母和我“协商”的限制。更苦逼的是我还是住校生，周末才能回家……<br>以后上线机会就少了。工作室那边早就停运了。<br>还是一起期待一下2025年我高考胜利的捷报吧！<br>感谢大家一路以来的支持、理解与配合~</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>事实</tag>
+        <tag>苦逼</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>苦逼的我又上线了</title>
+    <url>/blog/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
+    <content><![CDATA[<p>害，终究还是找不到几个靠谱的图床……<br>还是白嫖用知乎的服务吧~<br>润！</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>事实</tag>
+        <tag>苦逼</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>放假了</title>
+    <url>/blog/2024/02/05/%E6%94%BE%E5%81%87%E4%BA%86/</url>
+    <content><![CDATA[<p><strong>终于放假了</strong></p>
+<p>博客站和我的网名正式改了，DirRain。</p>
+<p>不过其他平台的同步还有待进行。</p>
+<p>我大概元宵节过后返校。</p>
+<p><strong>好啦，感谢你阅读到这里~</strong></p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>学校</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论某动漫游戏服务端通信流程与端口映射</title>
+    <url>/blog/2024/06/19/%E8%AE%BA%E6%9F%90%E5%8A%A8%E6%BC%AB%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B%E4%B8%8E%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84/</url>
+    <content><![CDATA[<p>现在<code>Grasscutter</code>服务器也出来这么久了，是时候跟大家说一说服务器<strong>怎么开放端口映射连接</strong>了。</p>
+<h3 id="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"><a href="#重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！" class="headerlink" title="重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！"></a>重要提示！Grasscutter服务器仅供学习与研究，如果您喜欢GenshinimpactGame，请支持正版！</h3><p>很多人都说开服需要使用<code>ZeroTier</code>或者<code>RedminLan</code>这样的VPN组网软件。实际上没有必要。我们完全可以直接使用端口映射软件进行开服。</p>
+<p>先来了解一下服务端与客户端的通信流程。</p>
+<h3 id="通信流程"><a href="#通信流程" class="headerlink" title="通信流程"></a>通信流程</h3><p><img data-src="https://pic2.zhimg.com/80/v2-33b82fa8bb4b376015309faa65e1e9b1_720w.webp"></p>
+<p>客户端与服务端通信示意图</p>
+<p>服务端开启后，会先后分别开放两个端口。一个是<code>TCP</code>端口，一个是<code>UDP</code>端口。该游戏的主要通信基于<code>KCP</code>协议进行。而<code>KCP</code>的底层是<code>UDP</code>，所以开放的是<code>UDP</code>端口。<code>TCP</code>端口用于登录分发。用户首先通过<code>TCP</code>端口连接服务器并登录（这个<code>TCP</code>端口也就是我们常说的<code>dispatch</code>端口），然后服务端返回服务器地区（<code>region</code>）列表给客户端。如果列表中只有一个服务器，那么客户端将会直接进入该服务器，而不是显示服务器选择列表。也就是说，要想要显示服务器列表，服务端的配置文件中<code>dispatch</code>配置必须包含多个<code>region</code>配置。</p>
+<p>这里有一点需要辨析。</p>
+<p>游戏服务器<code>UDP</code>端口地址（这个<code>UDP</code>端口也就是我们常说的<code>Game</code>端口）是由客户端与服务端的<code>TCP</code>协议<code>dispatch</code>交换信息得到的。所以说，客户端拿到服务端给的<code>Game</code>端口地址后会直接尝试与该地址进行通信。也就是说，如果想在非公网条件下开服，服务器配置文件中的<code>Game</code>端口地址配置<strong>必须配置为公网能够直接访问的地址才能保证客户端不会抛出<code>4206</code>错误。</strong></p>
+<p>按照这个原理，我们只需要设置两条映射就可以让客户端与服务端顺利的通信了。一条为<code>TCP</code>协议，用作登录分发；另一条为<code>UDP</code>协议，用于游戏进行时的通信。</p>
+<h3 id="配置服务端"><a href="#配置服务端" class="headerlink" title="配置服务端"></a>配置服务端</h3><p>由于<code>HTTPS</code>协议配置起来较为繁杂，我们此处选择采用<code>HTTP</code>协议进行通信。</p>
+<p>打开<code>config</code>文件配置服务端，我们先关闭<code>SSL</code>，让服务端使用<code>HTTP</code>模式。修改这段代码：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;encryption&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;useEncryption&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;useInRouting&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;keystore&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./keystore.p12&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;keystorePassword&quot;</span><span class="punctuation">:</span> <span class="string">&quot;123456&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<p>       改为这样：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;encryption&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;useEncryption&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;useInRouting&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;keystore&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./keystore.p12&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;keystorePassword&quot;</span><span class="punctuation">:</span> <span class="string">&quot;123456&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<p>接着修改开服IP地址。改这两个地方：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;http&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;bindAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;bindPort&quot;</span><span class="punctuation">:</span> <span class="number">443</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessPort&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<p><code>bindPort</code>为服务端TCP端口号，<code>accessAddress</code>为服务器<code>dispatch</code>开服IP地址。一般情况我们不会使用<code>443</code>作为<code>dispatch</code>端口号。</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;game&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;bindAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;bindPort&quot;</span><span class="punctuation">:</span> <span class="number">22102</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessPort&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<p><code>bindPort</code>为服务端UDP端口号，<code>accessAddress</code>为服务器<code>Game</code>开服IP地址。一般情况我们不会使用<code>22102</code>作为<code>Game</code>端口号。</p>
+<p>将开服IP改为服务器的局域网IP。<code>dispatch</code>端口号可以自定义。<code>Game</code>端口号将由端口映射软件分配到的公网端口号决定。具体如何获取局域网IP地址，可以参考我的另一篇文章：<a href="https://dansmartcloud.github.io/blog/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/">TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题 | 慕·露·雨 (dansmartcloud.github.io)</a></p>
+<h3 id="端口映射配置"><a href="#端口映射配置" class="headerlink" title="端口映射配置"></a>端口映射配置</h3><p>笔者推荐的端口映射软件是路由侠，这是笔者认为目前比较稳定的免费国内端口映射。附上官网地址：<a href="https://www.luyouxia.com/">路由侠-局域网变公网 (luyouxia.com)</a></p>
+<p>打开路由侠，注册登录，点击内网映射，点击右下角添加映射。</p>
+<p>原生端口，直接点击开始创建。</p>
+<p>按照图示分别更改设置。</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-47057b58aa2e7242c0f1230abb6013b9_720w.webp"></p>
+<p>创建<code>TCP</code>登录分发映射</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-448e39aec335224f43eaa35f8ae7a87d_720w.webp"></p>
+<p>创建<code>UDP</code>游戏<code>KCP</code>通信映射</p>
+<p><code>UDP</code>内网端口先随便填的原因是需要改为一会路由侠给的公网端口。</p>
+<p>创建完成，打开映射列表。</p>
+<p><img data-src="https://pic4.zhimg.com/80/v2-615b74c4019f86caac00e406c31d00a7_720w.webp"></p>
+<p>公网地址一栏最后面的数字即为分配到的公网端口号。</p>
+<p>选中刚刚创建的<code>UDP</code>映射，记住分配的公网端口号，点击左下角的编辑。</p>
+<p>将内网端口号改为和公网端口号一致。</p>
+<p>同样的，按照之前的方法，服务端配置文件也需要更改。比如，路由侠的公网<code>UDP</code>端口映射地址为：<code>http://admin.example.com:55625</code>，那么配置文件就应当这样改：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;game&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;bindAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;bindPort&quot;</span><span class="punctuation">:</span> <span class="number">55625</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;admin.example.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;accessPort&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，路由侠<code>UDP</code>端口内网地址无需更改，保持局域网IP地址即可。</p>
+<p>至此，全部配置已经完成。在客户端的服务器连接地址输入路由侠提供的<code>TCP</code>公网地址即可正常连接！</p>
+<p><strong>好啦，就说这么多，拜拜┏(＾0＾)┛</strong></p>
+]]></content>
+      <tags>
+        <tag>薅羊毛</tag>
+        <tag>简单</tag>
+        <tag>游戏类</tag>
+        <tag>端口映射</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>接入评论区</title>
+    <url>/blog/2023/12/23/%E6%8E%A5%E5%85%A5%E8%AF%84%E8%AE%BA%E5%8C%BA/</url>
+    <content><![CDATA[<p>慕·露·雨正式接入评论区功能啦！</p>
+<p>为防止低素质评论以及网络喷子，评论区采用github登录方式。采用gitalk。</p>
+<p>感谢大家的理解与支持！</p>
+<p>在这篇博客下方留下你的第一条评论吧！</p>
+<p>对了，顺便说一句，云云探索者以后可能要改名了，不要不认识我哦！</p>
+<p>大概会改成：</p>
+<p>DirRain</p>
+<p>目录雨</p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>事实</tag>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>湖南高中综合素质评价教程</title>
+    <url>/blog/2023/11/11/%E6%B9%96%E5%8D%97%E9%AB%98%E4%B8%AD%E7%BB%BC%E5%90%88%E7%B4%A0%E8%B4%A8%E8%AF%84%E4%BB%B7%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h3 id="第一部分，写文章"><a href="#第一部分，写文章" class="headerlink" title="第一部分，写文章"></a>第一部分，写文章</h3><p>这一部分几乎是综合素质评价中最核心的部分。它显示了个人文化修养和对综合素质评价的认真程度。</p>
+<p>不过，我们仍然有一些同学想要偷懒……</p>
+<p>所以这里让我们的高科技AI语言大模型来帮忙。</p>
+<p><strong>DeepSeek，启动！</strong>（下方挂链接⤵️）</p>
+<p>🔗<a href="https://www.deepseek.com/">DeepSeek | 深度求索</a></p>
+<p>和AI语言大模型说话需要掌握一定的技巧，不能废话多，简单干练的语言和突出关键词的语言能让AI更好的理解你的意思。</p>
+<p>比如说：</p>
+<p>我要在思想品德中的生活管理里面要写一篇文章，然而我日常根本没注意都干了些什么。就可以这样对AI说：</p>
+<p>“为我生成1000字的日常生活习惯记录，我是XX学校的XXX，用于上传高中综合素质评价，用自述口吻。”</p>
+<p>这样就能简单的快速达到获取你想要的文章内容的目的。AI生成的文章通过模型训练数据实时生成，流式传输，网络查重机制几乎拿它没办法，所以不必担心。</p>
+<p>以下使用文心一言做一个示范（不要抄这篇文章）：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">我是XX学校的XXX，以下是我日常生活的习惯记录，用于综合素质评价。这份记录将展示我的生活方式、学习习惯、健康管理以及社交活动等多个方面。</span><br><span class="line"></span><br><span class="line">一、早起与锻炼</span><br><span class="line"></span><br><span class="line">作为一名高中生，我深知良好的作息对于身体健康和学习效率的重要性。因此，我保持着早起的习惯，每天6点钟准时起床。起床后，我会进行简单的晨练，包括跑步、俯卧撑等，以激活身体机能，提高精神状态。</span><br><span class="line"></span><br><span class="line">二、健康饮食</span><br><span class="line"></span><br><span class="line">在饮食方面，我注重营养均衡和食物多样性。早餐通常会包括牛奶、全麦面包、水果等，以保证一天的能量需求。在校期间，我会选择学校食堂的蔬菜、肉类、豆类等菜品，确保摄入足够的蛋白质和膳食纤维。晚餐则以清淡为主，避免油腻和辛辣食物，有助于保持良好的睡眠质量。</span><br><span class="line"></span><br><span class="line">三、学习计划与时间管理</span><br><span class="line"></span><br><span class="line">在学习方面，我制定了详细的学习计划，合理安排每天的学习时间。课前会进行预习，课后及时复习巩固所学知识。遇到难题时，我会积极寻求老师或同学的帮助，共同探讨解决问题。同时，我善于利用碎片时间，如上下学途中、课间休息等，进行课外阅读或背诵知识点，提高学习效率。</span><br><span class="line"></span><br><span class="line">四、兴趣爱好与社交活动</span><br><span class="line"></span><br><span class="line">在课余时间，我热爱阅读、写作和绘画。阅读可以丰富我的知识体系，写作则有助于提高表达能力和逻辑思维；绘画是我放松心情、陶冶情操的方式。此外，我还积极参加学校的各类社交活动，如志愿者服务、学术竞赛等。这些活动不仅锻炼了我的团队协作能力，还拓宽了我的人际交往圈子。</span><br><span class="line"></span><br><span class="line">五、心理健康与自我调适</span><br><span class="line"></span><br><span class="line">面对学习生活中的压力和挑战，我注重心理健康和自我调适。遇到问题时，我会积极寻求解决办法，而非逃避或抱怨。同时，我会与同学、老师或家人分享自己的感受和困惑，倾听他们的建议和支持。此外，我还通过冥想、深呼吸等方法，调整自己的情绪和心态，保持平和乐观的心态。</span><br><span class="line"></span><br><span class="line">六、个人卫生与环境整洁</span><br><span class="line"></span><br><span class="line">在生活中，我注重个人卫生和环境整洁。每天洗漱干净、穿着整洁是我对自己的基本要求。此外，我会定期打扫房间、清理书桌，保持生活环境的整洁有序。在学校，我也积极参与环境卫生工作，不乱扔垃圾，保持教室和公共区域的干净美观。</span><br><span class="line"></span><br><span class="line">七、总结与展望</span><br><span class="line"></span><br><span class="line">通过以上日常生活的习惯记录，可以看到我在健康、学习、兴趣、心理和个人卫生等方面的努力和成果。然而，我也深知自己仍有不足之处，需要不断学习和提高。在未来的日子里，我将继续努力，保持良好的生活习惯，不断提升自己的综合素质，为成为一名优秀的高中生和未来的社会公民而努力。</span><br><span class="line">（由文心大模型3.5生成）</span><br></pre></td></tr></table></figure>
+
+<p>如果AI回答的跟你想要的内容不搭边，那么多半是你问题问的不好。最简单的修改方式是找出你不满意的地方，回复AI，告诉AI你想要让他改成啥样。</p>
+<h3 id="第二部分，找图片"><a href="#第二部分，找图片" class="headerlink" title="第二部分，找图片"></a>第二部分，找图片</h3><p>找好自己的图片，最好可以分好类。如果你会用AI生成改图也行，不过不推荐。这里就不教了。</p>
+<h3 id="第三部分，开始上传（电脑版）"><a href="#第三部分，开始上传（电脑版）" class="headerlink" title="第三部分，开始上传（电脑版）"></a>第三部分，开始上传（电脑版）</h3><p>登录平台（下方挂链接⤵️）：</p>
+<p>🔗<a href="http://zhpj.hnedu.cn/login">综合素质评价平台系统登录​zhpj.hnedu.cn&#x2F;login</a></p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-47d43a1338a4b63b021a2882ddbc3c44_720w.webp"></p>
+<p>登录平台</p>
+<p>可以使用EEID、手机号码或自定义的别称作为用户名登录平台。这个平台没有提供自助密码找回机制，如果忘记密码，只能找客服解决。所以请记住自己的密码，或者绑定第三方账号。这个引导很全，这里不再赘述。</p>
+<p>使用你方便的登录方式，登录平台，来到主页。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-8b581b2656967e7c7f5b68b929da70b4_720w.webp"></p>
+<p>来到主页</p>
+<p>左边侧边栏的五个维度（思想品德、学业水平、身心健康、艺术素养、社会实践）指的是我们要上传的五个大项目，每个大项目里有几个小项目。在这里，至少保证每个大项目里面都有一个小项目有素材上传，也就是说最少得上传五个项目。</p>
+<p>我们用思想品德里面的生活管理做示范。</p>
+<p>点击左侧的思想品德，在展开的菜单中点击生活管理，进入管理页面。</p>
+<p>这个页面用于管理已经上传的材料。我们现在没有材料，所以需要新增材料。</p>
+<p>我们首先确认页面偏上方的“所属学期”是否有误（一般没有改动默认当前学期）。</p>
+<p>然后点击页面偏下方位置的“新增”。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-f493ed573f9360ae0a744cf6bc2fa3f8_720w.webp"></p>
+<p>新增材料</p>
+<p>然后按照表单要求填入材料。</p>
+<p>然后在上传图片的时候可能会遇到一个很“智慧”的问题……</p>
+<p>图片不支持大于0.5MB的，也就是说，单张图片大小不得大于512KB……</p>
+<p>我觉得这大概是这个平台最“智慧”的设定了……</p>
+<p>所以说，我们需要一个图片压缩的方式。</p>
+<h4 id="图片压缩"><a href="#图片压缩" class="headerlink" title="图片压缩"></a>图片压缩</h4><p>这里我用<code>Java</code>自己编写了一个图片压缩软件，只要把软件和要压缩的图片放在一起，双击运行软件，在命令窗口中输入<code>y</code>然后回车即可。软件会自动处理所有与软件放在同一目录下的大于0.5MB的图片，并原地替换成符合综合素质评价平台图片要求的图片。完成处理后软件会自动退出，如果添加了新的图片需要继续处理，请手动再次运行软件。软件会自动忽略符合规定的图片，不会压缩他们。需要注意的是，这个软件只能在Windows操作系统的电脑上使用（下方挂链接⤵️）。</p>
+<p>🔗<a href="https://wwir.lanzoum.com/inl7O2tf3qwd">蓝奏云-禾云信创-综合素质评价图批量压缩工具</a><br>密码:b18q</p>
+<p>如果是手机的话，推荐一个在线且全免费的（下方挂链接⤵️）：</p>
+<p>🔗<a href="https://docsmall.com/image-compress">在线图片压缩 - docsmall 在线图片压缩工具,在线图片压缩软件​docsmall.com&#x2F;image-compress</a></p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-eb14e017a45557b9409eae58674388b4_720w.webp"></p>
+<p>压缩并下载图片</p>
+<p>肉眼可见的压缩效果，还是挺不错的。点击项目右侧的下载图标下载压缩好的图片。</p>
+<p>然后一定要记得选择上传压缩后的图片！</p>
+<p>不过这里平台有一个bug。也是很智慧……</p>
+<p>同一个文件名图片上传失败一次以后第二次上传同一文件名的图片会上传失败，但是平台没有任何提示……</p>
+<p>这个时候就需要把我们压缩好的图片改个名再上传，或者传一张其他的图片再传原图，完了以后把其他图片删掉（这个其他图片上传失败也没关系，主要是为了刷新文件名）再上传压缩好的图片。</p>
+<p>上传成功后应该在上传框的下方显示图片文件名。否则无法提交增加材料。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-8238a0f1506e801aea450a1e3a57a794_720w.webp"></p>
+<p>上传成功</p>
+<p>然后这里有一个惊天大坑！</p>
+<p>就在图片上传的下面有一个经常被忽略的选项，是否公开。这个决定了其他人是否能在平台公开版上直接看到你上传的材料。如果你很在意自己的隐私，请注意这个选项！</p>
+<p>全部填写完毕后，点击“增加”。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-f5944c4707fae6ec6a1611fa34a9d9e0_720w.webp"></p>
+<p>增加材料</p>
+<p>新增成功，点击“OK”。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-78ff5e6d902dc9a665ef36a928f9f3f0_720w.webp"></p>
+<p>新增成功</p>
+<p>页面跳转到管理页面，我们发现材料列表多了一条，这就是我们刚刚新增的材料。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-a0ad065753e839f4ddf085a8f11cb0b8_720w.webp"></p>
+<p>管理列表</p>
+<p>其他维度材料上传方式以此类推，这里不再赘述。</p>
+<h3 id="第四部分，遴选上报"><a href="#第四部分，遴选上报" class="headerlink" title="第四部分，遴选上报"></a>第四部分，遴选上报</h3><p>上传的材料必须遴选上报，否则等于没传。</p>
+<p>当然，这里的遴选功能是用来给一些综测卷王（一个项目上传十几份材料的那种）用的。也就是说，遴选材料才能上报，没有遴选的材料就作废了。一般情况下都不会用到，所以几乎就是无脑的一键遴选和上报。</p>
+<p>我们点击侧边栏的首页回到首页。</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-4790853b1680ced408954d6049fde3cd_720w.webp"></p>
+<p>回到首页</p>
+<p>点击左侧的“遴选上报”，然后点击展开的“遴选管理”。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-db69eec6249b6224013e4e5fd645c548_720w.webp"></p>
+<p>进入遴选管理</p>
+<p>遴选我们刚刚添加的材料，点击材料项右侧的“遴选”按钮。</p>
+<p><img data-src="https://pic4.zhimg.com/80/v2-e2f156fb4a53d11339e492460d3eef33_720w.webp"></p>
+<p>点击遴选</p>
+<p>弹出确认窗口，点击确认完成遴选。</p>
+<p><img data-src="https://pic3.zhimg.com/80/v2-977b225be906a10fd719ff4a8c6bb032_720w.webp"></p>
+<p>确认遴选</p>
+<p>操作成功，点击“OK”。</p>
+<p><img data-src="https://pic4.zhimg.com/80/v2-56525ef08c1df4554ca9492c5772434b_720w.webp"></p>
+<p>遴选成功</p>
+<p>此时遴选材料列表将会清除已经完成遴选的项目。点击“管理已遴选的材料”可以进入管理页面，在这里可以取消遴选。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-2b548c56811cbbfc2d9b5df3770f55c4_720w.webp"></p>
+<p>遴选列表</p>
+<p><img data-src="https://pic3.zhimg.com/80/v2-34a8d0e063b67beefb4eb0095619ec9e_720w.webp"></p>
+<p>管理已遴选材料，可在此页面撤销遴选操作</p>
+<p><strong>接下来是上报操作。</strong></p>
+<p><strong>警告！上报后的材料无法撤销上报，并且无法修改，请谨慎操作！</strong></p>
+<p>点击左侧侧边栏的“上报管理”，可以查看已经遴选的材料。在这里点击上报，整个上传过程才算结束了。</p>
+<p>点击表头的统一上报上报材料。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-dcab1eb2e74287ac3830bd557ba66d00_720w.webp"></p>
+<p>上报材料</p>
+<p>弹出警告，确认后点击“确认”。</p>
+<p><img data-src="https://pic4.zhimg.com/80/v2-4dce3ca2b1acccb8cb5306c7c1e385af_720w.webp"></p>
+<p>确认无误并点击确认</p>
+<p>弹出提示，点击确定。</p>
+<p><img data-src="https://pic3.zhimg.com/80/v2-9a2d81da6d81ebde9bcb89ba77fdb68e_720w.webp"></p>
+<p>上报成功</p>
+<p>回到主页，若以上操作全部成功，那么大概是这样的：</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-3f6d5122c39c53eb817eb32a1c7266fc_720w.webp"></p>
+<p>上传成功显示数据</p>
+<p>至此，上传过程全部结束。</p>
+<h3 id="第五部分，该上传什么"><a href="#第五部分，该上传什么" class="headerlink" title="第五部分，该上传什么"></a>第五部分，该上传什么</h3><p>这个部分其实可以参考官方文档。不过这里还是分享一下我的经验。</p>
+<p><strong>思想品德：</strong>运动会手机使用情况（未使用或已合规使用，类别：生活管理，守纪）</p>
+<p><strong>学业水平：</strong>英语竞赛得奖</p>
+<p><strong>身心健康：</strong>日常讲文明，树新风（类别：日常习惯管理）</p>
+<p><strong>艺术素养：</strong>乐理三级拿证（类别：艺术特长管理）</p>
+<p><strong>社会实践：</strong>研学（类别：学期实践活动，社会实践）、我的世界启动器开发（类别：科技活动发明，创造发明）</p>
+<p>这些是我的经验，仅供参考，也许还有不对的地方，欢迎大家指正！</p>
+<h3 id="第六部分，毕业评价"><a href="#第六部分，毕业评价" class="headerlink" title="第六部分，毕业评价"></a><strong>第六部分，毕业评价</strong></h3><p><strong>毕业学生仍需上传材料，一样都不能少！上传后遴选已经上传的材料！</strong></p>
+<p><strong>毕业入口在左侧边栏”遴选上报&gt;毕业整理”,没有毕业入口的就是学校没给开，没法整理！别问了！</strong></p>
+<p>平台毕业学生操作手册说的很清楚！（下方挂链接⤵️）：</p>
+<p>🔗<a href="https://zhpj.hnedu.cn/zhpj/static/template/studentby.pdf">湖南高中综合素质评价-毕业材料整理操作说明</a></p>
+<h3 id="第七部分，报错内容"><a href="#第七部分，报错内容" class="headerlink" title="第七部分，报错内容"></a><strong>第七部分，报错内容</strong></h3><p><img data-src="https://pic3.zhimg.com/80/v2-acdc123bceb2093353023c3bfd48f99a_720w.webp"></p>
+<p>登录超时</p>
+<p>出现这个代表过长时间未操作，系统自动将你退出登录了，不过这个“智慧”系统没有搞提示，就直接报了个语法错误……</p>
+<p>所以说要刷新一下，重新登录。</p>
+<p><strong>行吧，就讲这么多，拜拜！</strong></p>
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>学校</tag>
+        <tag>综测</tag>
+        <tag>湖南</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禾云·青春</title>
+    <url>/blog/2024/01/01/%E7%A6%BE%E4%BA%91%C2%B7%E9%9D%92%E6%98%A5/</url>
+    <content><![CDATA[<p><strong>青春，请原谅初来乍到的我们闯入你的世界；愿我们能伴随着你的身影，望沧海，观星辰。</strong><br>微风吹过，我们曾共同站在这片土地上，见花开花落，看云卷云舒。<br>两千五百多个日夜里，沉默的坚持，滚烫的汗滴，殷切的希望，汇聚成我们赴汤蹈火的执着！<br>曾经经历的困苦与挫折，虽沉淀在眼底，明暗交杂，但只要我们与青春通行，就仍可以追逐天边云彩，一笑生花。<br>岁月凝成一颗珍珠，却无法拥有。<br>掉在地上，冰凉；<br>握在手里，滚烫。<br>我想拥抱它，却扑了个空。<br>它化作一堆杂物，散落在桌上。<br>泛黄的日记本，气数已尽的铅笔……<br>那年，铅笔在日记本上写道，<br>真好，我没有打搅你的暗自芬芳；<br>真好，你也没有戳穿我的刻意坚强。<br>人生，就是一次次幸福的相遇，<br>夹杂着一次次伤感的别离。<br>你说，秋天的第一缕凉风，吹起的是何种的悸动呢？<br>任河流变道改向，随星辰创生泯灭，愿我们初心不变，执一颗素然的心，带着美好的期盼，诗意地面对生命中的岁岁年年。<br><strong>“我不是在最好的时光中遇见了你们，<br>而是遇见了你们，<br>才给了我这段<br>最好的时光。”</strong></p>
+<h4 id="2024，禾云信创，9周年"><a href="#2024，禾云信创，9周年" class="headerlink" title="2024，禾云信创，9周年"></a><strong>2024，禾云信创，9周年</strong></h4>]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>心情</tag>
+        <tag>新年</tag>
+        <tag>感悟</tag>
+      </tags>
+  </entry>
 </search>
