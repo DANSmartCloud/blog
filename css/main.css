@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff78ff;
+  background: #8a81bd;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1635,6 +1635,11 @@ pre .javascript .function {
 .post-button {
   margin-top: 40px;
   text-align: center;
+}
+.post-button a {
+  border-radius: 6px;
+  padding: 8px 16px;
+  display: inline-block;
 }
 .use-motion .post-block,
 .use-motion .pagination,
