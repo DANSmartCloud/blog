@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #b8f21f;
+  background: #03fff2;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -3338,6 +3338,12 @@ button {
 }
 span {
   cursor: url("https://dansmartcloud.github.io/aboutme/cur/pointer.cur"), auto;
+}
+.pagination .page-number.current {
+  background: rgba(204,204,204,0.663);
+  border-top-color: rgba(204,204,204,0.663);
+  color: #7eecff;
+  border-radius: 10px;
 }
 @-moz-keyframes typedjsBlink {
   50% {
