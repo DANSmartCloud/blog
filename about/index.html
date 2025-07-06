@@ -23,15 +23,15 @@
     var CONFIG = {"hostname":"www.hodtec.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"buttons","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="&#x2F;* 基础样式 *&#x2F; :root {   --primary: #764ba2;   --secondary: #667eea;   --tertiary: #a29bfe;   --background: #f5f7fa;   --card-bg: #ffffff;   --text-color: #2c3e50; }  &#x2F;* 动态渐变背景 *&#x2F; @keyframes backgroundSh">
+  <meta name="description" content=":root {   --primary: #6c63ff;   --secondary: #9d4edd;   --tertiary: #f672a1;   --background: #f0f4f8;   --card-bg: #ffffff;   --text-color: #2c3e50; }  &#x2F;* 动态光晕背景 *&#x2F; @keyframes glow {   0% { backgroun">
 <meta property="og:type" content="website">
 <meta property="og:title" content="关于我">
 <meta property="og:url" content="https://www.hodtec.cn/about/index.html">
 <meta property="og:site_name" content="慕·露·雨">
-<meta property="og:description" content="&#x2F;* 基础样式 *&#x2F; :root {   --primary: #764ba2;   --secondary: #667eea;   --tertiary: #a29bfe;   --background: #f5f7fa;   --card-bg: #ffffff;   --text-color: #2c3e50; }  &#x2F;* 动态渐变背景 *&#x2F; @keyframes backgroundSh">
+<meta property="og:description" content=":root {   --primary: #6c63ff;   --secondary: #9d4edd;   --tertiary: #f672a1;   --background: #f0f4f8;   --card-bg: #ffffff;   --text-color: #2c3e50; }  &#x2F;* 动态光晕背景 *&#x2F; @keyframes glow {   0% { backgroun">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-25T14:22:47.000Z">
-<meta property="article:modified_time" content="2025-07-06T10:52:30.429Z">
+<meta property="article:modified_time" content="2025-07-06T11:38:57.619Z">
 <meta property="article:author" content="云云">
 <meta name="twitter:card" content="summary">
 
@@ -223,65 +223,72 @@
       
       <div class="post-body">
           <style>
-/* 基础样式 */
 :root {
-  --primary: #764ba2;
-  --secondary: #667eea;
-  --tertiary: #a29bfe;
-  --background: #f5f7fa;
+  --primary: #6c63ff;
+  --secondary: #9d4edd;
+  --tertiary: #f672a1;
+  --background: #f0f4f8;
   --card-bg: #ffffff;
   --text-color: #2c3e50;
 }
 
-/* 动态渐变背景 */
-@keyframes backgroundShift {
+/* 动态光晕背景 */
+@keyframes glow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* 卡片鼓动效果 */
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-}
-
-/* 文字渐变动画 */
-@keyframes gradientText {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
-/* 浮动动画 */
+/* 浮动粒子 */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
 }
 
-/* 背景粒子 */
-.particle {
-  position: fixed;
-  width: 2px;
-  height: 2px;
-  background: rgba(118, 75, 162, 0.3);
-  border-radius: 50%;
-  pointer-events: none;
-  animation: float 10s infinite ease-in-out;
+/* 文字光效 */
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* 光斑闪烁 */
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* 卡片悬停 */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 /* 主容器 */
 .about-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, var(--background) 0%, #eef2f3 100%);
-  animation: backgroundShift 20s ease infinite;
+  background: linear-gradient(135deg, #e6e9f0, #ffffff);
+  animation: glow 20s ease infinite;
+  position: relative;
 }
 
-/* 标题样式 */
+/* 背景光晕 */
+.background-glow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
+  z-index: -1;
+  animation: float 15s ease-in-out infinite;
+}
+
+/* 标题区域 */
 .title-section {
   text-align: center;
   margin-bottom: 3rem;
+  position: relative;
 }
 
 .title-section h1 {
@@ -293,32 +300,57 @@
   animation: gradientText 8s ease-in-out infinite;
 }
 
-/* 引用块 */
+/* 独立引文 */
 .quote-block {
-  text-align: center;
-  margin: 3rem 0;
   position: relative;
-  padding: 2rem;
-  background: white;
-  border-radius: 15px;
+  text-align: center;
+  margin: 4rem auto;
+  max-width: 700px;
+  font-size: 1.2em;
+  color: var(--text-color);
+  line-height: 1.6;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #ffffff99, #e8f0fe88);
+  border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  animation: float 6s ease-in-out infinite;
+}
+
+.quote-block::before {
+  content: '';
+  position: absolute;
+  top: -20px; left: 50%;
+  transform: translateX(-50%);
+  width: 40px; height: 40px;
+  background: radial-gradient(circle, var(--tertiary) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: sparkle 3s infinite ease-in-out;
+}
+
+.quote-block::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; right: 50%;
+  transform: translateX(50%);
+  width: 30px; height: 30px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: sparkle 4s infinite ease-in-out;
 }
 
 /* 卡片组件 */
 .card {
   background: var(--card-bg);
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 2rem;
   margin: 2rem 0;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   transition: all 0.3s ease;
-  animation: float 4s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
 }
 
 .card:hover {
   transform: translateY(-5px) scale(1.01);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
 /* 列表项 */
@@ -353,39 +385,31 @@
 
 .cta-button:hover {
   background: var(--secondary);
-  box-shadow: 0 0 15px rgba(118, 75, 162, 0.3);
+  box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
 }
 
-/* 八种核心特效说明 */
-/* 1. 动态渐变背景 */
-/* 2. 文字渐变动画 */
-/* 3. 卡片浮动动画 */
-/* 4. 卡片hover鼓动 */
-/* 5. 背景粒子系统 */
-/* 6. 引用块浮动 */
-/* 7. 柔和阴影效果 */
+/* 九种核心特效说明 */
+/* 1. 动态光晕背景 */
+/* 2. 渐变标题动画 */
+/* 3. 独立引文光斑 */
+/* 4. 卡片浮动动画 */
+/* 5. 卡片hover悬停 */
+/* 6. 柔和阴影效果 */
+/* 7. 粒子悬浮系统 */
 /* 8. 渐变按钮交互 */
+/* 9. 引文装饰光晕 */
 </style>
 
 <!-- 页面内容 -->
 <div class="about-container">
-  <!-- 背景粒子 -->
-  <script>
-    for(let i=0; i<50; i++) {
-      let p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random()*100 + '%';
-      p.style.top = Math.random()*100 + '%';
-      p.style.animationDelay = Math.random()*5 + 's';
-      p.style.opacity = Math.random()*0.3 + 0.2;
-      document.body.appendChild(p);
-    }
-  </script>
+  <!-- 背景光晕 -->
+  <div class="background-glow"></div>
 
   <div class="title-section">
     <h1>云间絮语</h1>
   </div>
 
+  <!-- 独立引文 -->
   <div class="quote-block">
     "零星波光，不必出于浩汤湖海；<br>
     垂天之云，不必始于远上寒山"
