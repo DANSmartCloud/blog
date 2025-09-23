@@ -6,3 +6,19 @@
 body {
   font-family: '汉仪文黑-85W';
 }
+/* 移动端横向溢出兜底与长内容断行优化 */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+/* 文章主体断行，避免超长URL/单词撑宽 */
+.post-body {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+/* 图片自适应，确保不超出容器 */
+.post-body img {
+  max-width: 100%;
+  height: auto;
+}

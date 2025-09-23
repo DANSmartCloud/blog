@@ -1255,7 +1255,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #e5a2df;
+  background: #82ff70;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -3404,4 +3404,17 @@ span {
 ​,
 body {
   font-family: '汉仪文黑-85W';
+}
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.post-body {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.post-body img {
+  max-width: 100%;
+  height: auto;
 }
