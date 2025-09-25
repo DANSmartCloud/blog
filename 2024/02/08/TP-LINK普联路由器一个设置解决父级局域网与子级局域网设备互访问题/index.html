@@ -335,7 +335,6 @@
 
           </div>
           
-    <div class="comments" style="container" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -398,12 +397,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -537,11 +536,11 @@ setInterval("createtime()",250);
     let ctx;
     const colours = ["#F73859", "#14FFEC", "#00E0FF", "#FF99FE", "#FAF15D"];
     const canvas = document.createElement("canvas");
-    document.body.appendChild(canvas);
+    if (document && document.body) { document.body.appendChild(canvas); }
     canvas.setAttribute("style", "width: 100%; height: 100%; top: 0; left: 0; z-index: 99999; position: fixed; pointer-events: none;");
     const pointer = document.createElement("span");
     pointer.classList.add("pointer");
-    document.body.appendChild(pointer);
+    if (document && document.body) { document.body.appendChild(pointer); }
    
     if (canvas.getContext && window.addEventListener) {
       ctx = canvas.getContext("2d");
@@ -16581,7 +16580,7 @@ console.log(`
         canvas.width = window.innerWidth;
         canvas.setAttribute('style', 'position: fixed;left: 0;top: 0;pointer-events: none;');
         canvas.setAttribute('id', 'canvas_sakura');
-        document.getElementsByTagName('body')[0].appendChild(canvas);
+        var __bodyEl = document.body || document.getElementsByTagName('body')[0]; if (__bodyEl) { __bodyEl.appendChild(canvas); }
         cxt = canvas.getContext('2d');
         const sakuraList = new SakuraList();
         for (let i = 0; i < 50; i++) {
@@ -16732,26 +16731,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
 
   
 
-<link rel="stylesheet" href="//jsd.onmicrosoft.cn/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//jsd.onmicrosoft.cn/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : 'Ov23lioXFB3gNnO3xcrA',
-      clientSecret: '65c4e6871ab15b33f73fc4eef875b127a24a874f',
-      repo        : 'myblogtalsk',
-      owner       : 'DANSmartCloud',
-      admin       : ['DANSmartCloud'],
-      id          : 'd92b5c05bda231ead606ea732c325428',
-      proxy       : 'https://github.com/login/oauth/access_token',
-        language: 'zh-CN',
-      distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-});
-</script>
+  
 
 </body>
 
