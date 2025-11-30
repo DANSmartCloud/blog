@@ -32,6 +32,54 @@ Android连接服务器教程下载安装禾云原神，下载4.0资源包。启�
       </tags>
   </entry>
   <entry>
+    <title>TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题</title>
+    <url>/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[最近正好升级了电脑系统，变成了专业版系统，想试试远程桌面，结果从我家父级网连接子级网下的电脑连不上。
+我电脑在房间，子级网是房间的专用网。父级网是客厅的网络。我总不可能总是跑到房间去远程桌面吧！
+那根没有有什么区别……
+于是我开始研究这个问题。
+
+
+在网上找了一大堆资料，都是说端口转发和DMZ主机啥的。全部试了一遍，没P用……
+然后当我在路由器设置世界里遨游的时候，突然发现了这个：
+
+桥模式
+如果你的和我一样是普联（TP-LINK）路由器，别信其他教程，信我的！
+直接在路由&#x2F;桥模式切换中切换为桥模式，解决一切问题！（相当于将当前子路由网络下所有设备全部并入父路由网络）
+方法：
+在计算机中查看默认网关，找到路由器管理地址win+R打开cmd，输入命令并回车：
+ipconfig
+
+
+找到默认网关地址
+默认没有提示断开连接的那个网络就是你当前的网络。如果你安装了虚拟机（如VMware）的话另说（要排除这些项目）。
+访问管理页面在浏览器直接输入默认网关的IP（图中框出内容冒号后面的一串数字，要输入点），回车访问。
+
+输入管理密码
+如果管理密码不记得了，可以找到路由器，长按上面的重置键（或者叫Reset键、WPS/Reset键等。有些路由器也许不会标，反正整个路由器除了电源键以外就几乎只会有这一个按键了，自己找找。有些时候这个按键可能会被做成一个孔，像手机电话卡弹出孔那样需要用针来按）
+登录并进行设置点击登录，进入管理页面，点击路由设置：
+
+TP-LINK管理页面，在右下角点击路由设置
+左侧路由设置，下滑找到“路由&#x2F;桥模式切换”：
+
+找到路由&#x2F;桥模式切换，并选择“桥模式”
+选择右侧桥模式，点击保存。
+你的设备将会断网一段时间，不要慌张。这是路由器正在执行模式切换。
+当你的设备再次联网时，一般就代表切换成功了。这时候，你的设备会被父级路由分配一个新的IP地址。而此时，你的网段已经和父级路由下的所有设备相同了。这时就可以实现互联（比如我要的远程桌面）了。
+而且这个方式有一点好处。
+当你完成了以上配置后，在父级路由下的任何一个子级路由都可以直接访问你的设备所在网络。因为这时候相当于你的设备连接到了父级网络。而子级网络是可以直接访问父级网络设备的。因此，你可以在任何父级网络提供的子级网络下自由访问你的设备！
+当然，子级网的子级网还是要配置一下的。因为这时，子级网相当于子级网的子级网的父级网。
+好啦，就说这么多，下次见，拜拜┏(＾0＾)┛！
+]]></content>
+      <tags>
+        <tag>网络</tag>
+        <tag>连接</tag>
+        <tag>远程桌面</tag>
+        <tag>路由器</tag>
+        <tag>TP-LINK</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MicrosoftOffice完全安装与激活教程（保证成功）</title>
     <url>/2023/08/27/MicrosoftOffice%E5%AE%8C%E5%85%A8%E5%AE%89%E8%A3%85%E4%B8%8E%E6%BF%80%E6%B4%BB%E6%95%99%E7%A8%8B%EF%BC%88%E4%BF%9D%E8%AF%81%E6%88%90%E5%8A%9F%EF%BC%89/</url>
     <content><![CDATA[MicrosoftOffice完全安装与激活教程（保证成功）首先声明，这篇文章仅供学习与研究使用，若您喜欢使用MicrosoftOffice系列软件，请支持正版！下面正文开始：
@@ -104,54 +152,6 @@ HEU KMS Activator
       </tags>
   </entry>
   <entry>
-    <title>TP-LINK普联路由器一个设置解决父级局域网与子级局域网设备互访问题</title>
-    <url>/2024/02/08/TP-LINK%E6%99%AE%E8%81%94%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%80%E4%B8%AA%E8%AE%BE%E7%BD%AE%E8%A7%A3%E5%86%B3%E7%88%B6%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%AD%90%E7%BA%A7%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BE%E5%A4%87%E4%BA%92%E8%AE%BF%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[最近正好升级了电脑系统，变成了专业版系统，想试试远程桌面，结果从我家父级网连接子级网下的电脑连不上。
-我电脑在房间，子级网是房间的专用网。父级网是客厅的网络。我总不可能总是跑到房间去远程桌面吧！
-那根没有有什么区别……
-于是我开始研究这个问题。
-
-
-在网上找了一大堆资料，都是说端口转发和DMZ主机啥的。全部试了一遍，没P用……
-然后当我在路由器设置世界里遨游的时候，突然发现了这个：
-
-桥模式
-如果你的和我一样是普联（TP-LINK）路由器，别信其他教程，信我的！
-直接在路由&#x2F;桥模式切换中切换为桥模式，解决一切问题！（相当于将当前子路由网络下所有设备全部并入父路由网络）
-方法：
-在计算机中查看默认网关，找到路由器管理地址win+R打开cmd，输入命令并回车：
-ipconfig
-
-
-找到默认网关地址
-默认没有提示断开连接的那个网络就是你当前的网络。如果你安装了虚拟机（如VMware）的话另说（要排除这些项目）。
-访问管理页面在浏览器直接输入默认网关的IP（图中框出内容冒号后面的一串数字，要输入点），回车访问。
-
-输入管理密码
-如果管理密码不记得了，可以找到路由器，长按上面的重置键（或者叫Reset键、WPS/Reset键等。有些路由器也许不会标，反正整个路由器除了电源键以外就几乎只会有这一个按键了，自己找找。有些时候这个按键可能会被做成一个孔，像手机电话卡弹出孔那样需要用针来按）
-登录并进行设置点击登录，进入管理页面，点击路由设置：
-
-TP-LINK管理页面，在右下角点击路由设置
-左侧路由设置，下滑找到“路由&#x2F;桥模式切换”：
-
-找到路由&#x2F;桥模式切换，并选择“桥模式”
-选择右侧桥模式，点击保存。
-你的设备将会断网一段时间，不要慌张。这是路由器正在执行模式切换。
-当你的设备再次联网时，一般就代表切换成功了。这时候，你的设备会被父级路由分配一个新的IP地址。而此时，你的网段已经和父级路由下的所有设备相同了。这时就可以实现互联（比如我要的远程桌面）了。
-而且这个方式有一点好处。
-当你完成了以上配置后，在父级路由下的任何一个子级路由都可以直接访问你的设备所在网络。因为这时候相当于你的设备连接到了父级网络。而子级网络是可以直接访问父级网络设备的。因此，你可以在任何父级网络提供的子级网络下自由访问你的设备！
-当然，子级网的子级网还是要配置一下的。因为这时，子级网相当于子级网的子级网的父级网。
-好啦，就说这么多，下次见，拜拜┏(＾0＾)┛！
-]]></content>
-      <tags>
-        <tag>网络</tag>
-        <tag>连接</tag>
-        <tag>远程桌面</tag>
-        <tag>路由器</tag>
-        <tag>TP-LINK</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>『星༓梦』——一个由一群青年兴趣爱好者开发的二次元沙盒RPG大型游戏</title>
     <url>/2023/11/05/%E3%80%8E%E6%98%9F%E0%BC%93%E6%A2%A6%E3%80%8F%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E7%94%B1%E4%B8%80%E7%BE%A4%E9%9D%92%E5%B9%B4%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD%E8%80%85%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%8C%E6%AC%A1%E5%85%83%E6%B2%99%E7%9B%92RPG%E5%A4%A7%E5%9E%8B%E6%B8%B8%E6%88%8F/</url>
     <content><![CDATA[这款游戏可能会颠覆你的认知。
@@ -177,30 +177,33 @@ TP-LINK管理页面，在右下角点击路由设置
       </tags>
   </entry>
   <entry>
-    <title>三项求导</title>
-    <url>/2025/09/25/%E4%B8%89%E9%A1%B9%E6%B1%82%E5%AF%BC/</url>
-    <content><![CDATA[对函数 $f(x) &#x3D; (x+1)(x+2)(x+3)$ 求导，可以使用乘积法则或先展开再求导。
-方法一：乘积法则设 $u &#x3D; x+1$, $v &#x3D; x+2$, $w &#x3D; x+3$，则 $f(x) &#x3D; u \cdot v \cdot w$。乘积法则对于三个函数：
-$$f’(x) &#x3D; u’ \cdot v \cdot w + u \cdot v’ \cdot w + u \cdot v \cdot w’$$
-其中 $u’ &#x3D; 1$, $v’ &#x3D; 1$, $w’ &#x3D; 1$。代入得：
-$$f’(x) &#x3D; (1)(x+2)(x+3) + (x+1)(1)(x+3) + (x+1)(x+2)(1)$$
-简化：  
-$$f’(x) &#x3D; (x+2)(x+3) + (x+1)(x+3) + (x+1)(x+2)$$
-展开各项：  
-$$(x+2)(x+3) &#x3D; x^2 + 5x + 6\(x+1)(x+3) &#x3D; x^2 + 4x + 3\(x+1)(x+2) &#x3D; x^2 + 3x + 2$$
-相加：  
-$$f’(x) &#x3D; (x^2 + 5x + 6) + (x^2 + 4x + 3) + (x^2 + 3x + 2) &#x3D; 3x^2 + 12x + 11$$
-方法二：先展开再求导展开 $f(x)$:  
-$$f(x) &#x3D; (x+1)(x+2)(x+3) &#x3D; (x^2 + 3x + 2)(x+3) &#x3D; x^3 + 6x^2 + 11x + 6$$
-求导：  
-$$f’(x) &#x3D; \frac{d}{dx}(x^3 + 6x^2 + 11x + 6) &#x3D; 3x^2 + 12x + 11$$
-两种方法均得相同结果。
-$$\boxed{3x^{2}+12x+11}$$
+    <title>云云Python笔记</title>
+    <url>/2025/09/22/%E4%BA%91%E4%BA%91Python%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[API数据获取要获取API数据，首先我们需要导入requests标准库。这里我们直接使用import语句。
+import requests #导入requests标准库
+
+定义API地址我们使用一个变量API_url来定义一个API地址字串，也可以通过输入字串的方式来定义API地址。
+API_url = &quot;https://api.exchangerate-api.com/v4/latest/USD&quot; #硬编码API地址，适合长期不发生变化且执行频率高的API
+
+API_url = input(&quot;Please input your API URL:&quot;) #提示用户输入API地址，适合地址变化灵活且执行频率相对较低的API
+
+获取API数据在这里，我们通过requests库的一个命令来获取API的原始返回数据，通常是json格式数据。但是由于网络请求可能存在不稳定性，所以我们使用一个try:，并编写对应的except异常处理来防止网络异常或API失效时我们的程序崩溃。
+try: #使用try块确保出错时程序不崩溃    response = requests.get(&quot;https://api.exchangerate-api.com/v4/latest/USD&quot;, timeout=10) #使用requests的get方法获取API返回值来确保出错时程序不会崩溃，此方法将会返回一个对象，将对象赋值给变量response，可从此对象中取值    if response.status_code == 200: #取出刚刚赋值给response变量的对象中的状态码值（整数）        print(&quot;Successfull!&quot;)        print(f&quot;response raw content:&#123;response.content&#125;&quot;) #取出刚刚赋值给response变量的对象中的API响应内容字节数量（整数）        print(f&quot;原始数据预览：&#123;response.text[:100]&#125;...&quot;) #取出刚刚赋值给response变量的对象中的API响应内容（字串），其中方括号冒号一百代表取前一百位，这里只显示前一百位的原因是防止数据过多导致日志噪声过大    else        print(f&quot;Failed! HTTP ERROR&#123;response.status_code&#125;&quot;) #出错时（此处将非200状态码均判出错）抛出HTTP错误码except requests.exceptions.RequestException as e: #编写异常处理，网络出错时将会执行此except块    print(f&quot;网络请求异常：&#123;e&#125;&quot;) #网络出错时抛出网络异常
+
+解析JSON这里，我们需要先导入json库才能实现解析功能。先把import语句加在文件头部，导入json标准库。
+import json #导入json标准库
+
+我们需要先审查原始json的结构才能进行进一步的数据分析代码编写。我们用json.dumps函数实现json美化，使其看上去有层次感，而不是全部挤在一起。这个函数一般用于开发阶段的json结构审查。
+print(f&quot;美化数据预览：&#123;json.dumps(response.text,indent=2,ensure_ascii=False)&#125;&quot;) #json.dumps用于美化json数据输出格式，其有三个参数，第一个参数是原始json数据，第二个参数表示子级数据缩进，第三个参数控制编码，若要显示中文则填写False
+
+取值方法一：分层解析我们使用多次json层级解析，一层层把json数据剥开，就像你想在一个洋葱（原始json数据）里面找出一个东西，你需要一层层的剥开洋葱，直到找到我们想要的东西（数据）并取值。
+取值方法二：路径解析我们直接使用json路径进行解析，就像你在一刀把洋葱砍成了两半，直接找到了洋葱里面你想要的东西。也可以理解为就像系统中找一个藏得很深的文件通常在命令行中只需要一条稍长一点的包含它所有父级文件夹名的路径一样。
 ]]></content>
       <tags>
-        <tag>数学</tag>
-        <tag>导数</tag>
-        <tag>大学</tag>
+        <tag>Python</tag>
+        <tag>数据</tag>
+        <tag>爬虫</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -317,36 +320,6 @@ animation: none !important;
 ]]></content>
   </entry>
   <entry>
-    <title>云云Python笔记</title>
-    <url>/2025/09/22/%E4%BA%91%E4%BA%91Python%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[API数据获取要获取API数据，首先我们需要导入requests标准库。这里我们直接使用import语句。
-import requests #导入requests标准库
-
-定义API地址我们使用一个变量API_url来定义一个API地址字串，也可以通过输入字串的方式来定义API地址。
-API_url = &quot;https://api.exchangerate-api.com/v4/latest/USD&quot; #硬编码API地址，适合长期不发生变化且执行频率高的API
-
-API_url = input(&quot;Please input your API URL:&quot;) #提示用户输入API地址，适合地址变化灵活且执行频率相对较低的API
-
-获取API数据在这里，我们通过requests库的一个命令来获取API的原始返回数据，通常是json格式数据。但是由于网络请求可能存在不稳定性，所以我们使用一个try:，并编写对应的except异常处理来防止网络异常或API失效时我们的程序崩溃。
-try: #使用try块确保出错时程序不崩溃    response = requests.get(&quot;https://api.exchangerate-api.com/v4/latest/USD&quot;, timeout=10) #使用requests的get方法获取API返回值来确保出错时程序不会崩溃，此方法将会返回一个对象，将对象赋值给变量response，可从此对象中取值    if response.status_code == 200: #取出刚刚赋值给response变量的对象中的状态码值（整数）        print(&quot;Successfull!&quot;)        print(f&quot;response raw content:&#123;response.content&#125;&quot;) #取出刚刚赋值给response变量的对象中的API响应内容字节数量（整数）        print(f&quot;原始数据预览：&#123;response.text[:100]&#125;...&quot;) #取出刚刚赋值给response变量的对象中的API响应内容（字串），其中方括号冒号一百代表取前一百位，这里只显示前一百位的原因是防止数据过多导致日志噪声过大    else        print(f&quot;Failed! HTTP ERROR&#123;response.status_code&#125;&quot;) #出错时（此处将非200状态码均判出错）抛出HTTP错误码except requests.exceptions.RequestException as e: #编写异常处理，网络出错时将会执行此except块    print(f&quot;网络请求异常：&#123;e&#125;&quot;) #网络出错时抛出网络异常
-
-解析JSON这里，我们需要先导入json库才能实现解析功能。先把import语句加在文件头部，导入json标准库。
-import json #导入json标准库
-
-我们需要先审查原始json的结构才能进行进一步的数据分析代码编写。我们用json.dumps函数实现json美化，使其看上去有层次感，而不是全部挤在一起。这个函数一般用于开发阶段的json结构审查。
-print(f&quot;美化数据预览：&#123;json.dumps(response.text,indent=2,ensure_ascii=False)&#125;&quot;) #json.dumps用于美化json数据输出格式，其有三个参数，第一个参数是原始json数据，第二个参数表示子级数据缩进，第三个参数控制编码，若要显示中文则填写False
-
-取值方法一：分层解析我们使用多次json层级解析，一层层把json数据剥开，就像你想在一个洋葱（原始json数据）里面找出一个东西，你需要一层层的剥开洋葱，直到找到我们想要的东西（数据）并取值。
-取值方法二：路径解析我们直接使用json路径进行解析，就像你在一刀把洋葱砍成了两半，直接找到了洋葱里面你想要的东西。也可以理解为就像系统中找一个藏得很深的文件通常在命令行中只需要一条稍长一点的包含它所有父级文件夹名的路径一样。
-]]></content>
-      <tags>
-        <tag>Python</tag>
-        <tag>数据</tag>
-        <tag>爬虫</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>云云回来啦</title>
     <url>/2025/07/18/%E4%BA%91%E4%BA%91%E5%9B%9E%E6%9D%A5%E5%95%A6/</url>
     <content><![CDATA[大家好，我是云云高考结束啦~很抱歉现在才到博客站来告诉大家，这段时间确实很忙。我在全力做着项目开发首先是一个AI智能创作平台这个平台完全由我一个人完成所有开发~这个平台与我的其他项目不一样，这个平台是闭源的，如果您想要使用，我将会收取费用。目前平台授权定价大约为2000元一年。还有一个项目，E++语言编辑器这是一个中文编程项目，旨在完全复刻国货之光易语言的体验，但是提供更为强大的编译选项，包括64位编译，编译为Java，编译为Python，编译为C#等。我还对JAnim这个动画库起了兴趣。于是准备复用Scratch3的图形化编程库，给不会编程的宝子们降低这个动画库的使用门槛。按照GNU协议，这个项目是开源哒~未来的路途还有很远，你愿意和云云携手共进吗？我们一定可以哒！云云2025.07.16
@@ -355,6 +328,77 @@ print(f&quot;美化数据预览：&#123;json.dumps(response.text,indent=2,ensure
         <tag>事实</tag>
         <tag>回归</tag>
         <tag>日常类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>三项求导</title>
+    <url>/2025/09/25/%E4%B8%89%E9%A1%B9%E6%B1%82%E5%AF%BC/</url>
+    <content><![CDATA[对函数 $f(x) &#x3D; (x+1)(x+2)(x+3)$ 求导，可以使用乘积法则或先展开再求导。
+方法一：乘积法则设 $u &#x3D; x+1$, $v &#x3D; x+2$, $w &#x3D; x+3$，则 $f(x) &#x3D; u \cdot v \cdot w$。乘积法则对于三个函数：
+$$f’(x) &#x3D; u’ \cdot v \cdot w + u \cdot v’ \cdot w + u \cdot v \cdot w’$$
+其中 $u’ &#x3D; 1$, $v’ &#x3D; 1$, $w’ &#x3D; 1$。代入得：
+$$f’(x) &#x3D; (1)(x+2)(x+3) + (x+1)(1)(x+3) + (x+1)(x+2)(1)$$
+简化：  
+$$f’(x) &#x3D; (x+2)(x+3) + (x+1)(x+3) + (x+1)(x+2)$$
+展开各项：  
+$$(x+2)(x+3) &#x3D; x^2 + 5x + 6\(x+1)(x+3) &#x3D; x^2 + 4x + 3\(x+1)(x+2) &#x3D; x^2 + 3x + 2$$
+相加：  
+$$f’(x) &#x3D; (x^2 + 5x + 6) + (x^2 + 4x + 3) + (x^2 + 3x + 2) &#x3D; 3x^2 + 12x + 11$$
+方法二：先展开再求导展开 $f(x)$:  
+$$f(x) &#x3D; (x+1)(x+2)(x+3) &#x3D; (x^2 + 3x + 2)(x+3) &#x3D; x^3 + 6x^2 + 11x + 6$$
+求导：  
+$$f’(x) &#x3D; \frac{d}{dx}(x^3 + 6x^2 + 11x + 6) &#x3D; 3x^2 + 12x + 11$$
+两种方法均得相同结果。
+$$\boxed{3x^{2}+12x+11}$$
+]]></content>
+      <tags>
+        <tag>数学</tag>
+        <tag>导数</tag>
+        <tag>大学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>云云数学笔记</title>
+    <url>/2025/11/30/%E4%BA%91%E4%BA%91%E6%95%B0%E5%AD%A6%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[数学学不懂
+以后可能会在这里更新数学学习心得
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>数学</tag>
+        <tag>学校</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>坦白了</title>
+    <url>/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
+    <content><![CDATA[很抱歉骗了大家这么久。
+从DAN智云创建以来就从来没有过什么技术团队，工作人员。
+从来没有！
+无论是在哪个时期，你所看到的DAN智云工作室一切的发展，其实都是我一个人在工作。
+
+
+也就是说，这个工作室自始至终就是一个只有一个人的工作室。
+没错，我的确狂热的爱好着计算机和相关的东西。
+但是继续隐瞒下去已经没有意义了。
+感谢大家多年以来对DAN智云的支持与鼓励，感谢那些在DAN智云工作室成长路上伸出援手的人们！谢谢你们！
+从2015到如今的2023。八余载的光阴，真快。
+]]></content>
+      <tags>
+        <tag>事实</tag>
+        <tag>日常类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>刷专业版系统上传测试</title>
+    <url>/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[刷Windows11系统测试一下上传博客文章
+事实告诉我们，重新构建博客比恢复博客更简单。
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>测试</tag>
+        <tag>系统</tag>
       </tags>
   </entry>
   <entry>
@@ -474,49 +518,6 @@ https://desktop.github.com/​desktop.github.com&#x2F;
       </tags>
   </entry>
   <entry>
-    <title>坦白了</title>
-    <url>/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
-    <content><![CDATA[很抱歉骗了大家这么久。
-从DAN智云创建以来就从来没有过什么技术团队，工作人员。
-从来没有！
-无论是在哪个时期，你所看到的DAN智云工作室一切的发展，其实都是我一个人在工作。
-
-
-也就是说，这个工作室自始至终就是一个只有一个人的工作室。
-没错，我的确狂热的爱好着计算机和相关的东西。
-但是继续隐瞒下去已经没有意义了。
-感谢大家多年以来对DAN智云的支持与鼓励，感谢那些在DAN智云工作室成长路上伸出援手的人们！谢谢你们！
-从2015到如今的2023。八余载的光阴，真快。
-]]></content>
-      <tags>
-        <tag>事实</tag>
-        <tag>日常类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>刷专业版系统上传测试</title>
-    <url>/2024/01/27/%E5%88%B7%E4%B8%93%E4%B8%9A%E7%89%88%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[刷Windows11系统测试一下上传博客文章
-事实告诉我们，重新构建博客比恢复博客更简单。
-]]></content>
-      <tags>
-        <tag>日常类</tag>
-        <tag>测试</tag>
-        <tag>系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我的博客-慕·露·雨</title>
-    <url>/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
-    <content><![CDATA[我的博客 - 慕·露·雨这是我发的第一篇博客哦~纪念一下这个博客站初次建成开始使用的日子-2023.08.26~顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~
-]]></content>
-      <tags>
-        <tag>日常类</tag>
-        <tag>新体验</tag>
-        <tag>心情</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>接入评论区</title>
     <url>/2023/12/23/%E6%8E%A5%E5%85%A5%E8%AF%84%E8%AE%BA%E5%8C%BA/</url>
     <content><![CDATA[慕·露·雨正式接入评论区功能啦！
@@ -534,6 +535,17 @@ DirRain
         <tag>事实</tag>
         <tag>日常类</tag>
         <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的博客-慕·露·雨</title>
+    <url>/2023/08/26/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-%E6%85%95%C2%B7%E9%9C%B2%C2%B7%E9%9B%A8/</url>
+    <content><![CDATA[我的博客 - 慕·露·雨这是我发的第一篇博客哦~纪念一下这个博客站初次建成开始使用的日子-2023.08.26~顺便说一句，这个博客最开始的文章都会从我的知乎账户搬运过来。后期就是这里为主啦~
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>新体验</tag>
+        <tag>心情</tag>
       </tags>
   </entry>
   <entry>
@@ -680,17 +692,6 @@ DeepSeek，启动！（下方挂链接⤵️）
       </tags>
   </entry>
   <entry>
-    <title>苦逼的我又上线了</title>
-    <url>/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
-    <content><![CDATA[害，终究还是找不到几个靠谱的图床……还是白嫖用知乎的服务吧~润！
-]]></content>
-      <tags>
-        <tag>事实</tag>
-        <tag>日常类</tag>
-        <tag>苦逼</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>禾云·青春</title>
     <url>/2024/01/01/%E7%A6%BE%E4%BA%91%C2%B7%E9%9D%92%E6%98%A5/</url>
     <content><![CDATA[青春，请原谅初来乍到的我们闯入你的世界；愿我们能伴随着你的身影，望沧海，观星辰。微风吹过，我们曾共同站在这片土地上，见花开花落，看云卷云舒。两千五百多个日夜里，沉默的坚持，滚烫的汗滴，殷切的希望，汇聚成我们赴汤蹈火的执着！
@@ -702,6 +703,17 @@ DeepSeek，启动！（下方挂链接⤵️）
         <tag>心情</tag>
         <tag>新年</tag>
         <tag>感悟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>苦逼的我又上线了</title>
+    <url>/2023/09/29/%E8%8B%A6%E9%80%BC%E7%9A%84%E6%88%91%E5%8F%88%E4%B8%8A%E7%BA%BF%E4%BA%86/</url>
+    <content><![CDATA[害，终究还是找不到几个靠谱的图床……还是白嫖用知乎的服务吧~润！
+]]></content>
+      <tags>
+        <tag>事实</tag>
+        <tag>日常类</tag>
+        <tag>苦逼</tag>
       </tags>
   </entry>
   <entry>
