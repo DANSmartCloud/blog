@@ -152,42 +152,12 @@ TP-LINK管理页面，在右下角点击路由设置
       </tags>
   </entry>
   <entry>
-    <title>Zotero7.0.3快速安装文献引用样式</title>
-    <url>/2026/01/08/Zotero7.0.3%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E6%96%87%E7%8C%AE%E5%BC%95%E7%94%A8%E6%A0%B7%E5%BC%8F/</url>
-    <content><![CDATA[接到需求说Zotero文献引用样式不是想要的，但是不会安装。这里给出最简安装方法：
-1.打开Zotero
-2.使用装好Zotero插件的浏览器打开Zotero中文社区中文CSL样式页面，找到自己喜欢的样式点进去
-中文 CSL 样式 | Zotero 中文社区zotero-chinese.com&#x2F;styles&#x2F;
-
-以此为例
-3.选好之后点击备用链接下的从JsDeliver下载样式
-
-点击从JsDeliver下载样式
-4.插件弹出安装提示
-
-点击OK
-5.点击OK，右上角弹出安装提示
-
-安装提示
-6.回到Zotero，点击编辑&gt;设置
-
-打开设置
-7.点击引用&gt;样式管理器
-
-检查安装是否成功
-8.打开word&#x2F;WPS即可使用
-]]></content>
-      <tags>
-        <tag>软件</tag>
-        <tag>操作</tag>
-        <tag>Zotero</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Zotero7.0.3使用WPS进行交互</title>
     <url>/2026/01/08/Zotero7.0.3%E4%BD%BF%E7%94%A8WPS%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92/</url>
     <content><![CDATA[接到需求称想要使用WPS而不是MsOffice进行编辑、与Zotero交互编辑。这里给出最简方法
 1.到WPS禁用原有Zotero插件：工具&gt;加载项&gt;zotero.dotm&gt;禁用&gt;确定
+
+
 
 按顺序点击
 2.下载WPS专用插件
@@ -268,6 +238,69 @@ Zotero-WPSJS: zotero-wpsjs加载项gitee.com&#x2F;wangrui5015&#x2F;Zotero-WPSJS
         <tag>游戏</tag>
         <tag>逐梦</tag>
         <tag>创新</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>三项求导</title>
+    <url>/2025/09/25/%E4%B8%89%E9%A1%B9%E6%B1%82%E5%AF%BC/</url>
+    <content><![CDATA[对函数 $f(x) &#x3D; (x+1)(x+2)(x+3)$ 求导，可以使用乘积法则或先展开再求导。
+方法一：乘积法则
+
+设 $u &#x3D; x+1$, $v &#x3D; x+2$, $w &#x3D; x+3$，则 $f(x) &#x3D; u \cdot v \cdot w$。乘积法则对于三个函数：
+$$f’(x) &#x3D; u’ \cdot v \cdot w + u \cdot v’ \cdot w + u \cdot v \cdot w’$$
+其中 $u’ &#x3D; 1$, $v’ &#x3D; 1$, $w’ &#x3D; 1$。代入得：
+$$f’(x) &#x3D; (1)(x+2)(x+3) + (x+1)(1)(x+3) + (x+1)(x+2)(1)$$
+简化：  
+$$f’(x) &#x3D; (x+2)(x+3) + (x+1)(x+3) + (x+1)(x+2)$$
+展开各项：  
+$$(x+2)(x+3) &#x3D; x^2 + 5x + 6\(x+1)(x+3) &#x3D; x^2 + 4x + 3\(x+1)(x+2) &#x3D; x^2 + 3x + 2$$
+相加：  
+$$f’(x) &#x3D; (x^2 + 5x + 6) + (x^2 + 4x + 3) + (x^2 + 3x + 2) &#x3D; 3x^2 + 12x + 11$$
+方法二：先展开再求导展开 $f(x)$:  
+$$f(x) &#x3D; (x+1)(x+2)(x+3) &#x3D; (x^2 + 3x + 2)(x+3) &#x3D; x^3 + 6x^2 + 11x + 6$$
+求导：  
+$$f’(x) &#x3D; \frac{d}{dx}(x^3 + 6x^2 + 11x + 6) &#x3D; 3x^2 + 12x + 11$$
+两种方法均得相同结果。
+$$\boxed{3x^{2}+12x+11}$$
+]]></content>
+      <tags>
+        <tag>数学</tag>
+        <tag>导数</tag>
+        <tag>大学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Zotero7.0.3快速安装文献引用样式</title>
+    <url>/2026/01/08/Zotero7.0.3%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E6%96%87%E7%8C%AE%E5%BC%95%E7%94%A8%E6%A0%B7%E5%BC%8F/</url>
+    <content><![CDATA[接到需求说Zotero文献引用样式不是想要的，但是不会安装。这里给出最简安装方法：
+1.打开Zotero
+2.使用装好Zotero插件的浏览器打开Zotero中文社区中文CSL样式页面，找到自己喜欢的样式点进去
+
+
+中文 CSL 样式 | Zotero 中文社区zotero-chinese.com&#x2F;styles&#x2F;
+
+以此为例
+3.选好之后点击备用链接下的从JsDeliver下载样式
+
+点击从JsDeliver下载样式
+4.插件弹出安装提示
+
+点击OK
+5.点击OK，右上角弹出安装提示
+
+安装提示
+6.回到Zotero，点击编辑&gt;设置
+
+打开设置
+7.点击引用&gt;样式管理器
+
+检查安装是否成功
+8.打开word&#x2F;WPS即可使用
+]]></content>
+      <tags>
+        <tag>软件</tag>
+        <tag>操作</tag>
+        <tag>Zotero</tag>
       </tags>
   </entry>
   <entry>
@@ -384,37 +417,12 @@ animation: none !important;
 ]]></content>
   </entry>
   <entry>
-    <title>三项求导</title>
-    <url>/2025/09/25/%E4%B8%89%E9%A1%B9%E6%B1%82%E5%AF%BC/</url>
-    <content><![CDATA[对函数 $f(x) &#x3D; (x+1)(x+2)(x+3)$ 求导，可以使用乘积法则或先展开再求导。
-方法一：乘积法则设 $u &#x3D; x+1$, $v &#x3D; x+2$, $w &#x3D; x+3$，则 $f(x) &#x3D; u \cdot v \cdot w$。乘积法则对于三个函数：
-$$f’(x) &#x3D; u’ \cdot v \cdot w + u \cdot v’ \cdot w + u \cdot v \cdot w’$$
-其中 $u’ &#x3D; 1$, $v’ &#x3D; 1$, $w’ &#x3D; 1$。代入得：
-$$f’(x) &#x3D; (1)(x+2)(x+3) + (x+1)(1)(x+3) + (x+1)(x+2)(1)$$
-简化：  
-$$f’(x) &#x3D; (x+2)(x+3) + (x+1)(x+3) + (x+1)(x+2)$$
-展开各项：  
-$$(x+2)(x+3) &#x3D; x^2 + 5x + 6\(x+1)(x+3) &#x3D; x^2 + 4x + 3\(x+1)(x+2) &#x3D; x^2 + 3x + 2$$
-相加：  
-$$f’(x) &#x3D; (x^2 + 5x + 6) + (x^2 + 4x + 3) + (x^2 + 3x + 2) &#x3D; 3x^2 + 12x + 11$$
-方法二：先展开再求导展开 $f(x)$:  
-$$f(x) &#x3D; (x+1)(x+2)(x+3) &#x3D; (x^2 + 3x + 2)(x+3) &#x3D; x^3 + 6x^2 + 11x + 6$$
-求导：  
-$$f’(x) &#x3D; \frac{d}{dx}(x^3 + 6x^2 + 11x + 6) &#x3D; 3x^2 + 12x + 11$$
-两种方法均得相同结果。
-$$\boxed{3x^{2}+12x+11}$$
-]]></content>
-      <tags>
-        <tag>数学</tag>
-        <tag>导数</tag>
-        <tag>大学</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>云云Python笔记</title>
     <url>/2025/09/22/%E4%BA%91%E4%BA%91Python%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[API数据获取要获取API数据，首先我们需要导入requests标准库。这里我们直接使用import语句。
 import requests #导入requests标准库
+
+
 
 定义API地址我们使用一个变量API_url来定义一个API地址字串，也可以通过输入字串的方式来定义API地址。
 API_url = &quot;https://api.exchangerate-api.com/v4/latest/USD&quot; #硬编码API地址，适合长期不发生变化且执行频率高的API
@@ -441,17 +449,6 @@ print(f&quot;美化数据预览：&#123;json.dumps(response.text,indent=2,ensure
       </tags>
   </entry>
   <entry>
-    <title>云云回来啦</title>
-    <url>/2025/07/18/%E4%BA%91%E4%BA%91%E5%9B%9E%E6%9D%A5%E5%95%A6/</url>
-    <content><![CDATA[大家好，我是云云高考结束啦~很抱歉现在才到博客站来告诉大家，这段时间确实很忙。我在全力做着项目开发首先是一个AI智能创作平台这个平台完全由我一个人完成所有开发~这个平台与我的其他项目不一样，这个平台是闭源的，如果您想要使用，我将会收取费用。目前平台授权定价大约为2000元一年。还有一个项目，E++语言编辑器这是一个中文编程项目，旨在完全复刻国货之光易语言的体验，但是提供更为强大的编译选项，包括64位编译，编译为Java，编译为Python，编译为C#等。我还对JAnim这个动画库起了兴趣。于是准备复用Scratch3的图形化编程库，给不会编程的宝子们降低这个动画库的使用门槛。按照GNU协议，这个项目是开源哒~未来的路途还有很远，你愿意和云云携手共进吗？我们一定可以哒！云云2025.07.16
-]]></content>
-      <tags>
-        <tag>事实</tag>
-        <tag>回归</tag>
-        <tag>日常类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>云云数学笔记</title>
     <url>/2025/11/30/%E4%BA%91%E4%BA%91%E6%95%B0%E5%AD%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[数学学不懂
@@ -459,8 +456,19 @@ print(f&quot;美化数据预览：&#123;json.dumps(response.text,indent=2,ensure
 ]]></content>
       <tags>
         <tag>数学</tag>
-        <tag>日常类</tag>
         <tag>学校</tag>
+        <tag>日常类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>云云回来啦</title>
+    <url>/2025/07/18/%E4%BA%91%E4%BA%91%E5%9B%9E%E6%9D%A5%E5%95%A6/</url>
+    <content><![CDATA[大家好，我是云云高考结束啦~很抱歉现在才到博客站来告诉大家，这段时间确实很忙。我在全力做着项目开发首先是一个AI智能创作平台这个平台完全由我一个人完成所有开发~这个平台与我的其他项目不一样，这个平台是闭源的，如果您想要使用，我将会收取费用。目前平台授权定价大约为2000元一年。还有一个项目，E++语言编辑器这是一个中文编程项目，旨在完全复刻国货之光易语言的体验，但是提供更为强大的编译选项，包括64位编译，编译为Java，编译为Python，编译为C#等。我还对JAnim这个动画库起了兴趣。于是准备复用Scratch3的图形化编程库，给不会编程的宝子们降低这个动画库的使用门槛。按照GNU协议，这个项目是开源哒~未来的路途还有很远，你愿意和云云携手共进吗？我们一定可以哒！云云2025.07.16
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>事实</tag>
+        <tag>回归</tag>
       </tags>
   </entry>
   <entry>
@@ -587,27 +595,7 @@ https://desktop.github.com/​desktop.github.com&#x2F;
 1。会逆向的可以帮我看看Genshin Impact Game 4.0.0的安卓包lib/*/lib2cpp.so里面的libil2cpp.so文件，改一下里面的密钥，改为grasscutter通用密钥就行，谢谢啦！2。会css和Hexo框架的帮忙看一下我这个博客站，帮忙写一下优化代码，谢谢！3。还有啥事来着……算了，润！
 ]]></content>
       <tags>
-        <tag>日常类</tag>
         <tag>学校</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>坦白了</title>
-    <url>/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
-    <content><![CDATA[很抱歉骗了大家这么久。
-从DAN智云创建以来就从来没有过什么技术团队，工作人员。
-从来没有！
-无论是在哪个时期，你所看到的DAN智云工作室一切的发展，其实都是我一个人在工作。
-
-
-也就是说，这个工作室自始至终就是一个只有一个人的工作室。
-没错，我的确狂热的爱好着计算机和相关的东西。
-但是继续隐瞒下去已经没有意义了。
-感谢大家多年以来对DAN智云的支持与鼓励，感谢那些在DAN智云工作室成长路上伸出援手的人们！谢谢你们！
-从2015到如今的2023。八余载的光阴，真快。
-]]></content>
-      <tags>
-        <tag>事实</tag>
         <tag>日常类</tag>
       </tags>
   </entry>
@@ -637,23 +625,9 @@ DirRain
 目录雨
 ]]></content>
       <tags>
+        <tag>日常类</tag>
         <tag>事实</tag>
-        <tag>日常类</tag>
         <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>放假了</title>
-    <url>/2024/02/05/%E6%94%BE%E5%81%87%E4%BA%86/</url>
-    <content><![CDATA[终于放假了
-博客站和我的网名正式改了，DirRain。
-不过其他平台的同步还有待进行。
-我大概元宵节过后返校。
-好啦，感谢你阅读到这里~
-]]></content>
-      <tags>
-        <tag>日常类</tag>
-        <tag>学校</tag>
       </tags>
   </entry>
   <entry>
@@ -779,10 +753,24 @@ DeepSeek，启动！（下方挂链接⤵️）
 行吧，就讲这么多，拜拜！
 ]]></content>
       <tags>
-        <tag>日常类</tag>
         <tag>学校</tag>
+        <tag>日常类</tag>
         <tag>综测</tag>
         <tag>湖南</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>放假了</title>
+    <url>/2024/02/05/%E6%94%BE%E5%81%87%E4%BA%86/</url>
+    <content><![CDATA[终于放假了
+博客站和我的网名正式改了，DirRain。
+不过其他平台的同步还有待进行。
+我大概元宵节过后返校。
+好啦，感谢你阅读到这里~
+]]></content>
+      <tags>
+        <tag>学校</tag>
+        <tag>日常类</tag>
       </tags>
   </entry>
   <entry>
@@ -805,8 +793,8 @@ DeepSeek，启动！（下方挂链接⤵️）
     <content><![CDATA[害，终究还是找不到几个靠谱的图床……还是白嫖用知乎的服务吧~润！
 ]]></content>
       <tags>
-        <tag>事实</tag>
         <tag>日常类</tag>
+        <tag>事实</tag>
         <tag>苦逼</tag>
       </tags>
   </entry>
@@ -820,8 +808,8 @@ DeepSeek，启动！（下方挂链接⤵️）
 这是我父母和我“协商”的限制。更苦逼的是我还是住校生，周末才能回家……以后上线机会就少了。工作室那边早就停运了。还是一起期待一下2025年我高考胜利的捷报吧！感谢大家一路以来的支持、理解与配合~
 ]]></content>
       <tags>
-        <tag>事实</tag>
         <tag>日常类</tag>
+        <tag>事实</tag>
         <tag>苦逼</tag>
       </tags>
   </entry>
@@ -880,6 +868,26 @@ UDP内网端口先随便填的原因是需要改为一会路由侠给的公网�
         <tag>简单</tag>
         <tag>游戏类</tag>
         <tag>端口映射</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>坦白了</title>
+    <url>/2023/09/24/%E5%9D%A6%E7%99%BD%E4%BA%86/</url>
+    <content><![CDATA[很抱歉骗了大家这么久。
+从DAN智云创建以来就从来没有过什么技术团队，工作人员。
+从来没有！
+无论是在哪个时期，你所看到的DAN智云工作室一切的发展，其实都是我一个人在工作。
+
+
+也就是说，这个工作室自始至终就是一个只有一个人的工作室。
+没错，我的确狂热的爱好着计算机和相关的东西。
+但是继续隐瞒下去已经没有意义了。
+感谢大家多年以来对DAN智云的支持与鼓励，感谢那些在DAN智云工作室成长路上伸出援手的人们！谢谢你们！
+从2015到如今的2023。八余载的光阴，真快。
+]]></content>
+      <tags>
+        <tag>日常类</tag>
+        <tag>事实</tag>
       </tags>
   </entry>
 </search>
