@@ -1180,6 +1180,7 @@ pre .javascript .function {
 .menu .menu-item a:hover,
 .menu .menu-item span.exturl:hover {
   background: var(--menu-item-bg-color);
+  border-radius: 10px;
 }
 .use-motion .menu-item {
   opacity: 0;
@@ -1255,7 +1256,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f1ff28;
+  background: #a2f167;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
